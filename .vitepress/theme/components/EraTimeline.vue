@@ -1,8 +1,8 @@
 <script setup lang="ts">
-// 演進史的八個世代（§ 3.12、§ 5.4）：沿用 EVO「八個世代」的飛行進程條造型——左格是呼號（世代與版號範圍），右格是這一代的動作。
-// 資料摘要自 EVO § 八個世代（版數合計 58，等於 CHANGELOG 的條目數；v1 未編號、不在 CHANGELOG 內）。
-// EVO 停在 v5.12.2；之後的版本照 CT CHANGELOG 補進最後一代（LR-002）。
-// EVO 的資料來源段與 v1 段的專案名不搬（§ 3.12、§ 7.4）。要改內容可傳 eras 覆蓋預設值。
+// 演進史的八個世代（§ 3.12、§ 5.4）：飛行進程條造型——左格是呼號（世代與版號範圍），右格是這一代的動作。
+// 版數合計 58，等於 CHANGELOG 的條目數；v1 未編號、不在 CHANGELOG 內。
+// 演進史只維護在 Portal（原 EVO 文件已刪除，D231）：之後的版本照 CT CHANGELOG 補進最後一代或新世代（LR-002）。
+// 要改內容可傳 eras 覆蓋預設值。
 interface Era {
   callsign: string
   range: string

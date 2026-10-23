@@ -233,7 +233,6 @@ v4 的工單狀態寫在內文的表格裡，`*sync`、`ct-status`、歸檔各�
 
 ## 延伸閱讀
 
-- CT 演進史（`docs/Control Tower 演進史.html`）§ 八個世代、§ v1 → v2、§ 塔台和 Worker 分開跑、§ 派工迴路、§ 三層資料、§ 5.0.0、§ 5.0.3、§ 5.0.4 之後、§ v1 與 CHANGELOG 的 57 個版本
 - CT `CHANGELOG.md`（v2.1.1 至 v5.12.3）
 - CT `version-governance.md` § 歷史版號表
 
