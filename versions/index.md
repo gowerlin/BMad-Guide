@@ -1,6 +1,6 @@
 ---
 title: 版本總覽
-description: 目前的 CT 與 CT Guide 版本、SemVer 慣例、版號寫在哪裡、Guide 與 Portal 怎麼跟著 CT 同步，以及怎麼查本機裝的是哪一版。
+description: 目前的 CT、CT Guide 與 BMad Guide 版本、SemVer 慣例、版號寫在哪裡、Guide 與 Portal 怎麼跟著 CT 同步，以及怎麼查本機裝的是哪一版。
 ---
 
 # 版本總覽
@@ -12,6 +12,8 @@ description: 目前的 CT 與 CT Guide 版本、SemVer 慣例、版號寫在哪�
 <VersionBadge variant="block" />
 
 這組數字由同步腳本從 CT 的發行目錄讀出：CT 和 Guide 的版號不一致時，腳本會報錯並停止，不會寫出一組對不上的版本。每一版改了什麼見[更版紀錄](./releases)，八個世代的來龍去脈見[演進史](./evolution)，各功能需要的 BAT 與 codex 版本見[相容版本對照](./compatibility)。
+
+BMad Guide Skill 是例外：它的版號跟 BMad-Method 走，不跟 CT，所以不歸同步腳本管，版本資料另外讀 `data/bmad-guide.json`。為什麼這樣定、怎麼更新，見 [BMad Guide Skill › 版本](/guide/bmad-guide#version)。
 
 ## SemVer 慣例
 
