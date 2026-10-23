@@ -23,6 +23,7 @@ CT 是 8 個 skill，裝在你電腦上 Agent CLI 的 skill 目錄裡。目前�
 |---|---|
 | `BMad-Control-Tower-v<版號>/` | `skills/` 底下 8 個 skill 目錄，加上 `docs/`（安裝與使用指南、`CHANGELOG.md` 等） |
 | `BMad-Control-Tower-v<版號>.zip` | 根層直接是 8 個 skill 目錄，不含 `docs/` |
+| `BMad-Control-Tower-v<版號>-skills/`（v5.12.4 起） | 8 個單一 skill zip `<skill>-v<版號>.zip`，每個 zip 根層只有一個資料夾 `<skill>/`。給 claude.ai 上傳用（見 [claude.ai](#claude-ai-zip)），不用來安裝到 `~/.claude/skills/` |
 | `bmad-guide-v<版號>.zip` | BMad Guide Skill，只有一個 skill。最上層是帶版號的資料夾 `bmad-guide-v<版號>/`，裡面是 `SKILL.md` 和 `references/`。版號跟 BMad-Method 走，不跟 CT |
 
 8 個 skill 是 `control-tower`、`ct-exec`、`ct-done`、`ct-status`、`ct-evolve`、`ct-help`、`ct-insights`、`ct-fieldguide`。**全部都要裝，而且塔台與 Worker 必須同一批升級**：塔台與 Worker 之間的協定會隨版本調整，混用新舊版時兩邊對不上。例如 v4.3 起模式由塔台在派工時以旗標傳給 Worker，舊塔台配新 Worker 時 yolo 就會失效、退回 ask。
@@ -53,7 +54,7 @@ BMad Guide 裝在同一層：Claude Code 是 `~/.claude/skills/bmad-guide/`，Co
 
 ## 確認現行版號 {#check-version}
 
-版號寫在每個 `SKILL.md` 正文的第一個註解（例如 `<!-- control-tower-version: 5.12.3 -->`），frontmatter 不放版號。
+版號寫在每個 `SKILL.md` 正文的第一個註解（例如 `<!-- control-tower-version: 5.12.4 -->`），frontmatter 不放版號。
 
 ::: code-group
 
@@ -247,8 +248,9 @@ control-tower-guide.zip
     └── references/
 ```
 
-- **CT 發行 zip 一次包含 8 個 skill，不能直接上傳**，會被拒絕。解壓後，對每個 skill 資料夾各壓一個 zip（壓「資料夾本身」，不是資料夾裡的檔案）。
-- 壓完用 `unzip -l <檔名>.zip` 檢查：每一行都應該以 `<skill 名稱>/` 開頭。
+- **v5.12.4 起直接用現成的單一 skill zip**：發行物另附 `BMad-Control-Tower-v<版號>-skills/`，裡面是 8 個 `<skill>-v<版號>.zip`，每個 zip 的根層是唯一資料夾 `<skill>/`，可以直接上傳。CT Guide 的 `control-tower-guide-v<版號>.zip` 根層也是唯一資料夾 `control-tower-guide/`，同樣可以直接上傳。
+- **CT 的全量 zip（`BMad-Control-Tower-v<版號>.zip`）一次包含 8 個 skill，不能直接上傳**，會被拒絕。要自己打包的話，解壓後對每個 skill 資料夾各壓一個 zip（壓「資料夾本身」，不是資料夾裡的檔案）。
+- 不論現成或自己壓，都可以用 `unzip -l <檔名>.zip` 檢查：每一行都應該以 `<skill 名稱>/` 開頭。
 
 ### 上傳 {#claude-ai-upload}
 
@@ -279,7 +281,7 @@ CT Guide 是 CT 的互動式教科書，用問的，它會解釋設計理由並�
 BMad Guide（`bmad-guide`）是 BMad-Method 的互動式學習指南，也是 CT 的可選搭配：裝了它，塔台會依專案階段查出該走哪一套 BMad 流程（Level 2）；不用 CT 也可以單獨裝，當作學 BMad-Method 的指南。
 
 - **版號跟 BMad-Method 走，不跟 CT**：bmad-guide 的版號就是它所教的 BMad-Method 版號（例如 v6.12.4）。CT 發版時它不會跟著出新版，所以兩者不必同一批升級。
-- **zip 的版面**：發行檔是 `bmad-guide-v<版號>.zip`，裡面只有一個 skill。最上層是帶版號的資料夾 `bmad-guide-v<版號>/`（裡面是 `SKILL.md` 和 `references/`），和 CT Guide 的 zip（根層直接是 `SKILL.md`）不同。
+- **zip 的版面**：發行檔是 `bmad-guide-v<版號>.zip`，裡面只有一個 skill。最上層是帶版號的資料夾 `bmad-guide-v<版號>/`（裡面是 `SKILL.md` 和 `references/`）。CT Guide 的 zip（v5.12.4 起）最上層也是一個資料夾，但名稱是不帶版號的 `control-tower-guide/`；bmad-guide 的資料夾名帶版號，和 skill 名稱 `bmad-guide` 不同。
 - **安裝路徑**：目錄名用 skill 名稱 `bmad-guide`，解壓後把 `bmad-guide-v<版號>/` 的**內容**放進 Claude Code 的 `~/.claude/skills/bmad-guide/` 或 Codex 的 `~/.codex/skills/bmad-guide/`。不要把帶版號的資料夾原封不動放進 `skills/`。兩端是各自獨立的安裝。
 - **升級**：沿用 CT 的同一套流程：先備份到 `skills/` 之外、複製到暫存區複驗後才替換、替換時不先刪除舊目錄，最後逐檔比對 IDENTICAL（見[升級：四步](#upgrade)、[回退](#rollback)）。套用上面那份完整指令時，`SKILLS` 只放 `bmad-guide`；指令是以 skill 名稱找來源目錄，所以先把解壓出來的 `bmad-guide-v<版號>/` 改名為 `bmad-guide/`，`NEW` 指向它的上一層。現行版號看 `SKILL.md` 裡的 `current_version`。
 - **新版從下一個 session 才生效**：和 CT 一樣，正在跑的 session 已經載入舊版。
@@ -292,7 +294,7 @@ CT 不預先判斷你的 BAT 是哪一版：照常呼叫，失敗時依結束碼
 
 ## 延伸閱讀 {#further}
 
-- CT 安裝與使用指南 § 4. 安裝（4.1 安裝／升級（現行流程）、4.2 Agent CLI 選擇、4.3 Skill 架構（v5.12.3））
+- CT 安裝與使用指南 § 4. 安裝（4.1 安裝／升級（現行流程）、4.2 Agent CLI 選擇、4.3 Skill 架構（v5.12.4））
 - `control-tower/references/version-governance.md` § 安裝／升級流程、§ 版號事實來源
 - `control-tower/references/data-layer-architecture.md` § 寫入規則（Q1～Q4：Layer 1 路徑、備份落點、唯一例外）
 - `control-tower/references/auto-session.md` § BAT 內部終端路由（派工指令的權威）

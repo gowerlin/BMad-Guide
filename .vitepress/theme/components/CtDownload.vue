@@ -24,6 +24,12 @@ const release = computed(() => theme.value.ctRelease)
           <span class="download-note">{{ release.zip }}</span>
         </span>
       </li>
+      <li v-if="release.zip">
+        <span class="download-item">
+          <span class="download-label">CT 單一 skill zip（claude.ai 上傳用）</span>
+          <span class="download-note">BMad-Control-Tower-v{{ release.ctVersion }}-skills/（8 個 &lt;skill&gt;-v{{ release.ctVersion }}.zip）</span>
+        </span>
+      </li>
       <li v-if="release.guideZip">
         <span class="download-item">
           <span class="download-label">CT Guide Skill</span>

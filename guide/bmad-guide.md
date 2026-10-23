@@ -133,7 +133,7 @@ bmad-guide-v<版號>/
                         tea-module、ecosystem-modules、brownfield、diagrams、update-protocol
 ```
 
-注意 zip 的最上層是帶版號的資料夾 `bmad-guide-v<版號>/`，和 CT Guide 的 zip（根層直接是 `SKILL.md`）不同。安裝目錄要用 skill 名稱 `bmad-guide`，所以解壓後把那個資料夾的**內容**放進：
+注意 zip 的最上層是帶版號的資料夾 `bmad-guide-v<版號>/`。CT Guide 的 zip（v5.12.4 起）最上層也是一個資料夾，但名稱是不帶版號的 `control-tower-guide/`；這裡的資料夾名帶版號，和 skill 名稱 `bmad-guide` 不同。安裝目錄要用 skill 名稱 `bmad-guide`，所以解壓後把那個資料夾的**內容**放進：
 
 | Agent | 安裝路徑 |
 |---|---|

@@ -126,8 +126,15 @@ function codeSpanGuard() {
   return { guard, restore }
 }
 
-// 整個括號刪掉後，英數（或 code span）緊接中文時補一個空格（「O-3（…）與」→「O-3 與」），其他情況直接刪
-function removedNoteGap(prev = '', next = '') {
+// 整個括號刪掉後的接縫。lead 是括號前的空白，會和括號一起換掉：
+// 括號前有空白時，後面是空白、標點或行尾就連空白一起刪（「foo (x) bar」→「foo bar」、「foo (x)。」→「foo。」），
+// 後面緊接文字就留一個空格；行首的空白（縮排）原樣留下。
+// 括號前沒有空白時，英數（或 code span）緊接中文補一個空格（「O-3（…）與」→「O-3 與」），其他情況直接刪
+function removedNoteGap(lead, prev = '', next = '') {
+  if (lead) {
+    if (prev === '' || prev === '\n') return lead
+    return /[A-Za-z0-9`\u0000一-鿿]/.test(next) ? ' ' : ''
+  }
   return /[A-Za-z0-9`\u0000]/.test(prev) && /[一-鿿]/.test(next) ? ' ' : ''
 }
 
@@ -136,12 +143,12 @@ function removedNoteGap(prev = '', next = '') {
 function stripIdNotes(text, stats) {
   const { guard, restore } = codeSpanGuard()
   let out = guard(text)
-  const note = (open, close) => new RegExp(`${open}([^${open}${close}]*)${close}`, 'g')
+  const note = (open, close) => new RegExp(`([ \\t]*)${open}([^${open}${close}]*)${close}`, 'g')
   for (const [open, close, re] of [['（', '）', note('（', '）')], ['(', ')', note('\\(', '\\)')]]) {
     let before
     do {
       before = out
-      out = out.replace(re, (whole, inner, offset, str) => {
+      out = out.replace(re, (whole, lead, inner, offset, str) => {
         const plain = restore(inner)
         if (!isInternal(plain) || /https?:/.test(plain)) return whole
         const label = inner.match(new RegExp(`^${REF_LIST}：`))
@@ -157,8 +164,8 @@ function stripIdNotes(text, stats) {
           else if (REF.test(part)) stats.refs++
           else kept.push(kept.length ? parts[i - 1] : '', parts[i])
         }
-        if (kept.length) return `${open}${kept.join('')}${close}`
-        return removedNoteGap(str[offset - 1], str[offset + whole.length])
+        if (kept.length) return `${lead}${open}${kept.join('')}${close}`
+        return removedNoteGap(lead, str[offset - 1], str[offset + whole.length])
       })
     } while (out !== before)
   }
@@ -169,9 +176,9 @@ function stripIdNotes(text, stats) {
 // 行內 code span 裡的 () 不動（`fn()`）
 function stripEmptyNotes(text, stats) {
   const { guard, restore } = codeSpanGuard()
-  const out = guard(text).replace(/（\s*）|\(\s*\)/g, (whole, offset, str) => {
+  const out = guard(text).replace(/([ \t]*)(?:（\s*）|\(\s*\))/g, (whole, lead, offset, str) => {
     stats.emptyNotes++
-    return removedNoteGap(str[offset - 1], str[offset + whole.length])
+    return removedNoteGap(lead, str[offset - 1], str[offset + whole.length])
   })
   return restore(out)
 }

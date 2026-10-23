@@ -1,19 +1,52 @@
 ---
 title: 更版紀錄
-description: BMad Control Tower 近 10 版的更版紀錄（最新 v5.12.3），更早的版本見演進史。
+description: BMad Control Tower 近 10 版的更版紀錄（最新 v5.12.4），更早的版本見演進史。
 ---
 
 <!-- 本頁由 scripts/sync-ct-release.mjs 從 CT CHANGELOG 產生，請勿手改；要改內容請改來源後重跑。 -->
 
 # 更版紀錄
 
-目前版本 **v5.12.3**（2026-10-23）。這裡列出最近 10 版的完整紀錄，最新的在最上面；更早的 48 版（v2.1.1 ～ v5.7.1）請看[演進史](./evolution)。
+目前版本 **v5.12.4**（2026-10-23）。這裡列出最近 10 版的完整紀錄，最新的在最上面；更早的 49 版（v2.1.1 ～ v5.7.2）請看[演進史](./evolution)。
 
 ::: tip 摘要不具權威
 本頁照錄 CT 的 CHANGELOG，只拿掉工單、決策、驗收回函等內部編號與出處註記。規則的權威定義在 CT 各 skill 與 references，兩者有出入時以 CT 本體為準。
 :::
 
 ::: v-pre
+
+## 5.12.4 <small>2026-10-23</small> {#v5-12-4}
+
+
+> **PATCH：退役 `control-tower/references/ct-exec.md`、YOLO 連續 FAILED 計數器位置統一、發行打包調整（文件與發行物，行為不變）。**
+> 塔台與 Worker 行為、計數規則、設定的值域與預設、工單 metadata、BAT 介面都不變。
+
+### Removed
+
+- **`control-tower/references/ct-exec.md`**（100 行的 Worker 命令長版說明）。原因：內容與 `ct-exec/SKILL.md` 不一致（例：落點檢查寫成以 `affects_files` 路徑抽查為承重項、
+  收尾寫成 Step 8 一次性修改；現行為以 repo 身分比對為承重項、§ Phase 4 反序收尾），而且沒有任何 SKILL 或 reference 連到它。Worker 執行規則的權威改為只有 `ct-exec/SKILL.md`。
+  `doctrine.md` § 延伸閱讀的泛稱「各 skill（`ct-exec.md` / `ct-done.md` / `ct-evolve.md` / 等）」改成實際檔名（`ct-exec/SKILL.md` / `ct-done/SKILL.md` / `ct-evolve/SKILL.md` / 等）。
+  升級後已安裝的 `control-tower/references/ct-exec.md` 不再存在（安裝指南 § 4.1 為整個 skill 目錄替換，舊檔隨舊目錄移走；見 § 2.49）。
+
+### Fixed
+
+- **YOLO 連續 FAILED 計數器的位置**：`yolo-mode.md` 原本兩種說法——§ 斷點 B-2、§ YOLO 計數器小節與驗收範例 T7 寫 `_tower-state.md` 的 `## YOLO 計數器` 段，
+  § `_tower-state.md` 新增 `## YOLO 歷程` 區段 寫 `## YOLO 歷程` › `### 計數器`。統一為 **`## YOLO 歷程` › `### 計數器`**（塔台實際寫入的位置）；
+  `##### YOLO 計數器` 小節保留（可引用），內文與格式範例改成新位置。計數規則（B-2 判準）、重設時機、斷點 B 語意不變；其他 reference 沒有寫計數器位置。
+- 安裝指南新增 § 2.49；§ 4.1 發行物版面補單一 skill zip 目錄與教學 skill zip 新版面。
+
+### Changed（打包）
+
+- 發行物另出 **`BMad-Control-Tower-v5.12.4-skills/`**：8 個單一 skill zip `<skill>-v5.12.4.zip`，每個 zip 根層是唯一資料夾 `<skill>/`（claude.ai 一個 zip 只收一個 skill）。
+  全量 `BMad-Control-Tower-v5.12.4.zip` 版面不變（根層 8 個 skill 目錄、不含 `docs/`）。
+- 教學 skill `control-tower-guide-v5.12.4.zip` 改成根層唯一資料夾 `control-tower-guide/`（官方規則：zip 頂層是 skill 資料夾、資料夾名稱等於 `name`；v5.12.3 以前根層是 `SKILL.md`）。
+- repo 工具 `tools/Publish-ClaudeAiSkills.ps1`（不在發行物內）：上傳步驟改「claude.ai → Customize → Skills」（實際位置以當下 UI 為準）；`$Catalog` 新增 `ZipRoot = 'Name'`
+  （資料夾名取 `SKILL.md` frontmatter `name`），Guide 列改用它；`$SettingsUrl` 與其他邏輯不改。
+
+### Unchanged
+
+- 歷史段落（本檔舊版段，含 [5.12.3] 提到 `ct-exec.md` Step 8 與「YOLO 計數器」補小節的兩條；`version-governance.md` 版號表舊列；安裝指南 § 2.48 等舊章節）不改。
+- `control-tower/references/` 其他三份 Worker 命令長版說明（`ct-done.md`、`ct-status.md`、`ct-evolve.md`）不在本版範圍，保留。
 
 ## 5.12.3 <small>2026-10-23</small> {#v5-12-3}
 
@@ -308,44 +341,12 @@ description: BMad Control Tower 近 10 版的更版紀錄（最新 v5.12.3），
 - 舊 BAT（≤ `0.7.0-pre.8`）：codex 分頁維持 `blockedDetection: none`、`agentStarted: null`、`--wait-started` 回 `started: unknown`，CT 行為與 v5.7.2 相同。
 - claude-cli Worker（`blockedDetection: hook`）的斷點 D 與啟動確認不變。
 
-## 5.7.2 <small>2026-10-18</small> {#v5-7-2}
-
-
-> **PATCH：晚退回的題也加 `通道` 標記，塔台不再依賴 BAT 已結束題目的保留期。** 來自上一版驗收記下的表外問題與 BAT 塔台回覆的保留規則。
-> `--ask` 成功後才改走工單的題（`lost`、`cancelled`，含 Worker 自己取消），Worker 也加標記、commit、送一次一般 `提問`；
-> 塔台判斷表的列表狀態拿掉 `lost`（BAT 列表不會出現），已知限制寫明 BAT 保留規則。BAT 介面不變，BAT 最低版本仍 `>= 0.7.0-pre.7`。
-> 非 yolo 的 Worker／塔台行為、派工命令、`--wait-started`、隔離派工、合併流程、`--ask` 失敗流程、`expired` 備援與 `worker_question_timeout = 0` 不變。
-
-### Changed
-
-- `yolo-mode.md` § Worker 向塔台提問 › § Worker 端 3-A：新增第 6 步「晚退回的標記」——`--ask` 已成功的題因第 4 步 `lost`／`cancelled`、或第 5 步
-  （`--cancel-question` 的 `status:` 為 `cancelled worker`／`cancelled <其他原因>`／`lost`，或取消本身失敗；含等待工具都不能用）改走 3-B 時，在 `#### Q-n`
-  最後加 `- **通道**：工單` → commit 工單 → 送一次一般 `T#### 提問` → 剩餘時間照 3-B。同一時間多題退回只 commit 一次、只送一則。`--cancel-question` 回
-  `answered`（照已答）或 `expired`（備援）不加標記。這是等待期間「只讀不寫」的唯一例外（只限標記行、一次 commit、一則通知）。推翻 v5.7.1 第 2 步
-  「標記只在這一步加、之後退回不加標記也不另送通知」；第 3、4、5 步與 3-B 的「只讀不寫」說明同步引用第 6 步。
-- 同節 § 塔台端 第 1 點：判斷表「列表有、`cancelled` / `lost`」改為「列表有、`cancelled`」，註明 `lost` 只出現在單題回傳（`--answer` exit `3`、
-  `bat_wait_question`），不會出現在列表；「`--ask` 成功後又取消」的降級說明改寫為「晚退回的題 Worker 會加標記並送一般 `提問`，塔台不依賴保留期」，列表 `cancelled` 列與
-  第 3 點 exit `9` `cancelled` 規則保留給「標記寫入前就處理到原本那則通知」；寫明塔台依 `cancelled` 寫了工單答覆行後再收到 Worker 的 `提問` →
-  該題已答、不動作（同一題不會兩個通道都答）。
-- 同節 § BAT 通道 › 已知限制：新增 BAT 已結束題目保留規則（10 分鐘從結束時間算、存取時才清；全 BAT 最多 64 筆；BAT 重開全清；`lost` 不在列表；
-  出處 BAT 文件），並寫明 v5.7.2 起 CT 的正確性不依賴保留期；
-  `--cancel-question` 也失敗那條補 v5.7.2 標記的效果。版本判定與降級表「Worker 等待」列與表下說明引用第 6 步；§ 備援「通知送不出去」含第 6 步的通知。
-- `yolo-mode.md` § BAT／Worker 版本相容：新增 `ct-exec`（晚退回也加 `通道` 標記）v5.7.2 列；T9 迴歸場景的「等待中 `lost`／`cancelled`」對齊。
-- `ct-exec/SKILL.md` § Questions For Tower：晚退回標記的摘要（取代「之後退回不加標記、不另送通知」）。
-- `work-order-template.md` § 回報區 › 待塔台決策 範本：標記說明涵蓋晚退回（第 2、6 步）。
-
-### Compatibility
-
-- v5.7.1 以前的 `ct-exec` 不寫晚退回標記：搭配 v5.7.2 塔台時，塔台仍可依列表 `cancelled` 或 `--answer` exit `9` 改工單答覆；超過 BAT 保留期或 BAT 重開，
-  就要等 Worker 逾時走備援、塔台在 Renew 區段答覆（不會答錯，只會慢）。CT 兩端同版安裝即不受影響。
-- 沒有晚退回的情況（`--ask` 成功並等到 `answered`、`--ask` 失敗、`expired`）流程與 v5.7.1 相同。
-
 :::
 
 ## 延伸閱讀 {#further-reading}
 
-- CT `CHANGELOG.md`（共 58 個版本；本頁列最近 10 版）
+- CT `CHANGELOG.md`（共 59 個版本；本頁列最近 10 版）
 - CT `version-governance.md` § 歷史版號表
-- [演進史](./evolution)：更早的 48 版與八個世代
+- [演進史](./evolution)：更早的 49 版與八個世代
 
 Portal 是摘要，不具權威；與 CT reference 有出入時，以 reference 為準。
