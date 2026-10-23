@@ -2,7 +2,7 @@
 import { withBase } from 'vitepress'
 
 // CT Guide 的學習路線，依讀者分流。
-// 來源：GUIDE/SKILL.md § Audience routing、§ Reference file routing。每條路線連到 Portal 進階區對應篇。純 SSR。
+// 來源：control-tower-guide/SKILL.md § Audience routing、§ Reference file routing。每條路線連到 Portal 進階區對應篇。純 SSR。
 interface Route {
   who: string
   signal: string

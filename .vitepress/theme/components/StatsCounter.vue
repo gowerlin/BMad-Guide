@@ -4,7 +4,7 @@ import { useData } from 'vitepress'
 import type { ThemeConfig } from '../../config.mjs'
 
 // 首頁數字（沿用 BAT，數字來源改成 CT）：版本數讀 ct-release.json（sync 腳本從 CHANGELOG 算出）；
-// skill 數與塔台指令數取自 SK/control-tower § Built-In Commands（15 個基本指令，不含子旗標）、世代數取自演進史。
+// skill 數與塔台指令數取自 control-tower/SKILL.md § Built-In Commands（15 個基本指令，不含子旗標）、世代數取自演進史。
 const { theme } = useData<ThemeConfig>()
 
 interface Stat {

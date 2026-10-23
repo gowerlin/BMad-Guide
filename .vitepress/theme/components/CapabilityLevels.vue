@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// 四級能力（沿用 BAT，文案對齊 GUIDE/references/ecosystem.md § 能力等級）：第 0 級是只靠檔案的核心，其餘三級是可選的增強，可以任意組合。
+// 四級能力（沿用 BAT，文案對齊 control-tower-guide/references/ecosystem.md § 能力等級）：第 0 級是只靠檔案的核心，其餘三級是可選的增強，可以任意組合。
 // 桌面：三個增強並排，坐在第 0 級上（可任意組合，不是階梯）；窄螢幕照 DOM 順序 0 → 3。
 // 虛線框 = 可選；實線 = 核心。
 interface Level {

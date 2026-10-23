@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // yolo 斷點 A–E 落在流程的哪一步。
-// 來源：REF/yolo-mode.md § 斷點判準（A / B / C / D / E）、§ 使用者中斷；REF/auto-session.md § 派發後行為 › auto-session = yolo。
+// 來源：control-tower/references/yolo-mode.md § 斷點判準（A / B / C / D / E）、§ 使用者中斷；control-tower/references/auto-session.md § 派發後行為 › auto-session = yolo。
 // 純 SSR：每一步列出會在這裡觸發的斷點（符號 + 文字）。
 interface Point {
   key: string

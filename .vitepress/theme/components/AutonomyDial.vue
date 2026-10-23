@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 
-// 自主程度（沿用 BAT，文案對齊 REF/auto-session.md § 派發後行為）。
+// 自主程度（沿用 BAT，文案對齊 control-tower/references/auto-session.md § 派發後行為）。
 // SSR 輸出預設選 yolo；Artifact 預覽沒有 client JS 時不能切換，所以四種模式的一句話也都列在按鈕上。
 type Mode = 'off' | 'ask' | 'on' | 'yolo'
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // 落點檢查 C-0 → C-3 的決策樹。
-// 來源：SK/ct-exec § Landing Zone Check（C-0、C-1、C-3、C-2、C-4）。純 SSR；結果一律「符號 + 文字」。
+// 來源：ct-exec/SKILL.md § Landing Zone Check（C-0、C-1、C-3、C-2、C-4）。純 SSR；結果一律「符號 + 文字」。
 interface Outcome {
   tone: 'stop' | 'warn' | 'pass'
   text: string

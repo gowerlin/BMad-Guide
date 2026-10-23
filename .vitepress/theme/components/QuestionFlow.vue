@@ -1,5 +1,5 @@
 <template>
-  <!-- Worker 問塔台的流程（沿用 BAT，文案對齊 REF/yolo-mode.md § Worker 向塔台提問）：塔台代答或轉給你；BAT 通道用不了時改走工單 -->
+  <!-- Worker 問塔台的流程（沿用 BAT，文案對齊 control-tower/references/yolo-mode.md § Worker 向塔台提問）：塔台代答或轉給你；BAT 通道用不了時改走工單 -->
   <figure class="question-flow" aria-label="Worker 問塔台的流程">
     <ol class="qf-main">
       <li class="qf-box is-worker">

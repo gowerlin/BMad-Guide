@@ -18,7 +18,7 @@ type FeatureSet = 'pains' | 'routes' | 'principles' | 'features'
 
 const props = withDefaults(defineProps<{ set?: FeatureSet }>(), { set: 'pains' })
 
-// 首頁「四個 AI 協作痛點 → CT 怎麼接住」（GUIDE/references/concepts.md § Control Tower 解決的四個 AI 協作痛點）
+// 首頁「四個 AI 協作痛點 → CT 怎麼接住」（control-tower-guide/references/concepts.md § Control Tower 解決的四個 AI 協作痛點）
 const PAINS: Feature[] = [
   {
     title: 'Context 污染',

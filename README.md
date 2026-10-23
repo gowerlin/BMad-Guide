@@ -75,6 +75,15 @@ npm run deid
 
 沒有設定時 `npm run deid`、`npm run build:artifact` 與 `sync-ct-release.mjs` 會報錯結束，不會略過掃描。
 
+## 註解的寫法
+
+會匯出的檔（頁面、元件、CSS、腳本）會公開，讀者只看得到公開文件。這些檔的註解：
+
+- 不寫規劃文件的章節號、題號、路徑簡寫，也不寫工單或決策編號。
+- 要引用出處，就寫公開文件的實際路徑或文件名，例如「BMad Control Tower 安裝(升級)與使用指南 § 4.1」「`control-tower/references/yolo-mode.md` § 斷點判準」。
+
+去識別掃描只擋得住固定格式的編號，擋不住上面這些寫法，要靠寫的人自己避開。
+
 ## 部署
 
 `main` 分支有 push，或在 Actions 頁手動執行 **Pages** workflow 時：
