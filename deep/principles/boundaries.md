@@ -75,7 +75,7 @@ Layer 1 的保護範圍是**整個** `~/.claude/skills/` 與 `~/.codex/skills/` 
 
 ## Workflow 與匯入的硬限制
 
-**Workflow 工具**：Claude Code 的 Workflow 一次可以派出多個子 agent，花費在執行中讀不到，只能事後對帳。所以 Worker 要用它，**工單裡必須有塔台寫的授權段落**，寫明跑幾次、每次最多幾個 agent、token 事後上限；超出就停下來問塔台。塔台寫授權前，會依設定先問使用者並把答覆記進決策日誌。Workflow 裡的子 agent 只能用唯讀工具，也不使用 Workflow 內建的 worktree，所有寫入集中在 Worker，才對得上工單的 `affects_files` 與 commit（`workflow-engine.md` § 同意治理、§ 設計規則 R1–R5）。
+**Workflow 工具**：Claude Code 的 Workflow 一次可以派出多個子 agent，花費在執行中讀不到，只能事後對帳。所以 Worker 要用它，**工單裡必須有塔台寫的授權段落**，寫明跑幾次、每次最多幾個 agent、token 事後上限；超出就停下來問塔台。塔台寫授權前，會依設定先問使用者並把答覆記進決策日誌。Workflow 裡的子 agent 只能用唯讀工具，也不使用 Workflow 內建的 worktree，所有寫入集中在 Worker，才對得上工單的 `affects_files` 與 commit（`workflow-engine.md` § 同意治理（v5.11.0 起落到工單授權）、§ 設計規則 R1–R5）。
 
 **`*import` 匯入**：把規則或 playbook 合併進專案時，有 6 條不可覆寫的硬限制：
 
@@ -99,7 +99,7 @@ Layer 1 的保護範圍是**整個** `~/.claude/skills/` 與 `~/.codex/skills/` 
 - `control-tower-guide/references/governance.md` § Layer 1 寫入機制：為什麼「放旁邊」也危險、§ 合併護欄：推進 `main` 的每一步都要能對帳（v5.3.0）
 - `control-tower/references/merge-workorder.md` § 共同護欄、§ 斷點 E
 - `control-tower/references/yolo-mode.md` § 斷點 E：合併前確認（v5.3.0+）（斷點 E 的權威定義）
-- `control-tower/references/workflow-engine.md` § 同意治理、§ 設計規則 R1–R5
+- `control-tower/references/workflow-engine.md` § 同意治理（v5.11.0 起落到工單授權）、§ 設計規則 R1–R5
 - `control-tower/references/safe-import.md` § 安全原則（硬限制）
 
 <p class="ct-note">Portal 是摘要，不具權威。內容與 CT reference 有出入時，以 reference 為準。</p>

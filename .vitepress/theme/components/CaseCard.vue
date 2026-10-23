@@ -3,7 +3,7 @@ import { computed, useSlots } from 'vue'
 
 // /cases 的一個案例（沿用 BAT）。有 before 插槽時用兩欄（左「以前」、右「用 CT」，標籤可改）；
 // 沒有時內文放在預設插槽，figure 插槽放在內文旁邊。
-// 案例改寫規則見 PORTAL-PLAN § 7.3：不寫 T 號、D 號、commit SHA，時間只寫到日期。
+// 案例改寫規則：不寫 T 號、D 號、commit SHA，時間只寫到日期。
 type CaseFacet = 'ct' | 'bat' | 'both'
 
 const props = withDefaults(

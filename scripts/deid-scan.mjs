@@ -1,9 +1,10 @@
 #!/usr/bin/env node
-// 去識別掃描（PORTAL-PLAN § 7.2）。零依賴。
+// 去識別掃描。零依賴。
 //
 //   node scripts/deid-scan.mjs [--terms <私有詞表>] [--allow <允許清單>] [--internal-ids] <路徑…>
 //
-// --internal-ids：選用類別「內部 id」。編號類（工單號、決策號、BUG／PLAN 編號、提問選項號）對全站生效，
+// --internal-ids：選用類別「內部 id」。編號類（工單號、決策號、BUG／PLAN 編號、提問選項號、閘門題號、本地規則代號、
+// 規劃文件的引用）對全站生效，
 // 頁面上的範例編號只放行 EXAMPLE_IDS 列出的；其他類別只對更版紀錄（versions/releases.md 與建置出的 releases.html）生效：
 // commit SHA、BAT 內部文件路徑、BAT 回函與介面契約條目（F-n、O-n、C-n）、內部階段名（「智能 P2」這類）。
 // HTML 先去掉標籤再比對（資產檔名的雜湊不算）。
@@ -24,7 +25,7 @@ const EXTENSIONS = new Set(['.md', '.vue', '.ts', '.mts', '.css', '.json', '.htm
 // 不掃的目錄：依賴與建置快取。.vitepress/dist 與 dist-artifact 要另外當路徑參數傳入才掃
 const SKIP_DIRS = new Set(['node_modules', '.git', 'cache'])
 const SKIP_UNLESS_ROOT = new Set(['dist', 'dist-artifact'])
-// 不掃的檔案：鎖檔只有套件名稱與雜湊；PORTAL-PLAN 是設計文件，§ 7.1 本身就列出正則
+// 不掃的檔案：鎖檔只有套件名稱與雜湊；規劃文件不公開，而且本身就列出這裡的正則
 const SKIP_FILES = new Set(['package-lock.json', 'PORTAL-PLAN.md'])
 
 // 類別編號對應 § 7.1；1、2 另有私有詞表
@@ -51,7 +52,14 @@ const INTERNAL_NUMBER_PATTERNS = [
   ['內部 id-工單號', /\b(?:CT-T[0-9]{3}|T[0-9]{4})\b/g],
   ['內部 id-決策號', /\bD[0-9]{2,3}\b/g],
   ['內部 id-BUG／PLAN', /\b(?:BUG|PLAN)-[0-9]{3}\b/g],
-  ['內部 id-提問選項', /\bQ[0-9]+\.[A-Z]\b/g]
+  ['內部 id-提問選項', /\bQ[0-9]+\.[A-Z]\b/g],
+  // 閘門題號「G＋閘門號＋空白＋Q＋題號」；CT 公開概念的閘門名（單獨的 G2）不算
+  ['內部 id-閘門題號', /\bG[0-9] Q[0-9]+/g],
+  // 本地規則代號「LR-＋三碼」
+  ['內部 id-本地規則', /\bLR-[0-9]{3}\b/g],
+  // 規劃文件的引用（章節號、文字敘述）。後面接 .md 的是排除清單裡的檔名（不建置、不掃、不匯出），功能性的，放行。
+  // 正則寫成 [-] 才不會命中這一行自己
+  ['內部 id-規劃文件', /PORTAL[-]PLAN(?!\.md)/g]
 ]
 
 // 範例編號：頁面上示範格式或指令用的工單號，不指向本 repo 真的工單。只在更版紀錄以外放行（更版紀錄照錄 CHANGELOG，

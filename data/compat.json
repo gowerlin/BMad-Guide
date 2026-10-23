@@ -1,5 +1,5 @@
 {
-  "_note": "相容版本對照（PORTAL-PLAN § 3.10）。B4 補資料列：每列 feature、ct（CT 起始版本）、bat／codex（最低版本，不需要就省略）、note、source（權威出處：檔案 § 章節）。CT 發版時相容性有變才改（LR-002）。",
+  "_note": "相容版本對照（/versions/compatibility 的資料）。每列 feature、ct（CT 起始版本）、bat／codex（最低版本，不需要就省略）、note、source（權威出處：檔案 § 章節）。CT 發版時相容性有變才改（CT 每次發版都要同步更新 Portal）。",
   "ctVersion": "5.12.5",
   "rows": [
     {

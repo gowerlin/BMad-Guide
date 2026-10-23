@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="BMad Control Tower">
-  <!-- 塔台剖面剪影（線條用 currentColor，深淺兩用）＋頂端信標（主色）；塔身三條橫線代表三層資料／工單（PORTAL-PLAN § 5.3） -->
+  <!-- 塔台剖面剪影（線條用 currentColor，深淺兩用）＋頂端信標（主色）；塔身三條橫線代表三層資料／工單 -->
   <g fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
     <path d="M256 118v34" />
     <path d="M168 152h176l-26 64H194z" />

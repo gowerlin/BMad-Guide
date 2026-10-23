@@ -1,4 +1,4 @@
-# 外部連結與靜態資源檢查設定（沿用 BAT 站的 lychee.toml，PORTAL-PLAN § 8.3）。外部連結失敗只警告，不擋。
+# 外部連結與靜態資源檢查設定（沿用 BAT 站的 lychee.toml）。外部連結失敗只警告，不擋。
 #
 # dist 的站內連結是 <PORTAL_BASE><頁面>（base + cleanUrls，沒有 .html）。PORTAL_BASE 預設是 /；
 # 託管定案（P2）後若改成 /<repo 名>/，就把 build 產物（site/.vitepress/dist）解到 _lychee/<repo 名>/，再以

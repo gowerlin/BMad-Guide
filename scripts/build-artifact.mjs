@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Artifact 預覽包（PORTAL-PLAN § 8.4 做法 ①）。零依賴。
+// Artifact 預覽包（VitePress MPA 建置，頁面零 client JS）。零依賴。
 //
 //   npm run build:artifact            # = node scripts/build-artifact.mjs
 //   node scripts/build-artifact.mjs --skip-build   # 只改寫既有的暫存建置（除錯用）
@@ -9,9 +9,11 @@
 // 2. 複製到 dist-artifact/：哨兵改成依檔案深度計算的相對路徑；站內連結補成實際檔名（index.html、.html）；
 //    每個 HTML 注入 artifact-shim.js
 // 3. 產出 artifact-files.json（published path → 來源檔，路徑相對於 repo 根目錄）
-// 4. 自我檢查（§ 8.4 限制），任一不過就 exit 1
+// 4. 自我檢查（Artifact 的檔數與大小限制、站內路徑、外部資源），任一不過就 exit 1
+// 5. 對 dist-artifact/ 跑 deid-scan.mjs --internal-ids（內部編號也要 0），命中就 exit 1。
+//    私有詞表與允許清單同 deid-scan：環境變數 PORTAL_DEID_TERMS／PORTAL_DEID_ALLOW，沒設定就報錯結束，不會略過
 //
-// 不發布。發布由塔台執行（§ 8.4 發布分工）。
+// 不發布。發布由維護者另外執行。
 
 import { spawnSync } from 'node:child_process'
 import fs from 'node:fs'
@@ -215,6 +217,13 @@ function main() {
     process.exit(1)
   }
   console.log('[build-artifact] 自我檢查通過：檔數、單檔／總量、無 / 開頭站內路徑、站內連結都指到存在的檔案、doctype／charset／viewport、外部資源只有 Google Fonts')
+
+  console.log(`[build-artifact] 去識別掃描 ${toPosix(path.relative(SITE, OUT_DIR))}（--internal-ids）：`)
+  const scan = spawnSync(process.execPath, [path.join(SITE, 'scripts', 'deid-scan.mjs'), '--internal-ids', OUT_DIR], { stdio: 'inherit' })
+  if (scan.status !== 0) {
+    console.error(`[build-artifact] 去識別掃描沒有通過（exit ${scan.status}）；不要發布，修正來源後重建`)
+    process.exit(1)
+  }
 }
 
 main()

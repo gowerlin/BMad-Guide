@@ -1,5 +1,5 @@
 /*
- * Artifact 預覽專用（PORTAL-PLAN § 8.4 做法 ①）。
+ * Artifact 預覽專用（scripts/build-artifact.mjs 的預覽包）。
  * MPA 建置沒有 client JS，預設主題的互動要靠這支補上：
  *   ① 深淺色：依 data-theme（Artifact 外框設定）→ 使用者切換 → prefers-color-scheme 決定 .dark
  *   ② 手機選單（漢堡鈕）：從 SSR 輸出的導覽列複製連結，做成下拉面板

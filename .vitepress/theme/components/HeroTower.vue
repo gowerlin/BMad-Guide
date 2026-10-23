@@ -1,7 +1,7 @@
 <script setup lang="ts">
-// 首頁主視覺（G0 Q3 (a)）：「一張工單的一生」——塔台開單、派工，Worker 執行、回報，塔台收單；每一步都寫進檔案。
+// 首頁主視覺：「一張工單的一生」——塔台開單、派工，Worker 執行、回報，塔台收單；每一步都寫進檔案。
 // 純 CSS：信標依序掃過塔台的步驟（reduced motion 時不動）；SSR 靜態輸出就是完整的流程（Artifact 預覽也看得懂）。
-// 塔台的步驟用主色實心信標、Worker 的步驟空心（G0 Q2）。放在首頁深色 Hero 上（.home-hero-grid 的右欄）。
+// 塔台的步驟用主色實心信標、Worker 的步驟空心。放在首頁深色 Hero 上（.home-hero-grid 的右欄）。
 interface Step {
   who: string
   what: string

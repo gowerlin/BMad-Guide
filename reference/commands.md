@@ -84,7 +84,7 @@ const towerRows = [
 - **在哪用**：Worker session（一張工單一個新的 session）。
 - **做什麼**：執行一張工單的完整生命週期——讀專案規則與整張工單 → **落點檢查**（任何寫入之前；`repo` 不符就停）→ 標 `IN_PROGRESS` → 只在範圍內執行 → 跑驗收、證據分道記錄 → **反序收尾**（產品 commit → 回報區 → 最終狀態 → 工單 commit）→ 通知塔台。工單原本就是 `IN_PROGRESS` 時記成接續執行。`CT_MODE=yolo` 時不問你，有問題寫進工單問塔台。
 - **起始版本**：v2.1.1（獨立 skill：v3.1.0；`$` 入口：v5.0.3；落點檢查：v5.0.4；yolo 向塔台提問：v5.5.0）
-- **權威出處**：`ct-exec/SKILL.md`（§ Startup、§ Mode And Environment、§ Landing Zone Check、§ Phase 1～4、§ Questions For Tower、§ BAT Notify And Fallback）
+- **權威出處**：`ct-exec/SKILL.md`（§ Startup、§ Mode And Environment、§ Landing Zone Check、§ Phase 1～4、§ Questions For Tower (`CT_MODE=yolo`, v5.5.0+)、§ BAT Notify And Fallback）
 - **相關**：[一張工單的一生](/lifecycle#worker)、[落點檢查](/deep/features/landing-check)、[Worker 向塔台提問](/deep/features/worker-questions)
 
 ### `/ct-done T#### [狀態]` {#ct-done}
@@ -244,7 +244,7 @@ const towerRows = [
 
   Worker 只會讀 `worker_max_retries`、`worker_strikeout_action`、`worker_commit` 與 `experience-level` 這類調諧參數；`worker_auto_close`、`worker_close_delay` 雖然以 `worker_` 開頭，卻是塔台收單時讀的。
 
-  `_tower-config.yaml` 另有 `gp-prefix`（Playbook 的 GP 編號前綴），但它不是 `*config` 選項，所以不在上表；定義與未設定時的 fallback 見 `multi-tower-protocol.md` § `gp-prefix` 設定。
+  `_tower-config.yaml` 另有 `gp-prefix`（Playbook 的 GP 編號前綴），但它不是 `*config` 選項，所以不在上表；定義與未設定時的 fallback 見 `multi-tower-protocol.md` § `gp-prefix` 設定（唯一權威定義）。
 
 - **起始版本**：v3.2.0（各選項的版本見權威出處）
 - **權威出處**：`control-tower/references/tower-config.md` § `*config` 命令、§ 可用選項、§ 作用域與持久化
@@ -351,7 +351,7 @@ const towerRows = [
 - **語法**：`*insights workflow`、`*insights workflow T0123 T0124`
 - **做什麼**：執行 `ct-insights` 附帶的預篩腳本，做排除守門（不適合用 Workflow 的直接排除；重複出現在工單之間的序列建議改成 Playbook）與附證據位置的按需提示。**只提示，不標記也不修改工單**；提示仍要人工複核。塔台要把 Workflow 授權寫進工單之前，還要先看 `workflow_integration` 的設定。
 - **起始版本**：v5.11.0
-- **權威出處**：`ct-insights/references/analysis-rules.md` § 預篩腳本：排除守門與按需提示；`control-tower/references/workflow-engine.md` § `workflow_integration` 的行為
+- **權威出處**：`ct-insights/references/analysis-rules.md` § 預篩腳本：排除守門與按需提示（v5.11.0+）；`control-tower/references/workflow-engine.md` § `workflow_integration` 的行為（v5.11.0+）
 
 ### `*fieldguide` {#fieldguide}
 
@@ -444,7 +444,7 @@ yolo 下塔台另外也接受 `T#### 失敗`。不是這些格式的訊息，會
 - 各 skill 的 `SKILL.md`（`ct-exec`、`ct-done`、`ct-status`、`ct-evolve`、`ct-insights`、`ct-fieldguide`、`control-tower-guide`）
 - CT 安裝與使用指南 § 13. Config 速查表（v5.12.5）、§ 14. 命令速查表（v5.12.5）
 - `control-tower/references/tower-config.md` § `*config` 命令、§ 可用選項（表下註明 `gp-prefix` 不是選項）
-- `control-tower/references/multi-tower-protocol.md` § `gp-prefix` 設定
+- `control-tower/references/multi-tower-protocol.md` § `gp-prefix` 設定（唯一權威定義）
 - `control-tower/references/fieldguide-commands.md`
 - `control-tower/references/playbook-engine.md` § `*evolve` 擴展子命令
 - `control-tower/references/yolo-mode.md` § 使用者中斷（非斷點）

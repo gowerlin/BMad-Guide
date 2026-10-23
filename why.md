@@ -118,7 +118,7 @@ CT 的設計文件會公開列出自己還沒有答案的假設，讓「這個�
 - 文章〈從代碼創作者到編排策展人〉§ 緣起：CT 和 BAT 原本要解決什麼、§ 第四部分：這對實踐者的意義
 - 〈Cognitive Load × Agent Orchestration：深度拆解與 Control Tower 對照〉§ Step 2：CLT 三種負擔
 - CT Guide `references/concepts.md` § Control Tower 解決的四個 AI 協作痛點、§ Hard Boundaries（塔台硬邊界）
-- `control-tower/references/yolo-mode.md` § Worker 向塔台提問 › 塔台端（代決邊界）
+- `control-tower/references/yolo-mode.md` § Worker 向塔台提問（v5.5.0+）› 塔台端（代決邊界）
 - `control-tower/references/workflow-engine.md` § 現況：G2 未通過（v5.11.0）
 - `control-tower/references/enhancement-integration.md` § Level 2：外部 bmad-guide
 

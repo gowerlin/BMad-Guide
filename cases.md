@@ -82,7 +82,7 @@ BAT 站另有一頁案例，包括虛構專案 demo-shop 的三個情境，以�
 - CT 開發紀錄（決策日誌、專案本地規則）
 - CT `research-workorder.md` § Renew 機制；`ct-done/SKILL.md`
 - CT `ct-exec/SKILL.md` § Landing Zone Check
-- CT `workflow-engine.md` § 現況：G2 未通過
+- CT `workflow-engine.md` § 現況：G2 未通過（v5.11.0）
 - CT `merge-workorder.md` § 三種模式、§ 收單 SHA 比對五步、§ 斷點 E
 - CT `work-order-system.md` § 重派前回收舊 Worker 分頁（v5.12.0+）
 - CT 實戰補充（四）〈當現實比計劃更混亂時〉

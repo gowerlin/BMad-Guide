@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // 知識成熟度管線（沿用 BAT 的 GrowthLadder，文案對齊 GUIDE/references/concepts.md § 知識成熟度管線）：
 // L0 觀察 → L1 驗證 → L2 Playbook → L3 Skill。靜態，不做動畫。
-// 琥珀只用在「塔台記下」的第一格（塔台的顏色，G0 Q2）；「你決定」的兩格用「你要做的事」的藍框。
+// 琥珀只用在「塔台記下」的第一格（塔台的顏色）；「你決定」的兩格用「你要做的事」的藍框。
 withDefaults(defineProps<{ detailed?: boolean }>(), { detailed: false })
 
 interface Rung {

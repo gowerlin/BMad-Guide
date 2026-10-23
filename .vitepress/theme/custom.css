@@ -1,9 +1,9 @@
 /*
- * CT Portal 樣式（PORTAL-PLAN § 5）。版型、字體與大部分元件樣式沿用 BAT 站（只複製，不改 BAT repo）；
- * tokens 改名 --ct-*，主色換成「信標琥珀」（G0 Q1：淺 #b45309／深 #fbbf24）。
- * 琥珀是塔台的顏色（G0 Q2：Portal 圖示裡的塔台角色用主色）；BAT 紫只在畫 BAT 介面時出現。
+ * CT Portal 樣式。版型、字體與大部分元件樣式沿用 BAT 站（只複製，不改 BAT repo）；
+ * tokens 改名 --ct-*，主色換成「信標琥珀」（淺 #b45309／深 #fbbf24）。
+ * 琥珀是塔台的顏色（Portal 圖示裡的塔台角色用主色）；BAT 紫只在畫 BAT 介面時出現。
  * 狀態一律「符號 + 文字」，不只靠顏色（沿用 BAT 錨點 A2）。
- * 🔴 B1～B4 不改本檔（§ 10 共同規則）；需要新樣式時以 yolo 提問請塔台裁示。
+ * 🔴 寫頁面內容時不改本檔；需要新樣式時以 yolo 提問請塔台裁示。
  */
 
 /* ---------- tokens ---------- */
@@ -28,7 +28,7 @@
   --ct-signal-text-dark: #fbbf24;
   --ct-step-done: #10b981;
   --ct-step-awaiting: #38bdf8;
-  /* BAT 紫：只在畫 BAT 介面（分頁、BAT 塔台）時用（G0 Q2） */
+  /* BAT 紫：只在畫 BAT 介面（分頁、BAT 塔台）時用 */
   --ct-bat: #7c3aed;
 
   /* 跟著深淺色切換的頁面 tokens（淺色） */
@@ -2372,7 +2372,7 @@
   }
 }
 
-/* ---------- 首頁主視覺（HeroTower）：一張工單的一生，畫在深色 Hero 上（G0 Q3） ---------- */
+/* ---------- 首頁主視覺（HeroTower）：一張工單的一生，畫在深色 Hero 上 ---------- */
 
 .hero-tower {
   margin: 0;
@@ -2448,7 +2448,7 @@
   font-weight: 500;
 }
 
-/* 塔台的步驟：主色實心信標（G0 Q2）；Worker 的步驟：空心 */
+/* 塔台的步驟：主色實心信標；Worker 的步驟：空心 */
 .hero-tower .ht-step.is-tower .ht-mark {
   border-color: var(--ct-signal-dark);
   background: var(--ct-signal-dark);
@@ -2517,7 +2517,7 @@
   }
 }
 
-/* ---------- 取得方式（CtDownload，G0 Q5：託管前不放連結） ---------- */
+/* ---------- 取得方式（CtDownload：不放下載連結） ---------- */
 
 .ct-download {
   margin: 16px 0;

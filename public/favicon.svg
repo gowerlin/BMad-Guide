@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- logo 的簡化版：只留塔身與信標，16px 時仍可辨識（PORTAL-PLAN § 5.3） -->
+  <!-- logo 的簡化版：只留塔身與信標，16px 時仍可辨識 -->
   <rect width="64" height="64" rx="14" fill="#10172e" />
   <circle cx="32" cy="14" r="6" fill="#fbbf24" />
   <g fill="none" stroke="#e8ebf7" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">

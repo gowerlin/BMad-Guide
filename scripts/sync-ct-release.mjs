@@ -1,11 +1,11 @@
 #!/usr/bin/env node
-// CT 發版同步（PORTAL-PLAN § 6.1、LR-002）。零依賴。
+// CT 發版同步（CT 每次發版都要同步更新 Portal）。零依賴。
 //
 //   node scripts/sync-ct-release.mjs <版號>        # 例：node scripts/sync-ct-release.mjs 5.12.2
 //
 // 1. 版號一致性：參數 = CT control-tower/SKILL.md 的版號註解 = Guide SKILL.md 的版號註解，否則報錯停止（§ 6.3）
 // 2. 更新 .vitepress/ct-release.json（CT 版號、Guide 版號、發布日、zip 名稱）
-// 3. 從 CT CHANGELOG 重新產生 versions/releases.md：近 10 版全文，更早的連到演進史（G0 Q8 (b)）；
+// 3. 從 CT CHANGELOG 重新產生 versions/releases.md：近 10 版全文，更早的連到演進史；
 //    先做內部 id 摘要化（通用規則，見 summarizeIds；刪 SHA 後清掉空括號；落點檢查名 C-0～C-4 保留），再套 data/release-rewrites.json 的逐筆改寫
 // 4. 對產出的 releases.md 跑去識別掃描（詞表在 site/ 外，含「內部 id」選用類別）；命中就報錯停止，要人工改寫後再跑
 //
@@ -274,12 +274,12 @@ function main() {
   const ctDir = path.join(REPO, 'BMad-Control-Tower', `BMad-Control-Tower-v${version}`)
   const guideDir = path.join(REPO, 'Control-Tower-Guide-Skill', `control-tower-guide-v${version}`)
   if (!fs.existsSync(ctDir)) fail(`找不到 CT 版本目錄 ${rel(ctDir)}`)
-  if (!fs.existsSync(guideDir)) fail(`找不到 Guide 版本目錄 ${rel(guideDir)}（LR-001：Guide 與 CT 同版號）`)
+  if (!fs.existsSync(guideDir)) fail(`找不到 Guide 版本目錄 ${rel(guideDir)}（Guide 要與 CT 同版號發行）`)
 
   const ctVersion = readVersionComment(path.join(ctDir, 'skills', 'control-tower', 'SKILL.md'), 'control-tower-version')
   const guideVersion = readVersionComment(path.join(guideDir, 'SKILL.md'), 'control-tower-guide-version')
   if (ctVersion !== version || guideVersion !== version) {
-    fail(`版號不一致：參數 ${version}、CT SKILL.md ${ctVersion}、Guide SKILL.md ${guideVersion}（§ 6.3，LR-001）`)
+    fail(`版號不一致：參數 ${version}、CT SKILL.md ${ctVersion}、Guide SKILL.md ${guideVersion}（Guide 要與 CT 同版號）`)
   }
 
   const changelogPath = path.join(ctDir, 'docs', 'CHANGELOG.md')

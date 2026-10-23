@@ -108,7 +108,7 @@ v5.10.0 之後，管線多了一條分支。有些經驗的形狀不是「一串
 - `control-tower/references/doctrine.md` § Double-loop Learning 在 CT 的體現、§ 開放問題
 - `control-tower/references/self-learning-core.md` § 置信度系統（各級條件的唯一權威，分專案層／全域層）、§ 學習觸發時機、§ 學習應用（派發前匹配）
 - `control-tower/references/playbook-engine.md` § 管線總覽（含 § 晉升標準、§ 與現有置信度系統對應）
-- `control-tower/references/workflow-engine.md` § 成熟度與回測、§ 現況：G2 未通過
+- `control-tower/references/workflow-engine.md` § 成熟度與回測、§ 現況：G2 未通過（v5.11.0）
 - `control-tower-guide/references/concepts.md` § 知識成熟度管線、§ v5.11.0：回測沒過之後，先做便宜的部分
 - 文章《從代碼創作者到編排策展人》§ 第四部分：這對實踐者的意義
 

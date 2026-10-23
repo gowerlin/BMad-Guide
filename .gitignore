@@ -1,4 +1,4 @@
-# PORTAL-PLAN § 8.3
+# 依賴、建置快取與建置產物（正式站、Artifact 預覽包），不進版控
 node_modules/
 .vitepress/cache/
 .vitepress/dist/

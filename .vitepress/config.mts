@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import { defineConfigWithTheme, type DefaultTheme, type HeadConfig } from 'vitepress'
 
-// 🔴 B1～B4 不改本檔（PORTAL-PLAN § 10 共同規則）。nav、sidebar、元件、設定值有需要時以 yolo 提問請塔台裁示。
+// 🔴 寫頁面內容時不改本檔：nav、sidebar、元件、設定值有需要時以 yolo 提問請塔台裁示。
 
 export interface CtRelease {
   ctVersion: string
@@ -73,7 +73,7 @@ if (!IS_ARTIFACT && !SITE_URL) {
   console.warn('\n[config] WARNING: 沒有設定 PORTAL_SITE_URL；不輸出 sitemap、og:url 與 og:image 的絕對網址（§ 8.2）\n')
 }
 
-// ---------- nav 與 sidebar（§ 2.1、§ 2.3；不含 /contribute，G0 Q9） ----------
+// ---------- nav 與 sidebar（不含 /contribute：回報與協助測試頁尚未提供） ----------
 
 const nav: DefaultTheme.NavItem[] = [
   {

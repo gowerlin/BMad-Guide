@@ -28,7 +28,7 @@ description: CT 的常見問題：新版沒生效、Claude Code 與 Codex 的差
 ::: details 不行，8 個要同一批
 塔台與 Worker 之間的協定會隨版本調整。例如 v4.3 起模式由塔台在派工時以旗標傳給 Worker：舊塔台配新 Worker 時 yolo 會失效、退回 `ask`；新塔台配舊 Worker 時，舊 Worker 不認得旗標就忽略。8 個 skill 一起升級，Claude Code 與 Codex 兩端也要分別升級。
 
-出處：CT 安裝與使用指南 § 4.1 發行物版面、§ 2.7 v4.3 新功能 — Worker 無狀態化 + 版號治理。
+出處：CT 安裝與使用指南 § 4.1 安裝／升級（現行流程）› 發行物版面、§ 2.7 v4.3 新功能 — Worker 無狀態化 + 版號治理。
 :::
 
 ### 一定要用 Claude Code 嗎？ {#claude-only}
@@ -78,7 +78,7 @@ CT 是在執行時去讀 `bmad-guide` 的 reference，不把它的內容寫死�
 ::: details 差在哪個角色裡執行
 `*` 開頭的是塔台內建命令，只在進行中的塔台 session 裡有意義，處理完繼續塔台的工作。`/ct-evolve`（Codex：`$ct-evolve`）是獨立的 skill，在它自己的 session 裡以它自己的角色執行。`*insights` 與 `/ct-insights`、`*fieldguide` 與 `/ct-fieldguide`、`*help` 與 `/ct-help` 也是同樣的關係。
 
-出處：CT Guide `references/ecosystem.md` § 三軌前綴；`control-tower/references/tower-config.md` § 與 `/ct-help` 的差異。
+出處：CT Guide `references/ecosystem.md` § 三軌前綴：`*`、`/`、`$`；`control-tower/references/tower-config.md` § 與 `/ct-help` 的差異。
 :::
 
 ## 工單卡住了 {#stuck}
@@ -130,7 +130,7 @@ CT 是在執行時去讀 `bmad-guide` 的 reference，不把它的內容寫死�
 
 另外，Worker 在 yolo 下有問題時改問塔台：範圍內的技術選擇由塔台代決，**範圍變更、刪除或不可逆的操作、對外發布、需要你偏好的選擇**，塔台會先問你。你隨時可以在塔台輸入 `停`、`stop` 或 `abort` 中斷自動派工，這不算斷點，也不佔重試次數。
 
-出處：`control-tower/references/yolo-mode.md` § 斷點判準（A / B / C / D / E）、§ 使用者中斷（非斷點）、§ Worker 向塔台提問 › 塔台端。
+出處：`control-tower/references/yolo-mode.md` § 斷點判準（A / B / C / D / E）、§ 使用者中斷（非斷點）、§ Worker 向塔台提問（v5.5.0+）› 塔台端。
 :::
 
 ### 一定要用 BAT 嗎？ {#need-bat}

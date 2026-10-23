@@ -135,7 +135,7 @@ description: 檔案驅動的工單編排 skill 組：一個塔台指揮整隊 Ag
 
 <p>CT 只負責編排。開分頁、派工、通知與狀態偵測這些執行環境的事，由 <BatLink>Better Agent Terminal（BAT）</BatLink> 負責；沒有 BAT 也能用，塔台會改給你剪貼簿或一行指令。</p>
 
-<p><strong>延伸閱讀</strong>：本頁內容摘要自 CT 安裝與使用指南 § 1. 這是什麼、§ 5. 四級能力等級；<code>control-tower/SKILL.md</code> § Built-In Commands；<code>control-tower/references/auto-session.md</code> § 派發後行為；<code>control-tower/references/yolo-mode.md</code> § 斷點判準、§ 使用者中斷；CT Guide <code>references/concepts.md</code> § Control Tower 解決的四個 AI 協作痛點、§ Orchestrator/Worker 分離模式；演進史 § 八個世代。</p>
+<p><strong>延伸閱讀</strong>：本頁內容摘要自 CT 安裝與使用指南 § 1. 這是什麼、§ 5. 四級能力等級；<code>control-tower/SKILL.md</code> § Built-In Commands；<code>control-tower/references/auto-session.md</code> § 派發後行為（依 <code>auto-session</code> 設定）；<code>control-tower/references/yolo-mode.md</code> § 斷點判準（A / B / C / D / E）、§ 使用者中斷（非斷點）；CT Guide <code>references/concepts.md</code> § Control Tower 解決的四個 AI 協作痛點、§ Orchestrator/Worker 分離模式；演進史 § 八個世代。</p>
 
 <p>Portal 是摘要，不具權威；與 CT 發行版的 reference 有出入時，以 reference 為準。各頁頁尾的「延伸閱讀」列出權威出處。</p>
 

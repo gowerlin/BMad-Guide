@@ -4,8 +4,8 @@ import { useData, withBase } from 'vitepress'
 import type { ThemeConfig } from '../../config.mjs'
 import bmadGuide from '../../../data/bmad-guide.json'
 
-// 取得方式（取代 BAT 的 DownloadLinks，G0 Q5 (a)）：不放下載連結，只寫「未公開，目前僅供部分協助測試者申請」、目前版號與安裝步驟。
-// 版號讀 ct-release.json（scripts/sync-ct-release.mjs 產生）與 data/bmad-guide.json（跟 BMad-Method 走，LR-003）。
+// 取得方式（取代 BAT 的 DownloadLinks）：不放下載連結，只寫「未公開，目前僅供部分協助測試者申請」、目前版號與安裝步驟。
+// 版號讀 ct-release.json（scripts/sync-ct-release.mjs 產生）與 data/bmad-guide.json（跟 BMad-Method 走，bmad-guide 發版時同步更新）。
 // 安裝步驟摘要自 MANUAL § 4.1、§ 4.3，詳細步驟在 /install。公開發行後改成真的連結。
 const { theme } = useData<ThemeConfig>()
 const release = computed(() => theme.value.ctRelease)

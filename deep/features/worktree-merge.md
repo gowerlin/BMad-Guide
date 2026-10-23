@@ -107,7 +107,7 @@ BAT 這一端的 worktree 建立、合併前狀態與回收選項，見 <BatLink
 ## 延伸閱讀 {#further-reading}
 
 - `control-tower/references/merge-workorder.md` § 適用範圍、§ 三種模式、§ 共同護欄、§ 塔台直接合併判準、§ 直接合併的做法、§ 合併判準資料來源、§ 收單 SHA 比對五步、§ 合併完成後清理、§ 斷點 E
-- `control-tower/references/auto-session.md` § BAT 內部終端路由 › worktree 隔離派工（`--isolation worktree`，v5.3.0+）
+- `control-tower/references/auto-session.md` § BAT 內部終端路由（Better Agent Terminal）› worktree 隔離派工（`--isolation worktree`，v5.3.0+）
 - `control-tower/references/work-order-template.md` § `isolation`（v5.3.0+，選用）、§ 合併工單模板（v5.3.0+）
 - `ct-exec/SKILL.md` § Worktree Isolation (`CT_HOME`, v5.3.0+)
 - `control-tower-guide/references/work-order-lifecycle.md` § worktree 隔離與合併工單（v5.3.0）
