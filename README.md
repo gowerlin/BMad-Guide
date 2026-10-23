@@ -1,8 +1,10 @@
 # BMad Control Tower Portal
 
+**網站：** <https://gowerlin.github.io/BMad-Guide/>
+
 BMad Control Tower（CT）的說明網站原始碼。CT 是檔案驅動的工單編排 skill 組，在 Claude Code 或 Codex 上運作：一個塔台 session 開工單、派工、收單，多個 Worker session 各自執行一張工單，所有決定都留在檔案裡。
 
-網站用 [VitePress](https://vitepress.dev/) 建置，部署到 GitHub Pages（`https://<owner>.github.io/BMad-Guide/`）。
+網站用 [VitePress](https://vitepress.dev/) 建置，部署到 GitHub Pages（<https://gowerlin.github.io/BMad-Guide/>）。
 
 ## 本機開發
 

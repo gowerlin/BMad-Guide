@@ -138,6 +138,13 @@ function isConfig(file) {
   return /(^|\/)\.vitepress\/[^/]+\.(mts|ts|json)$/.test(p)
 }
 
+// 例外（D200）：站點根目錄的 README.md 是公開 repo 的首頁，要放 Portal 自己的公開網址。
+// 「站點根目錄」= 旁邊有 .vitepress/config.mts 的目錄，所以 site/README.md 與匯出後公開 repo 根的 README.md 都成立；
+// 子目錄的 README.md 與其他 .md 照舊不放行
+function isSiteReadme(file) {
+  return path.basename(file) === 'README.md' && fs.existsSync(path.join(path.dirname(file), '.vitepress', 'config.mts'))
+}
+
 function main() {
   const args = parseArgs(process.argv.slice(2))
   const terms = loadTerms(args.terms)
@@ -164,7 +171,7 @@ function main() {
       let line = raw
       for (const entry of allow) {
         if (!line.includes(entry)) continue
-        if (!isBuildOutput(file) && !isConfig(file)) add(file, i + 1, '允許清單網址寫在設定以外')
+        if (!isBuildOutput(file) && !isConfig(file) && !isSiteReadme(file)) add(file, i + 1, '允許清單網址寫在設定以外')
         line = line.split(entry).join(' ')
       }
       for (const [category, re] of PATTERNS) {
