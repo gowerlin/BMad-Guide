@@ -1,6 +1,8 @@
 ---
 title: Guide Skill 專區
 description: 兩個互動式學習指南 skill：教 CT 的 CT Guide 與教 BMad-Method 的 BMad Guide。各教什麼、版號跟誰走、什麼時候問哪一個，以及和 ct-help、新手村的分工。
+# 不顯示右側本頁目錄，讓內容欄變寬、五塊積木圖放大（D216）
+aside: false
 ---
 
 <script setup>
