@@ -1,6 +1,6 @@
 name: Pages
 
-# CT Portal 的 GitHub Pages 部署（VitePress，原始碼在 repo 根目錄；站點網址 https://<owner>.github.io/BMad-Guide/）
+# CT Portal 的 GitHub Pages 部署（VitePress，原始碼在 repo 根目錄；站點網址 https://<owner>.github.io/Control-Tower/）
 # repo 啟用 Pages（Settings → Pages → Source: GitHub Actions）之前，build 與連結檢查照跑，deploy 跳過；
 # 啟用後重新執行這個 workflow（Actions → Pages → Run workflow）就會部署。
 on:
@@ -38,9 +38,9 @@ jobs:
       - name: Build site
         run: npm run build
         env:
-          PORTAL_BASE: /BMad-Guide/
+          PORTAL_BASE: /Control-Tower/
           # 網址由 repo 擁有者組出，不在檔案裡寫帳號名
-          PORTAL_SITE_URL: https://${{ github.repository_owner }}.github.io/BMad-Guide/
+          PORTAL_SITE_URL: https://${{ github.repository_owner }}.github.io/Control-Tower/
 
       # Pages 還沒啟用時 GET /repos/{owner}/{repo}/pages 回 404：不設定 Pages、不部署，workflow 不變紅
       - id: pages
@@ -89,11 +89,11 @@ jobs:
           name: github-pages
           path: ${{ runner.temp }}/pages
 
-      # 站內連結是 /BMad-Guide/<頁面>，所以把 dist 放到同名子目錄、以上一層當 --root-dir
+      # 站內連結是 /Control-Tower/<頁面>，所以把 dist 放到同名子目錄、以上一層當 --root-dir
       - name: Unpack site
         run: |
-          mkdir -p _lychee/BMad-Guide
-          tar -xf "$RUNNER_TEMP/pages/artifact.tar" -C _lychee/BMad-Guide
+          mkdir -p _lychee/Control-Tower
+          tar -xf "$RUNNER_TEMP/pages/artifact.tar" -C _lychee/Control-Tower
 
       - id: lychee
         uses: lycheeverse/lychee-action@v2.9.0
@@ -102,7 +102,7 @@ jobs:
             --config lychee.toml
             --root-dir ${{ github.workspace }}/_lychee
             --no-progress
-            '_lychee/BMad-Guide/**/*.html'
+            '_lychee/Control-Tower/**/*.html'
           fail: false
           failIfEmpty: false
 

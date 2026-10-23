@@ -1,10 +1,10 @@
 # BMad Control Tower Portal
 
-**網站：** <https://gowerlin.github.io/BMad-Guide/>
+**網站：** <https://gowerlin.github.io/Control-Tower/>
 
 BMad Control Tower（CT）的說明網站原始碼。CT 是檔案驅動的工單編排 skill 組，在 Claude Code 或 Codex 上運作：一個塔台 session 開工單、派工、收單，多個 Worker session 各自執行一張工單，所有決定都留在檔案裡。
 
-網站用 [VitePress](https://vitepress.dev/) 建置，部署到 GitHub Pages（<https://gowerlin.github.io/BMad-Guide/>）。
+網站用 [VitePress](https://vitepress.dev/) 建置，部署到 GitHub Pages（<https://gowerlin.github.io/Control-Tower/>）。
 
 ## 本機開發
 
@@ -21,14 +21,14 @@ npm run preview    # 預覽建置結果
 
 | 變數 | 用途 | 沒設定時 |
 |---|---|---|
-| `PORTAL_BASE` | 站點 base 路徑，例如 `/BMad-Guide/` | `/` |
+| `PORTAL_BASE` | 站點 base 路徑，例如 `/Control-Tower/` | `/` |
 | `PORTAL_SITE_URL` | 站點完整網址（結尾有 `/`），用於 sitemap、分享卡片的絕對網址 | 不輸出 sitemap 與絕對網址，建置時印出警告 |
 | `BAT_SITE_URL` | Better Agent Terminal 站的網址，Portal 連到 BAT 的連結都用它組 | 設定檔內的預設值 |
 
 用 GitHub Pages 的網址在本機建置一次，可以確認資源路徑都帶 base：
 
 ```bash
-PORTAL_BASE=/BMad-Guide/ PORTAL_SITE_URL=https://<owner>.github.io/BMad-Guide/ npm run build
+PORTAL_BASE=/Control-Tower/ PORTAL_SITE_URL=https://<owner>.github.io/Control-Tower/ npm run build
 ```
 
 ## 目錄
@@ -78,7 +78,7 @@ npm run deid
 
 `main` 分支有 push，或在 Actions 頁手動執行 **Pages** workflow 時：
 
-1. `npm ci`、`npm run build`（`PORTAL_BASE=/BMad-Guide/`，`PORTAL_SITE_URL` 由 repo 擁有者組出）
+1. `npm ci`、`npm run build`（`PORTAL_BASE=/Control-Tower/`，`PORTAL_SITE_URL` 由 repo 擁有者組出）
 2. 上傳建置結果，部署到 GitHub Pages
 3. 另外跑 lychee 外部連結檢查；只警告，不擋部署
 
