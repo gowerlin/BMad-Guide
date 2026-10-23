@@ -22,7 +22,7 @@ description: ct-status 從檔案讀狀態並抓出 drift；決策日誌是 appen
 
 讀取順序有兩條關鍵規則。第一，**frontmatter 優先**，只有沒有 frontmatter 的舊工單才退回讀正文的元資料表；兩者不一致時回報 `metadata_drift` 並以 frontmatter 為準，不默默修掉。第二，**未知的狀態就是 `UNKNOWN`**，絕不硬轉成 `PENDING`，否則一張狀態寫錯的工單會看起來像還沒開始。
 
-狀態分成三桶：進行中（`PENDING`、`IN_PROGRESS`、`PAUSED`、`URGENT`）、需要塔台判斷（未解決的 `PARTIAL`、`BLOCKED`、`FAILED`、`UNKNOWN`）、已結束（`DONE`、`CLOSED`、`WONTFIX` 等）。`PARTIAL` 只是某個時間點的未完成；卡點已被後續工單或範圍決策解除時，`ct-status` 會把它列為「可補正的已解決 PARTIAL」，建議塔台改成 `DONE`。
+狀態分成三桶：進行中（`PENDING`、`IN_PROGRESS`、`PAUSED`、`URGENT`）、需要塔台判斷（未解決的 `PARTIAL`、`BLOCKED`、`FAILED`、`INTERRUPTED`、`UNKNOWN`）、已結束（`DONE`、`CLOSED`、`WONTFIX` 等）。`INTERRUPTED` 是 session 中斷後塔台已另開接續工單或重派的原工單，塔台確認接續工單接手後就可以結掉；在那之前 `ct-status` 把它列在這一桶，工單有寫接續工單時一併列出編號。`PARTIAL` 只是某個時間點的未完成；卡點已被後續工單或範圍決策解除時，`ct-status` 會把它列為「可補正的已解決 PARTIAL」，建議塔台改成 `DONE`。
 
 `ct-status` 是唯讀的，所以它跑[落點檢查](./landing-check)時從不停下來，而是把 C-0 到 C-3 的結果和狀態一起報告。在錯的 repo 讀到的狀態若看起來一切正常，比報錯更危險，所以結果要攤開來給你看。輸出保持精簡：編號、標題、狀態、時間、必要時的範圍或 commit、卡點或下一步，以及 drift 或同步不一致的警告；大型專案先給摘要，只列出進行中與不一致的項目。
 

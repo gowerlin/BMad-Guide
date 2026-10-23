@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // 演進史的八個世代（§ 3.12、§ 5.4）：飛行進程條造型——左格是呼號（世代與版號範圍），右格是這一代的動作。
-// 版數合計 59，等於 CHANGELOG 的條目數；v1 未編號、不在 CHANGELOG 內。
+// 版數合計 60，等於 CHANGELOG 的條目數；v1 未編號、不在 CHANGELOG 內。
 // 演進史只維護在 Portal（原 EVO 文件已刪除，D231）：之後的版本照 CT CHANGELOG 補進最後一代或新世代（LR-002）。
 // 要改內容可傳 eras 覆蓋預設值。
 interface Era {
@@ -71,9 +71,9 @@ const ERAS: Era[] = [
   },
   {
     callsign: 'v5.10–5.12',
-    range: '5.10.0–5.12.4',
+    range: '5.10.0–5.12.5',
     dates: '10-20 → 10-23',
-    count: '7 版',
+    count: '8 版',
     theme: 'Workflow 規則層 · 重派前回收',
     what: '替 Workflow 工具在工單裡定位置：它是單張工單內的執行方式，要明文授權才能用；閘門 G2 沒過，範圍縮小。5.12 在重派前先回收舊 Worker 分頁。'
   }

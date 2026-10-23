@@ -110,9 +110,9 @@ const towerRows = [
   | `active` | 只強調還需要塔台或 Worker 動作的項目 |
 
 - **在哪用**：任何 session。
-- **做什麼**：從檔案讀狀態，**不改任何檔案**（除非你明確要求修復）。優先讀 frontmatter，frontmatter 與 body 不一致時報 `metadata_drift` 並以 frontmatter 為準；無法辨識的狀態維持 `UNKNOWN`，不會被當成 `PENDING`。也會跑落點檢查，但只報告結果、不會停下來。
+- **做什麼**：從檔案讀狀態，**不改任何檔案**（除非你明確要求修復）。優先讀 frontmatter，frontmatter 與 body 不一致時報 `metadata_drift` 並以 frontmatter 為準；無法辨識的狀態維持 `UNKNOWN`，不會被當成 `PENDING`。分桶時，未解決的 `PARTIAL`、`BLOCKED`、`FAILED`，以及已有接續工單或重派的 `INTERRUPTED`（v5.12.5 起），都歸「需要塔台判斷」。`sync` 比對有落差時，最後一句會請你交給塔台處理（`*sync`，或跟塔台說「重新同步」），`ct-status` 本身維持唯讀。也會跑落點檢查，但只報告結果、不會停下來。
 - **起始版本**：v2.1.1（獨立 skill：v3.1.0）
-- **權威出處**：`ct-status/SKILL.md` § Modes、§ Read Order、§ Status Buckets
+- **權威出處**：`ct-status/SKILL.md` § Modes、§ Read Order、§ Status Buckets、§ Output
 - **相關**：[狀態機與分桶](/lifecycle#states)、[觀測與改進](/deep/features/observability)
 
 ### `/ct-evolve [模式]` {#ct-evolve}
@@ -442,7 +442,7 @@ yolo 下塔台另外也接受 `T#### 失敗`。不是這些格式的訊息，會
 - `control-tower/SKILL.md` § Built-In Commands
 - `ct-help/SKILL.md` § Command Families
 - 各 skill 的 `SKILL.md`（`ct-exec`、`ct-done`、`ct-status`、`ct-evolve`、`ct-insights`、`ct-fieldguide`、`control-tower-guide`）
-- CT 安裝與使用指南 § 13. Config 速查表（v5.12.4）、§ 14. 命令速查表（v5.12.4）
+- CT 安裝與使用指南 § 13. Config 速查表（v5.12.5）、§ 14. 命令速查表（v5.12.5）
 - `control-tower/references/tower-config.md` § `*config` 命令、§ 可用選項（表下註明 `gp-prefix` 不是選項）
 - `control-tower/references/multi-tower-protocol.md` § `gp-prefix` 設定
 - `control-tower/references/fieldguide-commands.md`

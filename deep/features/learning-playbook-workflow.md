@@ -27,7 +27,7 @@ v4.4.0 起，新產出的條目分進三個區：
 
 1. **每次收單後（靜默）**：塔台處理完回報，自動在觀察紀錄加一行；這一輪對話中有你的糾正，就記成反模式，能歸納成規則的記成決策模式（🟡）；同時更新估時校準。這一步不顯示過程，也不問你存哪裡，一律寫進專案層。
 2. **`*evolve`（塔台內建精簡版）**：在塔台 session 裡順手萃取最近工單的學習，可帶主題（例如 `*evolve estimation`）。
-3. **`/ct-evolve`（完整版）**：獨立 skill，在任何 session 執行完整流程，包括模式偵測、Playbook 評估與全局規則評估；Sprint 結束和專案結案時塔台會主動提議。
+3. **`/ct-evolve`（完整版）**：獨立 skill，在任何 session 執行完整流程，包括模式偵測、Playbook 候選建議與全局規則評估。萃取模式只建議候選，不自己寫 playbook，寫入要另跑 `--playbook`。塔台會在 Sprint 結束（你說「Sprint 結束」「Epic 完成」「回顧」，或累積 10 筆以上觀察紀錄還沒萃取）時主動提議；專案結案時提議全量萃取，並對 🟢 以上的候選跑 `--playbook`，先給你看草稿，你確認後才寫 playbook。
 
 後兩者在你確認萃取出的模式之後，會問這個模式的適用範圍：通用的存進全局層（`~/.claude/control-tower-data/learnings/`），只適用本專案的存進 `_learnings.md`，不確定的先放專案層並加 `candidate: global` 標記，日後再決定。
 
@@ -117,7 +117,7 @@ Worker 自己用一般 Agent 工具開的唯讀子代理不是 Workflow，不需
 - `control-tower/references/self-learning-core.md` § _learnings.md 格式、§ 置信度系統（分專案層／全域層）、§ Global/Project 分流寫入、§ 學習觸發時機、§ 學習應用（派發前匹配）
 - `control-tower/references/playbook-engine.md` § 管線總覽、§ `*evolve` 擴展子命令、§ GP 編號規則（D62）、§ 塔台自動建議（派發匹配）
 - `control-tower/references/workflow-engine.md` § 定位、§ 三分法：Skill／Playbook／Workflow、§ 設計規則 R1–R5、§ `workflow_integration` 的行為（v5.11.0+，D083）、§ 同意治理（D075；v5.11.0 起落到工單授權）、§ 現況：G2 未通過（v5.11.0，D089）
-- `control-tower/references/ct-evolve.md`（`/ct-evolve` 的完整流程）
+- `ct-evolve/SKILL.md`（`/ct-evolve` 的完整流程）
 - `ct-exec/SKILL.md` § Workflow And Sub-Agents (v5.11.0+)
 - 本站：[會學習的系統](/deep/principles/learning)
 

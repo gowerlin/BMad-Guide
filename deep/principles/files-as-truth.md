@@ -86,7 +86,7 @@ v4.4.0 的順序是「回報區 → commit → 狀態」。v5.7.0 發現它和�
 
 有了顯式欄位，塔台只要讀每張工單開頭幾十行就能分類，省下的 context 留給真正需要推理的工單。這也是 frontmatter 放在檔頭的原因之一。
 
-狀態值本身也照「這張工單現在需要誰」分成三桶：仍在流程中的（`PENDING`、`IN_PROGRESS`…）、需要塔台判斷的（未解決的 `PARTIAL`、`BLOCKED`、`FAILED`），以及已經結束的。工單也沒有「待審」這種中間態：驗收是塔台讀回報時做的事，需要獨立審查就另派一張審查工單。完整的狀態值以 `work-order-template.md` § `status` 為準，見 [工單系統](/deep/features/work-orders)。
+狀態值本身也照「這張工單現在需要誰」分成三桶：仍在流程中的（`PENDING`、`IN_PROGRESS`…）、需要塔台判斷的（未解決的 `PARTIAL`、`BLOCKED`、`FAILED`，以及已有接續工單、等塔台確認後結掉的 `INTERRUPTED`），以及已經結束的。工單也沒有「待審」這種中間態：驗收是塔台讀回報時做的事，需要獨立審查就另派一張審查工單。完整的狀態值以 `work-order-template.md` § `status` 為準，見 [工單系統](/deep/features/work-orders)。
 
 ## 證據分道：說清楚是哪一種「做完了」
 

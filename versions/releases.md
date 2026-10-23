@@ -1,19 +1,58 @@
 ---
 title: 更版紀錄
-description: BMad Control Tower 近 10 版的更版紀錄（最新 v5.12.4），更早的版本見演進史。
+description: BMad Control Tower 近 10 版的更版紀錄（最新 v5.12.5），更早的版本見演進史。
 ---
 
 <!-- 本頁由 scripts/sync-ct-release.mjs 從 CT CHANGELOG 產生，請勿手改；要改內容請改來源後重跑。 -->
 
 # 更版紀錄
 
-目前版本 **v5.12.4**（2026-10-23）。這裡列出最近 10 版的完整紀錄，最新的在最上面；更早的 49 版（v2.1.1 ～ v5.7.2）請看[演進史](./evolution)。
+目前版本 **v5.12.5**（2026-10-23）。這裡列出最近 10 版的完整紀錄，最新的在最上面；更早的 50 版（v2.1.1 ～ v5.8.0）請看[演進史](./evolution)。
 
 ::: tip 摘要不具權威
 本頁照錄 CT 的 CHANGELOG，只拿掉工單、決策、驗收回函等內部編號與出處註記。規則的權威定義在 CT 各 skill 與 references，兩者有出入時以 CT 本體為準。
 :::
 
 ::: v-pre
+
+## 5.12.5 <small>2026-10-23</small> {#v5-12-5}
+
+
+> **PATCH：退役 `control-tower/references/` 其餘三份 Worker 命令長版說明，仍有效的規則補進 SKILL／reference；`ct-status` 的 `INTERRUPTED` 歸 Needs Tower judgment（文件補完，行為不變）。**
+> 塔台與 Worker 行為以現行 SKILL 為準、不變；設定的值域與預設、工單 metadata、BAT 介面都不變。
+
+### Removed
+
+- **`control-tower/references/ct-done.md`**（57 行）、**`ct-status.md`**（80 行）、**`ct-evolve.md`**（135 行）：ct-* 斜線指令時期的長版說明。
+  原因：三份都不在 `control-tower/SKILL.md` 的 Reference Routing，`control-tower` 與 `ct-*` 的關係由 `control-tower/SKILL.md` 建立；內容又有幾處和現行 SKILL 衝突——
+  `ct-done.md` 先改狀態再填回報區（現行為反序收尾）、收尾後一律回報「完成」（現行依狀態分 `完成`／`部分完成`／`需要協助`）；`ct-status.md` 只讀前 15 行（現行以 frontmatter 為準）；
+  `ct-evolve.md` 偵測到就寫入、結案時「強制生成 playbook（不需確認）」、Playbook 門檻「3+ 工單、100% 成功率」與指錯檔的格式連結（現行為蒸餾＋分流、🟢＋完整序列＋使用者確認）。
+  `ct-evolve.md` 又被 `self-learning-core.md` 連成「完整規範」，照連結讀過去的塔台或 Worker 會拿到錯的規則。仍有效的內容先搬走（見 Changed）再刪。
+  升級後已安裝的這三個檔案不再存在（安裝指南 § 4.1 為整個 skill 目錄替換，舊檔隨舊目錄移走；見 § 2.50）。
+
+### Changed
+
+- `ct-done/SKILL.md`：§ Error Handling 加「工單還是 `PENDING`：說明尚未開工、建議 `ct-exec`、不改工單並停止」；§ Report Repair 加「工單本身要求同步 `sprint-status.yaml` 而漏做時，補救時一併補上」
+  （塔台收單時仍會複查，`work-order-system.md` § sprint-status.yaml 同步）。來源 `ct-done.md` 錯誤處理與 Step 6。
+- `ct-status/SKILL.md` § Output：sync 有落差時，最後一句交給塔台（`*sync` 或說「重新同步」），`ct-status` 本身維持唯讀。來源 `ct-status.md` § sync 差異報告。
+- `ct-evolve/SKILL.md`：§ Extraction Flow 第 2 步估時偏差寫明「actual vs estimate off by more than 50%」；第 6 步後加「完整且 🟢 以上的 recurring sequence 只建議 `--playbook`，萃取模式不自己寫 playbook」；
+  § Reference Routing 加 `enhancement-integration.md` § /ct-evolve Level 1 增強（有 ECC 時；原本只能經 `self-learning-core.md` 間接到達）。
+- `self-learning-core.md` § 學習觸發時機 › `### 3. /ct-evolve`：「完整規範」連結改到 `ct-evolve/SKILL.md`；塔台主動提議的時機搬進來——「Sprint 結束」「Epic 完成」「回顧」、
+  累積 ≥10 筆觀察紀錄且尚未萃取，以及提議格式；結案（「結案」「專案完成」）改成提議對 🟢 以上候選跑 `--playbook`、照 `playbook-engine.md` 確認與分流提問後寫入，
+  外加 ⭐ 候選提議全局化與專案學習總結。「強制生成 playbook（不需確認）」**不搬**（已廢棄的 v4.0 做法）。
+- `playbook-engine.md` § 與 `/ct-evolve` 的整合：首句與表頭的「`/ct-evolve` Step 4」改成「`/ct-evolve`（學習萃取模式）」，「候選來源」改成 `ct-evolve/SKILL.md` § Extraction Flow 找到的 recurring sequences、再由使用者決定是否 `--playbook`。
+
+### Fixed
+
+- **`ct-status` 的 `INTERRUPTED` 沒有 bucket**：它是合法狀態（`work-order-system.md` § 中斷復原、`work-order-template.md`），但 § Status Buckets 三組都沒列。
+  現在歸 **Needs Tower judgment**，並寫明依據：session 中斷後塔台已另開接續工單或重派的原工單，塔台確認接續工單接手後可結掉。
+- 安裝指南新增 § 2.50；§ 4.1 版號範例同步（`OLD=5.12.4`、`VER=5.12.5`、發行物檔名）。
+
+### Unchanged
+
+- 歷史段落（本檔舊版段，含 [5.12.4]「其他三份……保留」、[5.11.0] `ct-evolve.md` 補 `--workflow`、mem0 REST 改寫、[4.0] `ct-evolve.md` 獨立 reference 等條目；
+  `version-governance.md` 版號表舊列；安裝指南 § 2.4x 等舊章節）不改。
+- 塔台 `*evolve`、`*sync`、補救收尾的流程不讀這三份說明，行為不變；`ct-status` 長版的狀態符號表是顯示慣例，不搬。
 
 ## 5.12.4 <small>2026-10-23</small> {#v5-12-4}
 
@@ -304,49 +343,12 @@ description: BMad Control Tower 近 10 版的更版紀錄（最新 v5.12.4），
 - BAT ≤ `0.7.0-pre.8` 或 codex 低於 `0.163.0`：行為與 v5.8.0 相同（`blockedDetection: none`、`agentStarted: null`、`started: unknown`）。
 - 規則變更只涉及 yolo Worker 的題目寫法與收尾自檢；塔台與 Worker 請同版安裝。
 
-## 5.8.0 <small>2026-10-18</small> {#v5-8-0}
-
-
-> **MINOR：接 BAT 新介面——codex 分頁的 OSC 7501 信號。** 斷點 D 接受 `blockedDetection: osc`／`blockedReason: input`；
-> codex `>= 0.163.0` 的 `--wait-started`／`agentStarted` 生效；`blockedDetection` 值域加 `osc`、`blockedReason` 加 `input`。
-> BAT 介面以 BAT 的「介面契約」為準，需 BAT `>= 0.7.0-pre.9`；舊 BAT（≤ `0.7.0-pre.8`）或較舊 codex
-> 維持 `blockedDetection: none`／`agentStarted: null`／`started: unknown`，行為同 v5.7.2。非 yolo 的 Worker／塔台行為、派工命令、隔離派工、合併流程、
-> 提問通道（§ Worker 向塔台提問）與 `worker_question_timeout` 不變。
-
-### Added
-
-- `yolo-mode.md` § 斷點 D：判準新增 `blockedReason: input`（`source: 'osc'`，`blockedDetection: osc` 的 codex Worker）——與 hook 的三種 reason 合稱
-  「等使用者的 reason」，處理相同（只以分頁標題告知、不代答、不送按鍵、不暫停其他流程、同一個 `blockedSince` 只告知一次）；啟用條件新增 `osc` 一列；
-  `input` 的清除規則（codex 自己送轉換、PTY 結束、recovery；**使用者輸入不清除**，所以使用者處理後仍可能讀到同一次 `input`，不重複催促）；
-  已知限制新增第 6 點（`input` 不分種類、啟動前畫面不送序列、OSC 7501 未公開、遠端未實測）。
-- `yolo-mode.md` § BAT／Worker 版本相容：新增 codex OSC 7501 列（BAT 版本寫 `>= 0.7.0-pre.9`）；T10 新增情境 2（codex `input`、與 `tower` 的優先序、舊 BAT）。
-- `auto-session.md` § BAT MCP 唯讀 tool：新增 `blockedDetection: osc` / `blockedReason: input` 說明（判準只引用 `yolo-mode.md` § 斷點 D）。
-- `auto-session.md` § 依賴的 BAT 基礎設施：新增 codex OSC 7501 列。
-
-### Changed
-
-- `yolo-mode.md` § 斷點 D：優先序改為 `exited` > hook 的三種 reason／`input` > `tower` > `working` / `idle`；`blockedDetection: none` 改為也不會回 `input`；
-  已知限制第 1 點「codex Worker 一律 `blockedDetection: none`」改寫為依 codex 與 BAT 版本：codex `>= 0.163.0` 且 BAT 支援 OSC 7501 → `osc`，
-  更舊的 codex、BAT 確認不到版本、或舊 BAT → `none`（現行降級不變），`hook` 分頁不會變 `osc`；第 5 點補 codex replay 補掃。
-- `auto-session.md` § BAT MCP 唯讀 tool：`bat_get_state` / `bat_wait` 的 `blockedDetection` 值域加 `osc`、`blockedReason` 加 `input`；`agentStarted` 說明加 `osc` 分頁
-  （第一個 OSC 7501 → `true`，之前 `false`）。
-- `auto-session.md` § Worker 啟動確認：codex `>= 0.163.0` 的 Worker 以第一個 OSC 7501 為啟動信號，與 claude 相同；`started: unknown` 列的「codex」改為
-  「codex 低於 0.163.0 或版本確認不到」（BAT 對這些 codex 絕不回 `unconfirmed`）；exit `8` 處理不變，補 codex 最常見原因（「Trust this folder?」
-  「Hooks need review」等啟動畫面）；說明 BAT 派 codex Worker 時自己加 `-c check_for_update_on_startup=false`，CT 派工命令不變；已知限制改寫。
-- `control-tower/SKILL.md`：Worker 啟動確認與斷點 D 摘要句各補一句 codex（只摘要、引用權威）。
-
-### Compatibility
-
-- 本版發佈時 BAT 尚未發佈支援 OSC 7501 的版本，BAT 版本處原寫固定占位字串；BAT 發佈 `v0.7.0-pre.9` 後，v5.8.1 已一次換成 `>= 0.7.0-pre.9`。
-- 舊 BAT（≤ `0.7.0-pre.8`）：codex 分頁維持 `blockedDetection: none`、`agentStarted: null`、`--wait-started` 回 `started: unknown`，CT 行為與 v5.7.2 相同。
-- claude-cli Worker（`blockedDetection: hook`）的斷點 D 與啟動確認不變。
-
 :::
 
 ## 延伸閱讀 {#further-reading}
 
-- CT `CHANGELOG.md`（共 59 個版本；本頁列最近 10 版）
+- CT `CHANGELOG.md`（共 60 個版本；本頁列最近 10 版）
 - CT `version-governance.md` § 歷史版號表
-- [演進史](./evolution)：更早的 49 版與八個世代
+- [演進史](./evolution)：更早的 50 版與八個世代
 
 Portal 是摘要，不具權威；與 CT reference 有出入時，以 reference 為準。

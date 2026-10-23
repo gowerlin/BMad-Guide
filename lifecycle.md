@@ -18,7 +18,7 @@ const reportRows = [
 ]
 const bucketRows = [
   ['還在流程中', 'PENDING、IN_PROGRESS、PAUSED、URGENT', '照常推進'],
-  ['需要塔台判斷', '未解決的 PARTIAL、BLOCKED、FAILED，以及無法辨識的 UNKNOWN', '塔台決定 Renew、拆單、改策略或問你'],
+  ['需要塔台判斷', '未解決的 PARTIAL、BLOCKED、FAILED，已有接續工單或重派的 INTERRUPTED，以及無法辨識的 UNKNOWN', '塔台決定 Renew、拆單、改策略或問你；INTERRUPTED 在確認接續工單接手後結掉'],
   ['已結束', 'DONE、FIXED（驗證政策允許後）、CLOSED、WONTFIX、DROPPED、CONCLUDED、ABANDONED', '可以歸檔']
 ]
 </script>
