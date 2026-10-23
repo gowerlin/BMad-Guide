@@ -115,8 +115,8 @@ Worker 自己用一般 Agent 工具開的唯讀子代理不是 Workflow，不需
 ## 延伸閱讀 {#further-reading}
 
 - `control-tower/references/self-learning-core.md` § _learnings.md 格式、§ 置信度系統（分專案層／全域層）、§ Global/Project 分流寫入、§ 學習觸發時機、§ 學習應用（派發前匹配）
-- `control-tower/references/playbook-engine.md` § 管線總覽、§ `*evolve` 擴展子命令、§ GP 編號規則（D62）、§ 塔台自動建議（派發匹配）
-- `control-tower/references/workflow-engine.md` § 定位、§ 三分法：Skill／Playbook／Workflow、§ 設計規則 R1–R5、§ `workflow_integration` 的行為（v5.11.0+，D083）、§ 同意治理（D075；v5.11.0 起落到工單授權）、§ 現況：G2 未通過（v5.11.0，D089）
+- `control-tower/references/playbook-engine.md` § 管線總覽、§ `*evolve` 擴展子命令、§ GP 編號規則、§ 塔台自動建議（派發匹配）
+- `control-tower/references/workflow-engine.md` § 定位、§ 三分法：Skill／Playbook／Workflow、§ 設計規則 R1–R5、§ `workflow_integration` 的行為（v5.11.0+）、§ 同意治理（v5.11.0 起落到工單授權）、§ 現況：G2 未通過（v5.11.0）
 - `ct-evolve/SKILL.md`（`/ct-evolve` 的完整流程）
 - `ct-exec/SKILL.md` § Workflow And Sub-Agents (v5.11.0+)
 - 本站：[會學習的系統](/deep/principles/learning)

@@ -96,7 +96,7 @@ BAT `>= 0.7.1-pre.1` 開的 claude 分頁會帶名稱：`<工作區> · Worker �
 
 ## 延伸閱讀 {#further-reading}
 
-- `control-tower/references/multi-tower-protocol.md` § 記憶分層、§ 塔台登記簿、§ 跨塔台留言板、§ 決策：一個塔台還是多個、§ 跨塔台 GP 編號協議（D62）
+- `control-tower/references/multi-tower-protocol.md` § 記憶分層、§ 塔台登記簿、§ 跨塔台留言板、§ 決策：一個塔台還是多個、§ 跨塔台 GP 編號協議
 - `control-tower/references/cross-project-coordination.md` § 五種協調類型、§ HANDOVER 與 ADVISORY（非工單跨塔台通道）、§ 跨 session 選收件人（v5.9.0+）、§ 工單前綴機制、§ 跨專案協調流程、§ 統籌權規則
 - `control-tower-guide/references/advanced-patterns.md` § 跨專案協調、§ 多塔台
 - `docs/Control Tower 實戰補充/CT實戰補充（一-C）跨專案契約變更.md`

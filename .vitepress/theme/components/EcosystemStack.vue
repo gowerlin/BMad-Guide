@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// 五塊積木（D212）：BMad-Method、CT、BAT 與兩個 Guide skill 怎麼疊在一起。
+// 五塊積木：BMad-Method、CT、BAT 與兩個 Guide skill 怎麼疊在一起。
 // 原圖：design/ecosystem-stack-source.html（使用者的 artifact 快照）。積木結構、配色與點選互動照原圖；
 // 版號讀 ct-release.json 與 data/bmad-guide.json，說法對齊 /features、/guide/、/deep/features/dispatch。
 // SSR 輸出就可讀（§ 5.4 ④）：積木說明先以清單列在圖下方，有 client JS 時才換成點選面板。

@@ -27,11 +27,11 @@ const RELEASES_MD = path.join(SITE, 'versions', 'releases.md')
 // pattern 裡的 {id} 代表任一個內部 id（ID_SOURCE）、{ref} 代表任一個回函／契約條目（REF_SOURCE），改寫表本身就不必寫出原值
 const REWRITES = path.join(SITE, 'data', 'release-rewrites.json')
 
-// 內部 id（D184）：工單號、塔台決策號、BUG／PLAN 編號。CHANGELOG 給維護者看，公開站不需要這些出處
+// 內部 id：工單號、塔台決策號、BUG／PLAN 編號。CHANGELOG 給維護者看，公開站不需要這些出處
 const ID_SOURCE = String.raw`\b(?:CT-T[0-9]{3}|T[0-9]{4}|D[0-9]{3}|BUG-[0-9]{3}|PLAN-[0-9]{3})\b`
 const ID = new RegExp(ID_SOURCE)
-// 回函與契約條目（D194）：BAT 驗收回函的 F-n／O-n、BAT 介面契約的 C-n（含 C-1–C-8 範圍），以「、／–」串接。
-// 落點檢查名 C-0～C-4 同形，摘要化前先用 deid-scan.mjs 的 maskLandingCheckIds 遮掉（T0264），這裡的規則就碰不到
+// 回函與契約條目：BAT 驗收回函的 F-n／O-n、BAT 介面契約的 C-n（含 C-1–C-8 範圍），以「、／–」串接。
+// 落點檢查名 C-0～C-4 同形，摘要化前先用 deid-scan.mjs 的 maskLandingCheckIds 遮掉，這裡的規則就碰不到
 const REF_SOURCE = String.raw`\b[FOC]-[0-9]+\b`
 const REF = new RegExp(REF_SOURCE)
 const REF_LIST = String.raw`${REF_SOURCE}(?:[、／–]${REF_SOURCE})*`
@@ -185,7 +185,7 @@ function stripEmptyNotes(text, stats) {
   return restore(out)
 }
 
-// 內部 id 摘要化（通用規則，D184）。只處理 fenced code block 以外的文字；回傳各類處數
+// 內部 id 摘要化（通用規則）。只處理 fenced code block 以外的文字；回傳各類處數
 function summarizeIds(entries) {
   const stats = { tails: 0, notes: 0, batPaths: 0, shas: 0, refs: 0, stages: 0, emptyNotes: 0 }
   for (const entry of entries) {

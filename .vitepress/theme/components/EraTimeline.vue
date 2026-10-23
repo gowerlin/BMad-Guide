@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // 演進史的八個世代（§ 3.12、§ 5.4）：飛行進程條造型——左格是呼號（世代與版號範圍），右格是這一代的動作。
 // 版數合計 60，等於 CHANGELOG 的條目數；v1 未編號、不在 CHANGELOG 內。
-// 演進史只維護在 Portal（原 EVO 文件已刪除，D231）：之後的版本照 CT CHANGELOG 補進最後一代或新世代（LR-002）。
+// 演進史只維護在 Portal（原 EVO 文件已刪除）：之後的版本照 CT CHANGELOG 補進最後一代或新世代（LR-002）。
 // 要改內容可傳 eras 覆蓋預設值。
 interface Era {
   callsign: string

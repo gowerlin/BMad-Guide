@@ -105,7 +105,7 @@ source／docs │ build／test │ runtime │ deploy │ release／安裝包 �
 - `control-tower-guide/references/concepts.md` § 檔案驅動設計、§ 證據分道
 - `control-tower-guide/references/work-order-lifecycle.md` § 工單的兩層 metadata：frontmatter 與 body table、§ 狀態機
 - `control-tower/references/doctrine.md` § 工單狀態機的設計依據、§ 為什麼要反序寫入？
-- `control-tower/references/work-order-template.md` § PLAN-034 Sprint 2 transition — YAML frontmatter SoT (v5.0.0+)
+- `control-tower/references/work-order-template.md` § Sprint 2 transition — YAML frontmatter SoT (v5.0.0+)
 - `control-tower/references/memory-protocol.md` § _decision-log.md（決策日誌）
 - `ct-exec/SKILL.md` § Frontmatter Rules、§ Phase 3: Verify、§ Phase 4: Report And Commit
 - 演進史 § 5.0.0：metadata 改用 frontmatter（見 [演進史](/versions/evolution)）

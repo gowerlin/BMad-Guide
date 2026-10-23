@@ -106,7 +106,7 @@ BUG、PLAN、EXP 單據有自己的編號規則，不適用這個正則（見 [B
 ## 延伸閱讀 {#further-reading}
 
 - `control-tower/references/work-order-system.md` § 工單編號規則（含「工單 ID 格式（權威定義）」）、§ 工單粒度原則、§ Story → Dev 之間的品質檢查點、§ 派發前 overlap check（v4.4.0+）、§ 回報處理流程、§ sprint-status.yaml 同步
-- `control-tower/references/work-order-template.md` § 填寫 `intervention_type` 指引、§ 填寫 `affects_files` 指引、§ 填寫 `memory_overrides` 指引、§ PLAN-034 Sprint 2 transition — YAML frontmatter SoT (v5.0.0+)
+- `control-tower/references/work-order-template.md` § 填寫 `intervention_type` 指引、§ 填寫 `affects_files` 指引、§ 填寫 `memory_overrides` 指引、§ Sprint 2 transition — YAML frontmatter SoT (v5.0.0+)
 - `control-tower/references/doctrine.md` § `intervention_type` / `affects_files` / `spec_level_check` 的設計依據
 - 本站：[一張工單的一生](/lifecycle)、[檔案即真相來源](/deep/principles/files-as-truth)
 

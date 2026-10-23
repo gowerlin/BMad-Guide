@@ -199,9 +199,9 @@ description: BMad Control Tower 近 10 版的更版紀錄（最新 v5.12.5），
 ## 5.11.0 <small>2026-10-20</small> {#v5-11-0}
 
 
-> **MINOR：Workflow 精簡版——閘門 G2 未通過後只做不花 workflow token 的部分。** 新設定 `workflow_integration`
+> **MINOR：Workflow 精簡版——閘門 G2（至少一個具名 workflow 回測達標、升到 🟡）未通過後只做不花 workflow token 的部分。** 新設定 `workflow_integration`
 > （`off`／`ask`／`on`，預設 `on`）；Worker 只有在工單明文授權時才呼叫 Workflow 工具、自發子代理要在回報區記錄（`ct-exec`）；
-> 預篩腳本隨 `ct-insights` 發行、修 E4–E6，只做排除守門與按需提示（`*insights workflow`）；另修補幾項先前驗收記下的小問題。
+> 預篩腳本隨 `ct-insights` 發行、修三處偵測缺漏，只做排除守門與按需提示（`*insights workflow`）；另修補幾項先前驗收記下的小問題。
 > **不做**：具名 workflow 的派發與執行、`execution`／`workflow_run_id`／`workflow_stats` 等工單欄位（待卡片達 🟡 後再定）。
 > BAT 無最低版本需求。派工命令、`--set-role`、斷點、提問通道、隔離派工、合併流程、`worker_auto_close` 與 `ct-exec` 其他執行流程不變。
 
@@ -215,9 +215,9 @@ description: BMad Control Tower 近 10 版的更版紀錄（最新 v5.12.5），
   沒有 Workflow 工具（Codex）不模擬。自發的唯讀子代理不需授權，但回報區 `### 子代理與 Workflow 使用` 要記數量、用途、唯讀與保證方式、約略 tokens（或估算方式）。
   § Phase 4 第 3 步與 Reference Routing 補引用。
 - `work-order-template.md` § 撰寫 Workflow 使用授權：塔台的授權段落範本，`workflow_integration: off` 時不得寫、只派 Claude Code Worker。
-- `ct-insights/scripts/ct-workflow-prefilter.py`（新檔，Python 3 標準函式庫）：既有的預篩腳本隨 skill 發行並修正——E5 X2 加來源
-  ④ `intervention_type: decision-requiring`（frontmatter 頂層或 `interaction:` 底下、內文元資料鏡像行）與 ⑤「DP 裁定紀錄」；E6 S1 的 cue 也看 `title`；
-  E4 X4(a) 補「逐一＋複製／雜湊／計數」；新增 `--ids` 逐張輸出守門結論與證據位置、摘要加排除守門統計。
+- `ct-insights/scripts/ct-workflow-prefilter.py`（新檔，Python 3 標準函式庫）：既有的預篩腳本隨 skill 發行並修正三處偵測缺漏——X2 加來源
+  ④ `intervention_type: decision-requiring`（frontmatter 頂層或 `interaction:` 底下、內文元資料鏡像行）與 ⑤「DP 裁定紀錄」；S1 的 cue 也看 `title`；
+  X4(a) 補「逐一＋複製／雜湊／計數」；新增 `--ids` 逐張輸出守門結論與證據位置、摘要加排除守門統計。
 - `ct-insights/references/analysis-rules.md` § 預篩腳本：排除守門與按需提示（唯一權威）：只用 X2、X3、X5 守門（X5 提示 Playbook）、X1／X4 只標需人工；
   按需提示只在塔台主動呼叫時列候選與證據位置、不自動標記或修改工單；塔台入口 `*insights workflow [T#### …]`；沒有 Python 3 時改人工判定。
 - `workflow-engine.md` § 現況：G2 未通過（refuter 會確認錯誤發現、reader 實測 100–180k／組、成立的扇出多為 Worker 自發）與 § 尚未定案

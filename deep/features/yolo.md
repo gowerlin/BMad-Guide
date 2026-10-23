@@ -101,7 +101,7 @@ BAT 這一端怎麼呈現自主程度與「一定會停下來問你的時候」�
 
 ## 延伸閱讀 {#further-reading}
 
-- `control-tower/references/yolo-mode.md` § BAT env 分工（D004）、§ 下一張工單判定邏輯（Q2.A 分支）、§ 斷點判準（A / B / C / D / E）（含 § 斷點 B › B-2 › YOLO 計數器）、§ 使用者中斷（非斷點）、§ `_tower-state.md` 新增 `## YOLO 歷程` 區段、§ 使用者可見訊息（規格化彙整）
+- `control-tower/references/yolo-mode.md` § BAT env 分工、§ 下一張工單判定邏輯、§ 斷點判準（A / B / C / D / E）（含 § 斷點 B › B-2 › YOLO 計數器）、§ 使用者中斷（非斷點）、§ `_tower-state.md` 新增 `## YOLO 歷程` 區段、§ 使用者可見訊息（規格化彙整）
 - `control-tower/references/auto-session.md` § 派發後行為（依 `auto-session` 設定）› `auto-session = yolo`
 - `control-tower/references/tower-config.md` § 可用選項（`yolo_max_retries`）
 - `control-tower-guide/references/runtime-dispatch.md` § YOLO 與斷點：自主推進的邊界

@@ -3,9 +3,10 @@
 //
 //   node scripts/deid-scan.mjs [--terms <私有詞表>] [--allow <允許清單>] [--internal-ids] <路徑…>
 //
-// --internal-ids：選用類別「內部 id」（D184），只對更版紀錄（versions/releases.md 與建置出的 releases.html）生效：
-// 工單號、決策號、BUG／PLAN 編號、commit SHA、BAT 內部文件路徑、BAT 回函與介面契約條目（F-n、O-n、C-n）、
-// 內部階段名（「智能 P2」這類）。HTML 先去掉標籤再比對（資產檔名的雜湊不算）。
+// --internal-ids：選用類別「內部 id」。編號類（工單號、決策號、BUG／PLAN 編號、提問選項號）對全站生效，
+// 頁面上的範例編號只放行 EXAMPLE_IDS 列出的；其他類別只對更版紀錄（versions/releases.md 與建置出的 releases.html）生效：
+// commit SHA、BAT 內部文件路徑、BAT 回函與介面契約條目（F-n、O-n、C-n）、內部階段名（「智能 P2」這類）。
+// HTML 先去掉標籤再比對（資產檔名的雜湊不算）。
 // 落點檢查名 C-0～C-4 在落點檢查語境裡不算條目（maskLandingCheckIds，sync-ct-release.mjs 共用）。
 //
 // 只輸出「檔案:行:類別」與各類計數，不輸出命中的原文（避免把敏感值印進日誌）。命中數 > 0 時 exit 1。
@@ -44,18 +45,40 @@ const PATTERNS = [
 ]
 const EMAIL_ALLOWED = /(^|\.)example\.(com|org|net)$/
 
-// 選用類別「內部 id」（--internal-ids）；規則與 sync-ct-release.mjs 的摘要化一致
-const INTERNAL_ID_PATTERNS = [
+// 選用類別「內部 id」（--internal-ids）的編號類，對全站生效。
+// 決策號另收兩碼（早期的決策號也出現在 CT reference 的章節名括號裡）；提問選項號是決策紀錄的「Q＋題號＋.＋選項字母」
+const INTERNAL_NUMBER_PATTERNS = [
   ['內部 id-工單號', /\b(?:CT-T[0-9]{3}|T[0-9]{4})\b/g],
-  ['內部 id-決策號', /\bD[0-9]{3}\b/g],
+  ['內部 id-決策號', /\bD[0-9]{2,3}\b/g],
   ['內部 id-BUG／PLAN', /\b(?:BUG|PLAN)-[0-9]{3}\b/g],
+  ['內部 id-提問選項', /\bQ[0-9]+\.[A-Z]\b/g]
+]
+
+// 範例編號：頁面上示範格式或指令用的工單號，不指向本 repo 真的工單。只在更版紀錄以外放行（更版紀錄照錄 CHANGELOG，
+// 出現的編號都是真的）。新增範例要先加在這裡並寫出處頁；不要用萬用規則放行
+const EXAMPLE_IDS = new Map([
+  ['T0001', '指令與格式範例：install、faq、reference/commands、guide/ct-guide、versions/evolution、deep/features/work-orders、multi-tower、recovery'],
+  ['T0005', '*resume 範例：reference/commands、deep/features/recovery'],
+  ['T0015', '工單檔名範例：deep/features/work-orders'],
+  ['T0042', '派工與回報範例：index、faq、lifecycle、HeroTower.vue'],
+  ['T0047', '跨專案撞號情境：deep/features/landing-check'],
+  ['T0073', '引用欄位範例：deep/features/record-types'],
+  ['T0113', '前綴格式範例（CP-T0113、cp-T0113）：deep/features/work-orders、yolo'],
+  ['T0115', '單專案標準形式範例：deep/features/work-orders'],
+  ['T0123', '*insights workflow 語法範例：reference/commands'],
+  ['T0124', '*insights workflow 語法範例：reference/commands'],
+  ['BUG-001', '引用欄位範例：deep/features/record-types']
+])
+
+// 其他類別只對更版紀錄生效；規則與 sync-ct-release.mjs 的摘要化一致
+const INTERNAL_RELEASE_PATTERNS = [
   ['內部 id-commit SHA', /\b(?=[0-9a-f]*[0-9])(?=[0-9a-f]*[a-f])[0-9a-f]{7,40}\b/g],
   ['內部 id-BAT 文件路徑', /\b(?:docs\/agent-guide|electron)\/[\w./-]+/g],
   ['內部 id-回函／契約條目', /\b[FOC]-[0-9]+\b/g],
   ['內部 id-內部階段名', /智能 P[0-9]+/g]
 ]
 
-// 落點檢查名（D198、T0264）：CT 的落點檢查（ct-exec/SKILL.md § Landing Zone Check）叫 C-0～C-4，和 BAT 介面契約條目 C-n 同形。
+// 落點檢查名：CT 的落點檢查（ct-exec/SKILL.md § Landing Zone Check）叫 C-0～C-4，和 BAT 介面契約條目 C-n 同形。
 // 落點檢查語境裡的不算內部條目。sync-ct-release.mjs 摘要化前也用這裡的判斷，兩支腳本才不會一邊留一邊擋。
 // 語境：同一句（以「。！？」、空行、下一個清單項目、標題或 HTML 區塊標籤為界，可跨行）有 LANDING_CHECK_CONTEXT 的字樣，而且
 //   - 串在一起的條目（以「、／–～」相接）全都是 C-0～C-4（「C-1–C-8」「F-1、C-2」照舊算條目）；
@@ -92,6 +115,9 @@ export const unmaskLandingCheckIds = text => text.replaceAll(`C${LANDING_CHECK_M
 
 // HTML 去標籤：區塊標籤當句界（給 maskLandingCheckIds），其他標籤換成空白；不跨行，行號不變
 const stripTags = text => text.replace(/<\/?(?:p|li|ul|ol|h[1-6]|div|blockquote|table|tr|td|th)\b[^>\n]*>/g, '\u2029').replace(/<[^>\n]*>/g, ' ')
+
+// HTML 註解只拿掉 <!-- 與 -->、內文照樣比對（原始檔的註解會跟著匯出），要在 stripTags 之前做
+const uncomment = text => text.replace(/<!--|-->/g, ' ')
 
 const isReleases = file => /(^|\/)versions\/releases\.(md|html)$/.test(file.split(path.sep).join('/'))
 
@@ -178,7 +204,7 @@ function isConfig(file) {
   return /(^|\/)\.vitepress\/[^/]+\.(mts|ts|json)$/.test(p)
 }
 
-// 例外（D200）：站點根目錄的 README.md 是公開 repo 的首頁，要放 Portal 自己的公開網址。
+// 例外：站點根目錄的 README.md 是公開 repo 的首頁，要放 Portal 自己的公開網址。
 // 「站點根目錄」= 旁邊有 .vitepress/config.mts 的目錄，所以 site/README.md 與匯出後公開 repo 根的 README.md 都成立；
 // 子目錄的 README.md 與其他 .md 照舊不放行
 function isSiteReadme(file) {
@@ -202,14 +228,15 @@ function main() {
     counts.set(category, (counts.get(category) || 0) + 1)
   }
 
-  let internalFiles = 0
+  let releaseFiles = 0
   for (const file of files) {
-    const internal = args.internalIds && isReleases(file)
-    if (internal) internalFiles++
+    const releases = isReleases(file)
+    if (args.internalIds && releases) releaseFiles++
+    const internalPatterns = releases ? [...INTERNAL_NUMBER_PATTERNS, ...INTERNAL_RELEASE_PATTERNS] : INTERNAL_NUMBER_PATTERNS
     const content = fs.readFileSync(file, 'utf8')
     const lines = content.split(/\r?\n/)
-    // 內部 id 類別比對的文字：HTML 先去標籤（資產檔名的雜湊不算），再把落點檢查名遮掉（整份一起判斷，句子可跨行）
-    const internalLines = internal ? maskLandingCheckIds(file.endsWith('.html') ? stripTags(content) : content).split(/\r?\n/) : []
+    // 內部 id 類別比對的文字：HTML 先去標籤（資產檔名的雜湊不算，註解內文留著），再把落點檢查名遮掉（整份一起判斷，句子可跨行）
+    const internalLines = args.internalIds ? maskLandingCheckIds(file.endsWith('.html') ? stripTags(uncomment(content)) : content).split(/\r?\n/) : []
     lines.forEach((raw, i) => {
       let line = raw
       for (const entry of allow) {
@@ -226,16 +253,19 @@ function main() {
       for (const { category, re } of terms) {
         for (const _ of line.matchAll(re)) add(file, i + 1, category)
       }
-      if (internal) {
-        for (const [category, re] of INTERNAL_ID_PATTERNS) {
-          for (const _ of internalLines[i].matchAll(re)) add(file, i + 1, category)
+      if (args.internalIds) {
+        for (const [category, re] of internalPatterns) {
+          for (const m of internalLines[i].matchAll(re)) {
+            if (!releases && EXAMPLE_IDS.has(m[0])) continue
+            add(file, i + 1, category)
+          }
         }
       }
     })
   }
 
   for (const h of hits) console.log(h)
-  const internalNote = args.internalIds ? `（內部 id 類別套用 ${internalFiles} 個更版紀錄檔）` : ''
+  const internalNote = args.internalIds ? `（內部 id：編號類套用全部 ${files.length} 個檔案，其他類別套用 ${releaseFiles} 個更版紀錄檔）` : ''
   console.log(`deid-scan：掃描 ${files.length} 個檔案，命中 ${hits.length}${internalNote}`)
   for (const [category, n] of [...counts].sort()) console.log(`  ${category}: ${n}`)
   process.exit(hits.length ? 1 : 0)

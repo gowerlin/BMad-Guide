@@ -58,7 +58,7 @@ PORTAL_BASE=/Control-Tower/ PORTAL_SITE_URL=https://<owner>.github.io/Control-To
 | 腳本 | 用途 |
 |---|---|
 | `scripts/sync-ct-release.mjs` | 維護者本機用：CT 發版後同步版本資料與更版紀錄頁，產出後自動掃描；要先設定下面兩個變數 |
-| `scripts/deid-scan.mjs` | 去識別掃描：找出不該公開的路徑、權杖、識別碼等，掃描 `.md`、`.yml`、`.gitignore` 等文字檔（二進位檔跳過）。`npm run deid` 掃原始檔與 `.vitepress/dist/`，並對更版紀錄加掃內部編號（`--internal-ids`） |
+| `scripts/deid-scan.mjs` | 去識別掃描：找出不該公開的路徑、權杖、識別碼等，掃描 `.md`、`.yml`、`.gitignore` 等文字檔（二進位檔跳過）。`npm run deid` 掃原始檔與 `.vitepress/dist/`，並加掃內部編號（`--internal-ids`：工單、決策等編號對全站生效，頁面上的範例編號另列允許清單；commit SHA、BAT 契約條目等只對更版紀錄生效） |
 | `scripts/build-artifact.mjs` | `npm run build:artifact`：建置不需要伺服器路由的靜態預覽包（`dist-artifact/`） |
 
 去識別掃描要用的私有詞表與允許清單不在本 repo。以環境變數指定兩個檔案的路徑（也可以改用 `--terms`／`--allow` 參數，參數優先）：
