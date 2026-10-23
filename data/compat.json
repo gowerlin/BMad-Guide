@@ -1,0 +1,124 @@
+{
+  "_note": "相容版本對照（PORTAL-PLAN § 3.10）。B4 補資料列：每列 feature、ct（CT 起始版本）、bat／codex（最低版本，不需要就省略）、note、source（權威出處：檔案 § 章節）。CT 發版時相容性有變才改（LR-002）。",
+  "ctVersion": "5.12.2",
+  "rows": [
+    {
+      "feature": "帶前綴的工單 ID 走結構化派工（--workorder 帶前綴）",
+      "ct": "v5.0.6",
+      "bat": ">= 0.5.9-pre.1",
+      "note": "這個 BAT 版本出自 BAT 的 fork 版。舊 BAT：塔台單次降級為 --prompt 派工，並明示「已降級」與原因；不以錯誤訊息字串判斷版本。",
+      "source": "auto-session.md § 舊版 BAT 降級規則（帶前綴 --workorder）；yolo-mode.md § 相容性 › BAT / Worker 版本相容"
+    },
+    {
+      "feature": "收單後回收 Worker 分頁（--close-worker、worker_auto_close）",
+      "ct": "v5.1.0",
+      "bat": ">= 0.6.1-pre.3",
+      "note": "舊 BAT 回 exit 1：一行警告，照常收單。worker_auto_close 預設 off，不受影響。BAT README 的相容表寫 >= 0.6.1-pre.4，本表以 CT 端為準。",
+      "source": "CHANGELOG.md [5.1.0]；work-order-system.md § 收單後回收 Worker 分頁（worker_auto_close，v5.1.0+）；Guide bat-integration.md § 版本對照表"
+    },
+    {
+      "feature": "塔台分頁角色宣告（--set-role tower）",
+      "ct": "v5.2.0",
+      "bat": ">= 0.6.1-pre.6",
+      "note": "更舊的 BAT 回 exit 1，視為不支援：面板記「不支援（BAT 太舊）」，塔台照常啟動。",
+      "source": "auto-session.md § 依賴的 BAT 基礎設施、§ 塔台分頁角色宣告（--set-role tower，v5.2.0+）"
+    },
+    {
+      "feature": "每分頁範圍權杖與分頁角色權限",
+      "ct": "v5.2.4",
+      "bat": ">= 0.7.0-pre.1",
+      "note": "BAT_REMOTE_TOKEN 改成分頁專屬：Worker 分頁只能通知綁定的塔台，不能派工。舊 BAT 沒有角色限制，行為與 v5.2.3 相同。",
+      "source": "auto-session.md § 依賴的 BAT 基礎設施、§ 範圍權杖與分頁角色"
+    },
+    {
+      "feature": "worktree 隔離派工（--isolation worktree、CT_HOME 等 CT_* 變數）與合併工單",
+      "ct": "v5.3.0",
+      "bat": ">= 0.7.0-pre.2",
+      "note": "選用。舊 BAT 上隔離工單回 exit 1 時停下等使用者，不自動改成非隔離；非隔離工單不受影響。",
+      "source": "auto-session.md § 依賴的 BAT 基礎設施、§ worktree 隔離派工（--isolation worktree，v5.3.0+）"
+    },
+    {
+      "feature": "隔離工單回收（--worktree keep／remove）與 --worktree-status",
+      "ct": "v5.3.0",
+      "bat": ">= 0.7.0-pre.2",
+      "note": "--worktree-status 失敗時，改用 git 計算直接合併的判準。",
+      "source": "auto-session.md § 依賴的 BAT 基礎設施；Guide bat-integration.md § 版本對照表"
+    },
+    {
+      "feature": "BAT MCP 唯讀 tool（mcp__bat__*）",
+      "ct": "v5.3.0",
+      "bat": ">= 0.7.0-pre.2",
+      "note": "選用通道，目前沒有任何 CT 規則必須用它；沒有這組 tool 就直接走 helper 或讀檔案。BAT README 另註 Codex 分頁要 >= 0.7.0-pre.3。",
+      "source": "auto-session.md § 依賴的 BAT 基礎設施、§ BAT MCP 唯讀 tool（選用通道，v5.3.0+）"
+    },
+    {
+      "feature": "Worker 分頁回收後仍可查 --worktree-status（回傳帶 source）",
+      "ct": "v5.4.0",
+      "bat": ">= 0.7.0-pre.4",
+      "note": "成功回傳沒有 source 時，照舊在回收分頁之前查；回收後查不到（exit 3）就改用 git。",
+      "source": "auto-session.md § 依賴的 BAT 基礎設施；Guide bat-integration.md § 版本對照表"
+    },
+    {
+      "feature": "yolo 提問通道（Worker 送「T#### 提問」，在工單檔往返）",
+      "ct": "v5.5.0",
+      "note": "沒有新的 BAT 門檻，只用工單檔與 bat-notify.mjs。舊 Worker 不會提問，行為不變。",
+      "source": "yolo-mode.md § Worker 向塔台提問（v5.5.0+）、§ 相容性 › BAT / Worker 版本相容"
+    },
+    {
+      "feature": "斷點 D：查到 Worker 在等人（MCP 回報 blocked）",
+      "ct": "v5.5.0",
+      "bat": ">= 0.7.0-pre.4",
+      "note": "回傳沒有 blockedDetection 或 MCP 不可用時，斷點 D 不啟用，流程照常。",
+      "source": "yolo-mode.md § 斷點 D：Worker 等待使用者（v5.5.0+）、§ 相容性 › BAT / Worker 版本相容"
+    },
+    {
+      "feature": "blockedReason 準確（AskUserQuestion 回報 question、回答後立即清除）",
+      "ct": "v5.5.1",
+      "bat": ">= 0.7.0-pre.5",
+      "note": "0.7.0-pre.4 把提問報成 permission；CT 照原值顯示、措辭中性，邏輯相同。",
+      "source": "yolo-mode.md § 相容性 › BAT / Worker 版本相容；Guide bat-integration.md § 版本對照表"
+    },
+    {
+      "feature": "Worker 啟動確認（--wait-started、exit 8、MCP agentStarted）",
+      "ct": "v5.6.0",
+      "bat": ">= 0.7.0-pre.6",
+      "note": "舊 helper 回 exit 1 加 Unknown option '--wait-started'（沒有建立分頁）時，去掉參數重派一次，本 session 之後不再帶。exit 8 表示分頁已建立，不重派。",
+      "source": "auto-session.md § 依賴的 BAT 基礎設施、§ Worker 啟動確認（--wait-started，v5.6.0+）"
+    },
+    {
+      "feature": "yolo 提問走 BAT 結構化通道（--ask、--answer、bat_wait_question、bat_list_questions、blockedReason: tower）",
+      "ct": "v5.7.0",
+      "bat": ">= 0.7.0-pre.7",
+      "note": "題目仍先寫進工單（雙寫）。--ask 失敗、tool 不存在或沒有 pendingQuestions 時，回到工單檔往返，行為同 v5.6.1。",
+      "source": "auto-session.md § 依賴的 BAT 基礎設施；yolo-mode.md § Worker 向塔台提問 › BAT 通道（v5.7.0+）"
+    },
+    {
+      "feature": "codex 分頁的 OSC 7501（blockedDetection: osc、blockedReason: input，--wait-started 對 codex 生效）",
+      "ct": "v5.8.0",
+      "bat": ">= 0.7.0-pre.9",
+      "codex": ">= 0.163.0",
+      "note": "舊 BAT（≤ 0.7.0-pre.8）或較舊的 codex：blockedDetection: none、agentStarted: null、started: unknown，行為同 v5.7.2。",
+      "source": "auto-session.md § 依賴的 BAT 基礎設施；yolo-mode.md § 相容性 › BAT / Worker 版本相容"
+    },
+    {
+      "feature": "跨 session 選收件人（ListAgents 的「<工作區> · Tower」、claudeSessionName、bat_list_terminals scope: towers）",
+      "ct": "v5.9.0",
+      "bat": ">= 0.7.1-pre.1",
+      "note": "舊 BAT（≤ 0.7.0-pre.9）沒有分頁名稱與這兩個鍵，scope: towers 回 INVALID_ARGS；改請使用者轉交回覆稿，行為同 v5.8.1。",
+      "source": "auto-session.md § 依賴的 BAT 基礎設施；cross-project-coordination.md § 跨 session 選收件人（v5.9.0+）"
+    },
+    {
+      "feature": "同一張工單重派前，先回收舊 Worker 分頁（沿用 --close-worker，--delay-ms 0）",
+      "ct": "v5.12.0",
+      "bat": ">= 0.6.1-pre.3",
+      "note": "沒有新的 BAT 門檻，與 v5.1.0 相同。舊 BAT 回 exit 1：一行提示後照常派工，本 session 不再嘗試。BAT README 的相容表寫 >= 0.6.1-pre.4，本表以 CT 端為準。",
+      "source": "work-order-system.md § 重派前回收舊 Worker 分頁（v5.12.0+）；Guide bat-integration.md § 版本對照表"
+    },
+    {
+      "feature": "Level 2：外部 bmad-guide 的 BMad workflow 路由",
+      "ct": "v5.0.3",
+      "note": "CT 不內嵌 BMad 內容，只偵測外部安裝的 bmad-guide；沒裝或查不到就靜默改用手動填的 workflow 欄位。bmad-guide 顯示 BMad-Method v6.10.0 或更新時，塔台路由改用 v6.10 的替代名稱（例如 bmad-investigate 已退役）。Portal 內容以 bmad-guide v6.12.4 為準。",
+      "source": "enhancement-integration.md § Level 2：外部 bmad-guide（偵測、BMad v6.10 Routing Overrides）；version-governance.md § 歷史版號表（v5.0.3）"
+    }
+  ]
+}

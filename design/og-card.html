@@ -1,0 +1,112 @@
+<!doctype html>
+<!--
+  分享卡 og-card.png（1200×630）的原稿（PORTAL-PLAN § 5.3）。只在建置時用，不發布（config.mts 的 srcExclude 排除 design/）。
+  重新產生：用 headless Chrome 以 1200×630 視窗截圖，輸出到 public/og-card.png，例如
+    chrome --headless=new --window-size=1200,630 --hide-scrollbars --screenshot=<site>/public/og-card.png file:///<site>/design/og-card.html
+  字體來自 Google Fonts；截圖前要能連網，否則會退回系統字體。
+-->
+<html lang="zh-TW">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1200, initial-scale=1" />
+    <title>CT Portal 分享卡</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Chiron+Hei+HK:wght@900&family=Martian+Mono:wght@400&family=Noto+Sans+TC:wght@500;700&display=swap"
+    />
+    <style>
+      :root {
+        --night: #10172e;
+        --grid: #2a3f6b;
+        --ink: #e8ebf7;
+        --muted: #9aa5c4;
+        --signal: #fbbf24;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+        background: var(--night);
+      }
+
+      body {
+        display: grid;
+        grid-template-columns: 360px 1fr;
+        align-items: center;
+        gap: 56px;
+        padding: 0 96px;
+        color: var(--ink);
+        font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+        background-image:
+          linear-gradient(rgba(42, 63, 107, 0.32) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(42, 63, 107, 0.32) 1px, transparent 1px);
+        background-size: 48px 48px;
+      }
+
+      svg {
+        width: 360px;
+        height: 360px;
+        color: var(--ink);
+      }
+
+      .eyebrow {
+        margin: 0 0 20px;
+        font-family: 'Martian Mono', monospace;
+        font-size: 22px;
+        letter-spacing: 0.04em;
+        color: var(--signal);
+      }
+
+      h1 {
+        margin: 0;
+        font-family: 'Chiron Hei HK', 'Noto Sans TC', sans-serif;
+        font-size: 64px;
+        font-weight: 900;
+        line-height: 1.2;
+        letter-spacing: 0.02em;
+      }
+
+      h1 span {
+        display: block;
+      }
+
+      .sub {
+        margin: 28px 0 0;
+        font-size: 26px;
+        font-weight: 500;
+        line-height: 1.6;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <svg viewBox="0 0 512 512" aria-hidden="true">
+      <g fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M256 118v34" />
+        <path d="M168 152h176l-26 64H194z" />
+        <path d="M214 184h84" stroke-width="10" />
+        <path d="M214 216l-12 182M298 216l12 182" />
+        <path d="M150 398h212" />
+        <path d="M222 262h68M218 310h76M214 358h84" stroke-width="10" />
+      </g>
+      <circle cx="256" cy="86" r="26" fill="#fbbf24" />
+      <g fill="none" stroke="#fbbf24" stroke-width="12" stroke-linecap="round">
+        <path d="M206 50a64 64 0 0 0 0 72M306 50a64 64 0 0 1 0 72" />
+      </g>
+    </svg>
+    <div>
+      <p class="eyebrow">BMad Control Tower</p>
+      <h1><span>一個塔台，</span><span>指揮整隊 Agent</span></h1>
+      <p class="sub">每個決定都留在檔案裡。</p>
+    </div>
+  </body>
+</html>

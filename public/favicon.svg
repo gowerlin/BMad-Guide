@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- logo 的簡化版：只留塔身與信標，16px 時仍可辨識（PORTAL-PLAN § 5.3） -->
+  <rect width="64" height="64" rx="14" fill="#10172e" />
+  <circle cx="32" cy="14" r="6" fill="#fbbf24" />
+  <g fill="none" stroke="#e8ebf7" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 24h28l-5 10H23z" />
+    <path d="M25 34l-3 20M39 34l3 20" />
+    <path d="M16 54h32" />
+  </g>
+</svg>

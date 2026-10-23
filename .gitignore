@@ -1,0 +1,6 @@
+# PORTAL-PLAN § 8.3
+node_modules/
+.vitepress/cache/
+.vitepress/dist/
+dist-artifact/
+artifact-files.json
