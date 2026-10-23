@@ -6,7 +6,7 @@
 // 1. 版號一致性：參數 = CT control-tower/SKILL.md 的版號註解 = Guide SKILL.md 的版號註解，否則報錯停止（§ 6.3）
 // 2. 更新 .vitepress/ct-release.json（CT 版號、Guide 版號、發布日、zip 名稱）
 // 3. 從 CT CHANGELOG 重新產生 versions/releases.md：近 10 版全文，更早的連到演進史（G0 Q8 (b)）；
-//    先做內部 id 摘要化（通用規則，見 summarizeIds；刪 SHA 後清掉空括號），再套 data/release-rewrites.json 的逐筆改寫
+//    先做內部 id 摘要化（通用規則，見 summarizeIds；刪 SHA 後清掉空括號；落點檢查名 C-0～C-4 保留），再套 data/release-rewrites.json 的逐筆改寫
 // 4. 對產出的 releases.md 跑去識別掃描（詞表在 site/ 外，含「內部 id」選用類別）；命中就報錯停止，要人工改寫後再跑
 //
 // 私有詞表與允許清單的路徑由環境變數 PORTAL_DEID_TERMS／PORTAL_DEID_ALLOW 傳入；沒設定就在寫檔前報錯停止。
@@ -16,6 +16,7 @@ import { spawnSync } from 'node:child_process'
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { maskLandingCheckIds, unmaskLandingCheckIds } from './deid-scan.mjs'
 
 const FULL_ENTRIES = 10
 const SITE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
@@ -29,7 +30,8 @@ const REWRITES = path.join(SITE, 'data', 'release-rewrites.json')
 // 內部 id（D184）：工單號、塔台決策號、BUG／PLAN 編號。CHANGELOG 給維護者看，公開站不需要這些出處
 const ID_SOURCE = String.raw`\b(?:CT-T[0-9]{3}|T[0-9]{4}|D[0-9]{3}|BUG-[0-9]{3}|PLAN-[0-9]{3})\b`
 const ID = new RegExp(ID_SOURCE)
-// 回函與契約條目（D194）：BAT 驗收回函的 F-n／O-n、BAT 介面契約的 C-n（含 C-1–C-8 範圍），以「、／–」串接
+// 回函與契約條目（D194）：BAT 驗收回函的 F-n／O-n、BAT 介面契約的 C-n（含 C-1–C-8 範圍），以「、／–」串接。
+// 落點檢查名 C-0～C-4 同形，摘要化前先用 deid-scan.mjs 的 maskLandingCheckIds 遮掉（T0264），這裡的規則就碰不到
 const REF_SOURCE = String.raw`\b[FOC]-[0-9]+\b`
 const REF = new RegExp(REF_SOURCE)
 const REF_LIST = String.raw`${REF_SOURCE}(?:[、／–]${REF_SOURCE})*`
@@ -203,7 +205,8 @@ function summarizeIds(entries) {
         return chunk.lines
       }
       if (inFence) return chunk.lines
-      let text = chunk.lines.join('\n')
+      // ⓪ 落點檢查語境的 C-0～C-4 不是契約條目：先遮掉，處理完再換回（判斷與 deid-scan.mjs 共用）
+      let text = maskLandingCheckIds(chunk.lines.join('\n'))
       // ① 出處尾註「範圍 D###；T####。」
       text = text.replace(new RegExp(`[ \\t]*範圍 (?=[^。\\n]*${ID_SOURCE})[^。\\n]*。`, 'g'), () => {
         stats.tails++
@@ -233,7 +236,7 @@ function summarizeIds(entries) {
       })
       // ④-2 刪 SHA 後留下的空括號
       text = stripEmptyNotes(text, stats)
-      return text.split('\n')
+      return unmaskLandingCheckIds(text).split('\n')
     })
   }
   return stats

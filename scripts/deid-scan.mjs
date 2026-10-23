@@ -6,6 +6,7 @@
 // --internal-ids：選用類別「內部 id」（D184），只對更版紀錄（versions/releases.md 與建置出的 releases.html）生效：
 // 工單號、決策號、BUG／PLAN 編號、commit SHA、BAT 內部文件路徑、BAT 回函與介面契約條目（F-n、O-n、C-n）、
 // 內部階段名（「智能 P2」這類）。HTML 先去掉標籤再比對（資產檔名的雜湊不算）。
+// 落點檢查名 C-0～C-4 在落點檢查語境裡不算條目（maskLandingCheckIds，sync-ct-release.mjs 共用）。
 //
 // 只輸出「檔案:行:類別」與各類計數，不輸出命中的原文（避免把敏感值印進日誌）。命中數 > 0 時 exit 1。
 // 詞表與允許清單放在 site/ 外（§ 7.1），以參數或環境變數 PORTAL_DEID_TERMS／PORTAL_DEID_ALLOW 傳入（參數優先）；
@@ -53,6 +54,45 @@ const INTERNAL_ID_PATTERNS = [
   ['內部 id-回函／契約條目', /\b[FOC]-[0-9]+\b/g],
   ['內部 id-內部階段名', /智能 P[0-9]+/g]
 ]
+
+// 落點檢查名（D198、T0264）：CT 的落點檢查（ct-exec/SKILL.md § Landing Zone Check）叫 C-0～C-4，和 BAT 介面契約條目 C-n 同形。
+// 落點檢查語境裡的不算內部條目。sync-ct-release.mjs 摘要化前也用這裡的判斷，兩支腳本才不會一邊留一邊擋。
+// 語境：同一句（以「。！？」、空行、下一個清單項目、標題或 HTML 區塊標籤為界，可跨行）有 LANDING_CHECK_CONTEXT 的字樣，而且
+//   - 串在一起的條目（以「、／–～」相接）全都是 C-0～C-4（「C-1–C-8」「F-1、C-2」照舊算條目）；
+//   - 前面同一段沒有緊接「契約」「回函」（「BAT 契約 C-1」照舊算條目）
+export const LANDING_CHECK_CONTEXT = /落點|Landing Zone/i // 「落點」含「落點檢查」
+const REF_CHAIN = /\b[FOC]-[0-9]+\b(?:[ \t]*[、／–～~][ \t]*[FOC]-[0-9]+\b)*/g
+const SENTENCE_BOUNDARY = /[。！？\u2029]|\n[ \t]*\n|\n(?=[ \t]*(?:[-*+]|[0-9]+\.)[ \t]|[ \t]*#)/g
+// 判定為落點檢查名的 C-n 換成「C」＋mask＋數字（長度不變，不再符合 [FOC]-n）；unmaskLandingCheckIds 換回
+export const LANDING_CHECK_MASK = '\uE000'
+
+function sentenceAround(text, start, end) {
+  let from = 0
+  let to = text.length
+  for (const m of text.matchAll(SENTENCE_BOUNDARY)) {
+    if (m.index + m[0].length <= start) from = m.index + m[0].length
+    else if (m.index >= end) {
+      to = m.index
+      break
+    }
+  }
+  return text.slice(from, to)
+}
+
+export function maskLandingCheckIds(text) {
+  return text.replace(REF_CHAIN, (chain, offset) => {
+    if (!chain.match(/[FOC]-[0-9]+/g).every(id => /^C-[0-4]$/.test(id))) return chain
+    if (/(?:契約|回函)[^，；、。！？\n]{0,6}$/.test(text.slice(Math.max(0, offset - 12), offset))) return chain
+    if (!LANDING_CHECK_CONTEXT.test(sentenceAround(text, offset, offset + chain.length))) return chain
+    return chain.replace(/C-/g, `C${LANDING_CHECK_MASK}`)
+  })
+}
+
+export const unmaskLandingCheckIds = text => text.replaceAll(`C${LANDING_CHECK_MASK}`, 'C-')
+
+// HTML 去標籤：區塊標籤當句界（給 maskLandingCheckIds），其他標籤換成空白；不跨行，行號不變
+const stripTags = text => text.replace(/<\/?(?:p|li|ul|ol|h[1-6]|div|blockquote|table|tr|td|th)\b[^>\n]*>/g, '\u2029').replace(/<[^>\n]*>/g, ' ')
+
 const isReleases = file => /(^|\/)versions\/releases\.(md|html)$/.test(file.split(path.sep).join('/'))
 
 function usage(message) {
@@ -166,7 +206,10 @@ function main() {
   for (const file of files) {
     const internal = args.internalIds && isReleases(file)
     if (internal) internalFiles++
-    const lines = fs.readFileSync(file, 'utf8').split(/\r?\n/)
+    const content = fs.readFileSync(file, 'utf8')
+    const lines = content.split(/\r?\n/)
+    // 內部 id 類別比對的文字：HTML 先去標籤（資產檔名的雜湊不算），再把落點檢查名遮掉（整份一起判斷，句子可跨行）
+    const internalLines = internal ? maskLandingCheckIds(file.endsWith('.html') ? stripTags(content) : content).split(/\r?\n/) : []
     lines.forEach((raw, i) => {
       let line = raw
       for (const entry of allow) {
@@ -184,9 +227,8 @@ function main() {
         for (const _ of line.matchAll(re)) add(file, i + 1, category)
       }
       if (internal) {
-        const text = file.endsWith('.html') ? line.replace(/<[^>]*>/g, ' ') : line
         for (const [category, re] of INTERNAL_ID_PATTERNS) {
-          for (const _ of text.matchAll(re)) add(file, i + 1, category)
+          for (const _ of internalLines[i].matchAll(re)) add(file, i + 1, category)
         }
       }
     })
