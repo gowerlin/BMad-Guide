@@ -6,7 +6,7 @@
 // 1. 版號一致性：參數 = CT control-tower/SKILL.md 的版號註解 = Guide SKILL.md 的版號註解，否則報錯停止（§ 6.3）
 // 2. 更新 .vitepress/ct-release.json（CT 版號、Guide 版號、發布日、zip 名稱）
 // 3. 從 CT CHANGELOG 重新產生 versions/releases.md：近 10 版全文，更早的連到演進史（G0 Q8 (b)）；
-//    先做內部 id 摘要化（通用規則，見 summarizeIds），再套 data/release-rewrites.json 的逐筆改寫
+//    先做內部 id 摘要化（通用規則，見 summarizeIds；刪 SHA 後清掉空括號），再套 data/release-rewrites.json 的逐筆改寫
 // 4. 對產出的 releases.md 跑去識別掃描（詞表在 site/ 外，含「內部 id」選用類別）；命中就報錯停止，要人工改寫後再跑
 //
 // 私有詞表與允許清單的路徑由環境變數 PORTAL_DEID_TERMS／PORTAL_DEID_ALLOW 傳入；沒設定就在寫檔前報錯停止。
@@ -118,12 +118,23 @@ function renderEntry(entry) {
   return [`## ${entry.version} <small>${entry.date}</small> {#${anchor}}`, '', ...body].join('\n')
 }
 
-// 括號註記：內容依「，；、／」與「 / 」切段，含內部 id 或回函／契約條目的段刪掉；全部刪光就連括號一起刪。
-// 開頭是「條目：說明」的只拿掉「條目：」。行內 code span 先換成佔位符，切段時不會被拆開
-function stripIdNotes(text, stats) {
+// 行內 code span 換成佔位符（\u0000n\u0000），處理完再換回；括號比對時不會碰到 code span 裡的內容
+function codeSpanGuard() {
   const spans = []
   const guard = s => s.replace(/(`+)[^`\n]*?\1/g, m => `\u0000${spans.push(m) - 1}\u0000`)
   const restore = s => s.replace(/\u0000(\d+)\u0000/g, (_, i) => spans[Number(i)])
+  return { guard, restore }
+}
+
+// 整個括號刪掉後，英數（或 code span）緊接中文時補一個空格（「O-3（…）與」→「O-3 與」），其他情況直接刪
+function removedNoteGap(prev = '', next = '') {
+  return /[A-Za-z0-9`\u0000]/.test(prev) && /[一-鿿]/.test(next) ? ' ' : ''
+}
+
+// 括號註記：內容依「，；、／」與「 / 」切段，含內部 id 或回函／契約條目的段刪掉；全部刪光就連括號一起刪。
+// 開頭是「條目：說明」的只拿掉「條目：」。行內 code span 先換成佔位符，切段時不會被拆開
+function stripIdNotes(text, stats) {
+  const { guard, restore } = codeSpanGuard()
   let out = guard(text)
   const note = (open, close) => new RegExp(`${open}([^${open}${close}]*)${close}`, 'g')
   for (const [open, close, re] of [['（', '）', note('（', '）')], ['(', ')', note('\\(', '\\)')]]) {
@@ -147,19 +158,27 @@ function stripIdNotes(text, stats) {
           else kept.push(kept.length ? parts[i - 1] : '', parts[i])
         }
         if (kept.length) return `${open}${kept.join('')}${close}`
-        // 整個括號刪掉後，英數緊接中文時補一個空格（「O-3（…）與」→「O-3 與」）
-        const prev = str[offset - 1] ?? ''
-        const next = str[offset + whole.length] ?? ''
-        return /[A-Za-z0-9`\u0000]/.test(prev) && /[一-鿿]/.test(next) ? ' ' : ''
+        return removedNoteGap(str[offset - 1], str[offset + whole.length])
       })
     } while (out !== before)
   }
   return restore(out)
 }
 
+// 刪 SHA 後只剩空白的括號（「pre.3（`f26b7641`）已有」→「pre.3 已有」）整個刪掉，空格規則同 stripIdNotes。
+// 行內 code span 裡的 () 不動（`fn()`）
+function stripEmptyNotes(text, stats) {
+  const { guard, restore } = codeSpanGuard()
+  const out = guard(text).replace(/（\s*）|\(\s*\)/g, (whole, offset, str) => {
+    stats.emptyNotes++
+    return removedNoteGap(str[offset - 1], str[offset + whole.length])
+  })
+  return restore(out)
+}
+
 // 內部 id 摘要化（通用規則，D184）。只處理 fenced code block 以外的文字；回傳各類處數
 function summarizeIds(entries) {
-  const stats = { tails: 0, notes: 0, batPaths: 0, shas: 0, refs: 0, stages: 0 }
+  const stats = { tails: 0, notes: 0, batPaths: 0, shas: 0, refs: 0, stages: 0, emptyNotes: 0 }
   for (const entry of entries) {
     const chunks = []
     let current = []
@@ -205,6 +224,8 @@ function summarizeIds(entries) {
         stats.shas++
         return ''
       })
+      // ④-2 刪 SHA 後留下的空括號
+      text = stripEmptyNotes(text, stats)
       return text.split('\n')
     })
   }
@@ -275,7 +296,7 @@ function main() {
   const idTotal = ids.tails + ids.notes + ids.batPaths + ids.shas + ids.refs + ids.stages
   console.log(
     `[sync-ct-release] 內部 id 摘要化 ${idTotal} 處：出處尾註 ${ids.tails}、括號註記 ${ids.notes}、BAT 文件路徑 ${ids.batPaths}、commit SHA ${ids.shas}、` +
-      `回函／契約條目 ${ids.refs}、內部階段名 ${ids.stages}；` +
+      `回函／契約條目 ${ids.refs}、內部階段名 ${ids.stages}；刪 SHA 後清掉空括號 ${ids.emptyNotes} 處；` +
       `改寫表 ${rewritten} 處`
   )
   const older = entries.slice(FULL_ENTRIES)
