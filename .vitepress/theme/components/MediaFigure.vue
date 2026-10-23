@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// 真實截圖（沿用 BAT）：補充、不取代旁邊的示意元件。素材一律用示範資料（§ 7.2），
+// 真實截圖（沿用 BAT）：補充、不取代旁邊的示意元件。素材一律用示範資料，
 // 放在 site/public/media/。點圖開原尺寸，手機上看得清楚小字。
 import { withBase } from 'vitepress'
 

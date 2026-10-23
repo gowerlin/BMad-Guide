@@ -3,7 +3,7 @@
 //
 //   node scripts/sync-ct-release.mjs <版號>        # 例：node scripts/sync-ct-release.mjs 5.12.2
 //
-// 1. 版號一致性：參數 = CT control-tower/SKILL.md 的版號註解 = Guide SKILL.md 的版號註解，否則報錯停止（§ 6.3）
+// 1. 版號一致性：參數 = CT control-tower/SKILL.md 的版號註解 = Guide SKILL.md 的版號註解，否則報錯停止
 // 2. 更新 .vitepress/ct-release.json（CT 版號、Guide 版號、發布日、zip 名稱）
 // 3. 從 CT CHANGELOG 重新產生 versions/releases.md：近 10 版全文，更早的連到演進史；
 //    先做內部 id 摘要化（通用規則，見 summarizeIds；刪 SHA 後清掉空括號；落點檢查名 C-0～C-4 保留），再套 data/release-rewrites.json 的逐筆改寫
@@ -357,7 +357,7 @@ function main() {
     [path.join(SITE, 'scripts', 'deid-scan.mjs'), '--terms', path.resolve(terms), '--allow', path.resolve(allow), '--internal-ids', RELEASES_MD],
     { stdio: 'inherit' }
   )
-  if (scan.status !== 0) fail('releases.md 去識別掃描有命中：請把命中的條目改寫或摘要化後再跑（§ 6.1）')
+  if (scan.status !== 0) fail('releases.md 去識別掃描有命中：請把命中的條目改寫或摘要化後再跑')
 }
 
 main()

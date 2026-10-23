@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { withBase } from 'vitepress'
 
-// 沿用 BAT 的 FeatureGrid，資料集換成 CT 內容（§ 5.4）。
+// 沿用 BAT 的 FeatureGrid，資料集換成 CT 內容。
 interface Feature {
   title: string
   body: string
@@ -61,7 +61,7 @@ const ROUTES: Feature[] = [
   }
 ]
 
-// /deep/ 總覽：設計理念 7 篇（§ 4.1）
+// /deep/ 總覽：設計理念 7 篇
 const PRINCIPLES: Feature[] = [
   { title: '認知作業系統', body: 'CT 是 Cognitive OS，不是 workflow 工具：檔案、context window 與無狀態呼叫的對應。', link: '/deep/principles/cognitive-os' },
   { title: '檔案即真相來源', body: '為什麼不靠對話記憶；frontmatter 是機器的事實來源，先寫回報再改狀態。', link: '/deep/principles/files-as-truth' },
@@ -72,7 +72,7 @@ const PRINCIPLES: Feature[] = [
   { title: '會學習的系統', body: '從觀察到 Playbook 再到 Skill，也讓系統公開質疑自己。', link: '/deep/principles/learning' }
 ]
 
-// /deep/ 總覽：功能深入 11 篇（§ 4.2）
+// /deep/ 總覽：功能深入 11 篇
 const FEATURES: Feature[] = [
   { title: '工單系統', body: '編號、粒度、模板欄位、overlap check 與回報處理。', link: '/deep/features/work-orders' },
   { title: '派工：auto-session 與 BAT', body: '四種派工模式、成功判讀、啟動確認與降級鏈。', link: '/deep/features/dispatch' },

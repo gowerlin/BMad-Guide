@@ -1,6 +1,6 @@
-// 沿用 BAT 站的結構（§ 5.1）：extends DefaultTheme、enhanceApp 註冊元件，元件清單照 § 5.4。
+// 沿用 BAT 站的結構：extends DefaultTheme、enhanceApp 註冊元件。
 // 字體走 Google Fonts（Noto Sans TC、Martian Mono、Chiron Hei HK），所以用不打包 Inter 的 theme-without-fonts；
-// Artifact 預覽包因此少 14 個字體檔（§ 8.4 檔數限制）。
+// Artifact 預覽包因此少 14 個字體檔（Artifact 有檔數限制）。
 import DefaultTheme from 'vitepress/theme-without-fonts'
 import type { Theme } from 'vitepress'
 import AutonomyDial from './components/AutonomyDial.vue'

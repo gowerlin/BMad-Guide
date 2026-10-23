@@ -11,7 +11,7 @@
 // 落點檢查名 C-0～C-4 在落點檢查語境裡不算條目（maskLandingCheckIds，sync-ct-release.mjs 共用）。
 //
 // 只輸出「檔案:行:類別」與各類計數，不輸出命中的原文（避免把敏感值印進日誌）。命中數 > 0 時 exit 1。
-// 詞表與允許清單放在 site/ 外（§ 7.1），以參數或環境變數 PORTAL_DEID_TERMS／PORTAL_DEID_ALLOW 傳入（參數優先）；
+// 詞表與允許清單放在 site/ 外（不進公開 repo），以參數或環境變數 PORTAL_DEID_TERMS／PORTAL_DEID_ALLOW 傳入（參數優先）；
 // 兩個都沒有就報錯結束（exit 2），不會略過掃描。檔案格式見各檔開頭的註解。
 //
 // 掃描範圍：EXTENSIONS 的副檔名，以及沒有副檔名的檔案（含 .gitignore 這類點開頭的檔名）；
@@ -28,7 +28,7 @@ const SKIP_UNLESS_ROOT = new Set(['dist', 'dist-artifact'])
 // 不掃的檔案：鎖檔只有套件名稱與雜湊；規劃文件不公開，而且本身就列出這裡的正則
 const SKIP_FILES = new Set(['package-lock.json', 'PORTAL-PLAN.md'])
 
-// 類別編號對應 § 7.1；1、2 另有私有詞表
+// 類別依編號排列；1、2 另有私有詞表
 const PATTERNS = [
   ['1-專案名', /\b20[0-9]{2}_[A-Za-z][A-Za-z0-9_-]+/g],
   ['3-個人路徑', /([A-Z]:[\\/]+|\/[a-z]\/)Users[\\/]/gi],
@@ -201,7 +201,7 @@ function collect(target, isRoot, out) {
 }
 
 // 建置產出（dist、dist-artifact）裡的網址常數是設定值組出來的連結，允許出現；
-// 原始檔只允許寫在 .vitepress/ 的設定裡（§ 7.1：內文不得手寫這些網址）
+// 原始檔只允許寫在 .vitepress/ 的設定裡（內文不得手寫這些網址）
 function isBuildOutput(file) {
   const p = file.split(path.sep).join('/')
   return /(^|\/)(\.vitepress\/dist|dist-artifact)\//.test(p)

@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import CardTable from './CardTable.vue'
 import compat from '../../../data/compat.json'
 
-// 相容版本對照（§ 3.10、§ 5.4）：讀 data/compat.json，桌面是表格、窄螢幕是卡片（交給 CardTable）。
+// 相容版本對照：讀 data/compat.json，桌面是表格、窄螢幕是卡片（交給 CardTable）。
 // 資料由 B4 補（每一列都要有出處）；資料檔改了不用動元件。
 interface CompatRow {
   feature: string

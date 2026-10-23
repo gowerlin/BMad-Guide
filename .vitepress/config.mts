@@ -13,17 +13,17 @@ export interface CtRelease {
 }
 
 export interface ThemeConfig extends DefaultTheme.Config {
-  /** scripts/sync-ct-release.mjs 產生的版本資料（§ 6.1） */
+  /** scripts/sync-ct-release.mjs 產生的版本資料 */
   ctRelease: CtRelease
-  /** BAT 站網址（結尾有 /）；Portal → BAT 的連結一律用它組（§ 2.4、§ 8.2），內文不手寫網址 */
+  /** BAT 站網址（結尾有 /）；Portal → BAT 的連結一律用它組，內文不手寫網址 */
   batSiteUrl: string
-  /** Artifact 預覽建置（§ 8.4）：沒有 client JS，元件只剩 SSR 的樣子 */
+  /** Artifact 預覽建置：沒有 client JS，元件只剩 SSR 的樣子 */
   artifact: boolean
 }
 
-// ---------- 設定值（§ 8.2） ----------
+// ---------- 設定值 ----------
 
-// BAT 站網址常數：只能寫在 .vitepress/ 的設定裡，由 site/ 外的允許清單豁免去識別掃描（§ 7.1）
+// BAT 站網址常數：只能寫在 .vitepress/ 的設定裡，由 site/ 外的允許清單豁免去識別掃描
 const DEFAULT_BAT_SITE_URL = 'https://gowerlin.github.io/better-agent-terminal/'
 // Artifact 預覽用的哨兵 base：build 完由 scripts/build-artifact.mjs 改寫成相對路徑
 const ARTIFACT_BASE = '/__ct__/'
@@ -70,7 +70,7 @@ function pageUrl(relativePath: string): string {
 }
 
 if (!IS_ARTIFACT && !SITE_URL) {
-  console.warn('\n[config] WARNING: 沒有設定 PORTAL_SITE_URL；不輸出 sitemap、og:url 與 og:image 的絕對網址（§ 8.2）\n')
+  console.warn('\n[config] WARNING: 沒有設定 PORTAL_SITE_URL；不輸出 sitemap、og:url 與 og:image 的絕對網址\n')
 }
 
 // ---------- nav 與 sidebar（不含 /contribute：回報與協助測試頁尚未提供） ----------
@@ -195,7 +195,7 @@ const sidebar: DefaultTheme.SidebarItem[] = [
   }
 ]
 
-// local search 的繁中翻譯（沿用 BAT 站）；Artifact 預覽沒有 client JS，不放搜尋（§ 8.4）
+// local search 的繁中翻譯（沿用 BAT 站）；Artifact 預覽沒有 client JS，不放搜尋
 const search: DefaultTheme.Config['search'] = {
   provider: 'local',
   options: {
@@ -260,7 +260,7 @@ export default () => {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     cleanUrls: !IS_ARTIFACT,
-    // Artifact 預覽：VitePress 實驗性 MPA 模式，頁面之間是一般連結、預設零 JS（§ 8.4 做法 ①）
+    // Artifact 預覽：VitePress 實驗性 MPA 模式，頁面之間是一般連結、預設零 JS
     mpa: IS_ARTIFACT,
 
     srcExclude: [
@@ -300,7 +300,7 @@ export default () => {
       batSiteUrl: BAT_SITE_URL,
       artifact: IS_ARTIFACT,
 
-      // logo.svg 的線條是 currentColor；放進 <img> 時跟不到頁面文字色，所以深色模式另給固定淺色線條的版本（§ 5.3）
+      // logo.svg 的線條是 currentColor；放進 <img> 時跟不到頁面文字色，所以深色模式另給固定淺色線條的版本
       logo: { light: '/logo.svg', dark: '/logo-dark.svg', alt: '' },
       siteTitle: 'Control Tower',
 

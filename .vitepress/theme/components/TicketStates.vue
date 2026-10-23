@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // 工單的狀態流轉（沿用 BAT；CT 的狀態列舉見 REF/work-order-template.md）：待派工 → 執行中（可暫停再恢復）→ 五種結果之一。
-// 符號與色沿用設計語言 § 4 的流程狀態（○ pending、✓ completed、✗ failed、awaiting-input 的藍點），
+// 符號與色沿用 BAT 設計語言 § 4 的流程狀態（○ pending、✓ completed、✗ failed、awaiting-input 的藍點），
 // 狀態一律「符號 + 文字」（錨點 A2），不只靠顏色。
 interface State {
   key: string

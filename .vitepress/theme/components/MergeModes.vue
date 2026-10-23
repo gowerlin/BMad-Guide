@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// 直接合併判準 → 三種合併模式（§ 4.2 F-5、§ 5.4）。
+// 直接合併判準 → 三種合併模式。
 // 來源：REF/merge-workorder.md § 三種模式、§ 塔台直接合併判準、§ 斷點 E。純 SSR。
 const CRITERIA = [
   'main 沒有前進，或只在 _ct-workorders/ 底下前進',

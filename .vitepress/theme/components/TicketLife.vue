@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// 一張工單的一生（CT 視角，§ 5.4）：BAT 版每步配 BAT 介面示意；Portal 版改成每步「塔台／Worker 各做什麼、你要做什麼、留下哪個檔案」。
+// 一張工單的一生（CT 視角）：BAT 版每步配 BAT 介面示意；Portal 版改成每步「塔台／Worker 各做什麼、你要做什麼、留下哪個檔案」。
 // 來源：GUIDE/references/work-order-lifecycle.md § 核心迴圈、§ 狀態機；SK/ct-exec § Phase 1～4；REF/work-order-system.md § 派發流程。
 // 純 SSR，沒有互動。
 interface Step {

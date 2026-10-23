@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// 三層資料（§ 4.1 P-4、§ 5.4）：Core Skills／Global／Project。
+// 三層資料：Core Skills／Global／Project。
 // 來源：REF/data-layer-architecture.md § 架構總覽、§ 核心原則（載入順序、覆蓋優先級、寫入規則）。純 SSR。
 interface Layer {
   id: string
