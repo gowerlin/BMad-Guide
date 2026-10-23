@@ -6,7 +6,7 @@ import bmadGuide from '../../../data/bmad-guide.json'
 
 // 目前版本（§ 5.4、§ 6.1）：讀 ct-release.json（scripts/sync-ct-release.mjs 產生，CT 與 Guide 版號一致才會寫入）。
 // BMad Guide 的版號跟 BMad-Method 走，另讀 data/bmad-guide.json（LR-003，D217）。
-// inline：一行徽章，可放在頁首或段落裡；block：/versions/ 用的明細。
+// inline：一行徽章，只放版號（發布日在 CtDownload 與 block 已有，D226）；block：/versions/ 用的明細。
 withDefaults(defineProps<{ variant?: 'inline' | 'block' }>(), { variant: 'inline' })
 
 const { theme } = useData<ThemeConfig>()
@@ -19,8 +19,6 @@ const release = computed(() => theme.value.ctRelease)
     <span>CT v{{ release.ctVersion }}</span>
     <span class="vb-sep" aria-hidden="true">·</span>
     <span>Guide v{{ release.guideVersion }}</span>
-    <span class="vb-sep" aria-hidden="true">·</span>
-    <span>{{ release.releasedAt }}</span>
     <span class="vb-sep" aria-hidden="true">·</span>
     <span>BMad Guide v{{ bmadGuide.version }}</span>
   </span>

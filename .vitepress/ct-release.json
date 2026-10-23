@@ -1,8 +1,8 @@
 {
-  "ctVersion": "5.12.2",
-  "guideVersion": "5.12.2",
-  "releasedAt": "2026-10-22",
-  "zip": "BMad-Control-Tower-v5.12.2.zip",
-  "guideZip": "control-tower-guide-v5.12.2.zip",
-  "changelogEntries": 57
+  "ctVersion": "5.12.3",
+  "guideVersion": "5.12.3",
+  "releasedAt": "2026-10-23",
+  "zip": "BMad-Control-Tower-v5.12.3.zip",
+  "guideZip": "control-tower-guide-v5.12.3.zip",
+  "changelogEntries": 58
 }

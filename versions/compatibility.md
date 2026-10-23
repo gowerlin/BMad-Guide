@@ -47,7 +47,7 @@ CT 不內嵌 BMad-Method 的內容。需要 BMad 的 workflow 路由時，塔台
 
 ## 和 BAT 站的對照
 
-BAT 站也有一張相容表，是從 BAT 的角度列（<BatLink path="compatibility">BAT 站：相容版本</BatLink>）。兩張表大致相同，有一處不一致：「收單後回收 Worker 分頁」與沿用它的「重派前回收」，CT 端寫 `0.6.1-pre.3`，BAT 端寫 `>= 0.6.1-pre.4`。本頁以 CT 端的紀錄為準。
+BAT 站也有一張相容表，是從 BAT 的角度列（<BatLink path="compatibility">BAT 站：相容版本</BatLink>）。兩張表的最低版本一致。「收單後回收 Worker 分頁」與沿用它的「重派前回收」兩端都是 `>= 0.6.1-pre.4`：CT 原本寫 `0.6.1-pre.3`，v5.12.3 依 BAT 的相容表更正（pre.3 已有這個指令，但分頁剛有輸出會回 `BUSY`；等輸出安靜再關自 pre.4 起，見 CT CHANGELOG [5.12.3]）。
 
 ## 延伸閱讀
 

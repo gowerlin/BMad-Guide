@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // 演進史的八個世代（§ 3.12、§ 5.4）：沿用 EVO「八個世代」的飛行進程條造型——左格是呼號（世代與版號範圍），右格是這一代的動作。
-// 資料摘要自 EVO § 八個世代（版數合計 57，等於 CHANGELOG 的條目數；v1 未編號、不在 CHANGELOG 內）。
+// 資料摘要自 EVO § 八個世代（版數合計 58，等於 CHANGELOG 的條目數；v1 未編號、不在 CHANGELOG 內）。
+// EVO 停在 v5.12.2；之後的版本照 CT CHANGELOG 補進最後一代（LR-002）。
 // EVO 的資料來源段與 v1 段的專案名不搬（§ 3.12、§ 7.4）。要改內容可傳 eras 覆蓋預設值。
 interface Era {
   callsign: string
@@ -70,9 +71,9 @@ const ERAS: Era[] = [
   },
   {
     callsign: 'v5.10–5.12',
-    range: '5.10.0–5.12.2',
-    dates: '10-20 → 10-22',
-    count: '5 版',
+    range: '5.10.0–5.12.3',
+    dates: '10-20 → 10-23',
+    count: '6 版',
     theme: 'Workflow 規則層 · 重派前回收',
     what: '替 Workflow 工具在工單裡定位置：它是單張工單內的執行方式，要明文授權才能用；閘門 G2 沒過，範圍縮小。5.12 在重派前先回收舊 Worker 分頁。'
   }

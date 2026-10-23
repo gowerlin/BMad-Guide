@@ -77,7 +77,7 @@ Worker 端的規則也一樣：frontmatter 是機器的事實來源，清單欄�
 5. 最後才通知塔台。
 
 ::: info 這個順序改過一次
-`doctrine.md`（v4.4.0）寫的是「回報區 → commit → 狀態」。v5.7.0 發現它和「通知之前工單已經 commit」的規則對不上，改成上面的順序：狀態寫完、工單 commit 之後才通知。「先寫回報、最後才讓外部看到終態」的原則沒變，變的是 commit 和通知的位置。以 `ct-exec/SKILL.md` 為準。
+v4.4.0 的順序是「回報區 → commit → 狀態」。v5.7.0 發現它和「通知之前工單已經 commit」的規則對不上，`ct-exec` 改成上面的順序：狀態寫完、工單 commit 之後才通知。「先寫回報、最後才讓外部看到終態」的原則沒變，變的是 commit 和通知的位置。v5.12.3 之前，`doctrine.md` § 為什麼要反序寫入？ 仍寫著 v4.4.0 的舊順序；v5.12.3 起它也改成上面的順序並引用 `ct-exec/SKILL.md` § Phase 4，兩處一致。以 `ct-exec/SKILL.md` 為準。
 :::
 
 ## 顯式狀態欄位：判斷成本從 O(n) 降到 O(1)
@@ -104,7 +104,7 @@ source／docs │ build／test │ runtime │ deploy │ release／安裝包 �
 
 - `control-tower-guide/references/concepts.md` § 檔案驅動設計、§ 證據分道
 - `control-tower-guide/references/work-order-lifecycle.md` § 工單的兩層 metadata：frontmatter 與 body table、§ 狀態機
-- `control-tower/references/doctrine.md` § 工單狀態機的設計依據
+- `control-tower/references/doctrine.md` § 工單狀態機的設計依據、§ 為什麼要反序寫入？
 - `control-tower/references/work-order-template.md` § PLAN-034 Sprint 2 transition — YAML frontmatter SoT (v5.0.0+)
 - `control-tower/references/memory-protocol.md` § _decision-log.md（決策日誌）
 - `ct-exec/SKILL.md` § Frontmatter Rules、§ Phase 3: Verify、§ Phase 4: Report And Commit

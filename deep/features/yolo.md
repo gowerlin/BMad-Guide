@@ -52,7 +52,7 @@ Worker 的收尾訊息必須精準符合固定格式：工單 ID 後接 `完成`
 N 是設定值 `yolo_max_retries`（預設 `3`，設 `0` 停用斷點 B）。
 
 - **B-1 Renew 過多**：被回報工單的 Renew 次數達到 N。同一張單反覆迭代，代表方向需要重新對齊，建議拆新工單。
-- **B-2 連續失敗**：塔台 session 層級的計數，跨工單累計。Worker 回報 `FAILED` 或 `BLOCKED` 時計數加一，`DONE`、`FIXED`、`PARTIAL` 歸零，達到 N 就暫停。可能是 PLAN 或研究結論本身有問題，繼續派只會累積失敗。
+- **B-2 連續失敗**：塔台 session 層級的計數，跨工單累計。Worker 回報 `FAILED` 或 `BLOCKED` 時計數加一，`DONE`、`FIXED`、`PARTIAL` 歸零，達到 N 就暫停。計數器的格式見 `yolo-mode.md` § YOLO 計數器。可能是 PLAN 或研究結論本身有問題，繼續派只會累積失敗。
 
 ### C：跨出 PLAN 範圍 {#c}
 
@@ -101,7 +101,7 @@ BAT 這一端怎麼呈現自主程度與「一定會停下來問你的時候」�
 
 ## 延伸閱讀 {#further-reading}
 
-- `control-tower/references/yolo-mode.md` § BAT env 分工（D004）、§ 下一張工單判定邏輯（Q2.A 分支）、§ 斷點判準（A / B / C / D / E）、§ 使用者中斷（非斷點）、§ `_tower-state.md` 新增 `## YOLO 歷程` 區段、§ 使用者可見訊息（規格化彙整）
+- `control-tower/references/yolo-mode.md` § BAT env 分工（D004）、§ 下一張工單判定邏輯（Q2.A 分支）、§ 斷點判準（A / B / C / D / E）（含 § 斷點 B › B-2 › YOLO 計數器）、§ 使用者中斷（非斷點）、§ `_tower-state.md` 新增 `## YOLO 歷程` 區段、§ 使用者可見訊息（規格化彙整）
 - `control-tower/references/auto-session.md` § 派發後行為（依 `auto-session` 設定）› `auto-session = yolo`
 - `control-tower/references/tower-config.md` § 可用選項（`yolo_max_retries`）
 - `control-tower-guide/references/runtime-dispatch.md` § YOLO 與斷點：自主推進的邊界

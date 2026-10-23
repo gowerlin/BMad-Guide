@@ -1,19 +1,56 @@
 ---
 title: 更版紀錄
-description: BMad Control Tower 近 10 版的更版紀錄（最新 v5.12.2），更早的版本見演進史。
+description: BMad Control Tower 近 10 版的更版紀錄（最新 v5.12.3），更早的版本見演進史。
 ---
 
 <!-- 本頁由 scripts/sync-ct-release.mjs 從 CT CHANGELOG 產生，請勿手改；要改內容請改來源後重跑。 -->
 
 # 更版紀錄
 
-目前版本 **v5.12.2**（2026-10-22）。這裡列出最近 10 版的完整紀錄，最新的在最上面；更早的 47 版（v2.1.1 ～ v5.7.0）請看[演進史](./evolution)。
+目前版本 **v5.12.3**（2026-10-23）。這裡列出最近 10 版的完整紀錄，最新的在最上面；更早的 48 版（v2.1.1 ～ v5.7.1）請看[演進史](./evolution)。
 
 ::: tip 摘要不具權威
 本頁照錄 CT 的 CHANGELOG，只拿掉工單、決策、驗收回函等內部編號與出處註記。規則的權威定義在 CT 各 skill 與 references，兩者有出入時以 CT 本體為準。
 :::
 
 ::: v-pre
+
+## 5.12.3 <small>2026-10-23</small> {#v5-12-3}
+
+
+> **PATCH：`--close-worker` 最低 BAT 版本更正為 `>= 0.6.1-pre.4`，並收斂累積的文件說法不一（文件修正，行為不變）。**
+> 塔台與 Worker 行為、設定的值域與預設、工單 metadata、BAT 介面都不變。
+
+### Fixed
+
+- **`--close-worker` 的最低 BAT 版本**：[5.1.0] 寫的「實機回收需 BAT `0.6.1-pre.3`」不準，更正為 **`>= 0.6.1-pre.4`**（收單後回收與 v5.12.0+ 重派前回收都適用）。
+  pre.3 已有這個指令，但分頁 5 秒內有輸出就回 exit `6` BUSY、延遲期間有輸出也會取消排程；等輸出安靜再關自 pre.4 起。
+  pre.5 之前，延遲期間的終端自動回應（focus report）會被當成使用者輸入而取消回收（分頁保留、塔台只看到 exit `0`），不影響最低版本。
+  出處：BAT 塔台的回覆；BAT `README.md` 相容表「收單後自動回收 Worker 分頁」「重派同一張工單前回收舊 Worker 分頁」兩列。
+  本檔 [5.1.0]、[5.12.0] 段與安裝指南 § 2.21 不改；安裝指南 § 13 `worker_auto_close` 列改寫成 `>= 0.6.1-pre.4`。
+- 安裝指南 § 4.5、§ 12：`ct-insights` 的作用域改照 `ct-insights/SKILL.md` § Scope（專案、`global`；塔台內用 `*insights`），拿掉不存在的 `/ct-insights session`。
+- `doctrine.md` § 為什麼要顯式狀態欄位？：`*status`（不是塔台命令）改成 `*sync`，查狀態用 `/ct-status`。
+- `doctrine.md` § 為什麼要反序寫入？：順序改照 `ct-exec/SKILL.md` § Phase 4（產品 commit → 回報區 → 最終狀態 → 工單 commit → 通知），保留 v4.4.0 → v5.7.0 的演進說明；
+  「CT 實例錨點」改指 § Phase 4（原本指向的 `ct-exec.md` Step 8 已沒有反序與 commit 的規定）。
+- `tower-config.md` § 可用選項：表下註明 `gp-prefix` 寫在 `_tower-config.yaml`、但不是 `*config` 選項，引用 `multi-tower-protocol.md` § `gp-prefix` 設定（唯一權威；v5.0.8 起不列入 `*config` 表）。
+- `yolo-mode.md` § 斷點 B-2：原本只出現在範例區塊裡的「YOLO 計數器」補成 `##### YOLO 計數器` 小節，B-2 判準引用它；計數規則與格式不變。
+- 實戰補充（一-B）與 `beginner-tutorial.md`：中斷改用 `*pause`／`*resume`（v3.2.0 起的內建命令；「⚡ 插件：」是更早的自由文字說法），
+  狀態圖改用 status enum（`PENDING`、`IN_PROGRESS`，沒有 `REVIEW`），註明以 reference 為準。
+- 安裝指南 § 4.1 發行物版面：註明本指南、`CHANGELOG.md`、`Control Tower 實戰補充/` 只在發行目錄版，zip 不含 `docs/`（打包版面不變）。
+- 安裝指南新增 § 2.48。
+
+### Changed
+
+- **置信度條件分專案層／全域層**（釐清兩處衝突的說法，使用者決定）：原本 `self-learning-core.md` § 置信度系統 的 🟢 是「2+ 專案驗證」，
+  `playbook-engine.md` § 晉升標準 的 L0→L1 是「2+ 工單重複出現」，§ 與現有置信度系統對應 又把 L1 對到「🟢，2+ 專案驗證」。
+  現在權威只在 `self-learning-core.md` § 置信度系統：**專案層**（本專案 Layer 3 `_learnings.md`）的 🟢／管線 L1 `validated` = 同一模式在 2+ 工單重複出現；
+  **全域層**（晉升 Layer 2 的 learnings 與全域規則）的 🟢 = 2+ 專案驗證；🔵／🟡／⭐ 兩層相同；升級說明改成分層寫。`playbook-engine.md` 兩處與安裝指南 § 8 改成摘要＋引用。
+  語意：專案層 learning 的 🟢 條件在文字上由「2+ 專案驗證」改為「2+ 工單重複出現」（與 `*evolve` 的 L0→L1 標記一致）；全域層 🟢 不變。
+
+### Unchanged
+
+- `work-order-system.md`、`auto-session.md` 不改：兩處 `--close-worker` 的說明與 § 依賴的 BAT 基礎設施 都沒有列 BAT 版本，不新增。
+- 歷史段落（本檔舊版段、`version-governance.md` 版號表舊列、安裝指南 § 2.21 等舊章節）不改。發行物版面不變。
 
 ## 5.12.2 <small>2026-10-22</small> {#v5-12-2}
 
@@ -303,46 +340,12 @@ description: BMad Control Tower 近 10 版的更版紀錄（最新 v5.12.2），
   就要等 Worker 逾時走備援、塔台在 Renew 區段答覆（不會答錯，只會慢）。CT 兩端同版安裝即不受影響。
 - 沒有晚退回的情況（`--ask` 成功並等到 `answered`、`--ask` 失敗、`expired`）流程與 v5.7.1 相同。
 
-## 5.7.1 <small>2026-10-18</small> {#v5-7-1}
-
-
-> **PATCH：yolo 提問通道補洞六項。** 來自 CT v5.7.0 實機驗收（BAT 回函）的三項發現，以及先前驗收記下的三項表外問題。
-> 一次問多題時，塔台依「BAT 列表狀態＋工單 `通道` 標記」逐題判斷，題目還在 `--ask` 路上就先不答、等下一則通知（使用者選「塔台等齊，只改 CT」）；
-> Worker 先送完所有 `--ask`，退回的題加標記並 commit 後才送一則一般 `提問`。BAT 介面不變，BAT 最低版本仍 `>= 0.7.0-pre.7`。
-> 非 yolo 的 Worker／塔台行為、派工命令、`--wait-started`、隔離派工與合併流程不變。
-
-### Changed
-
-- `yolo-mode.md` § Worker 向塔台提問 › § 塔台端 第 1 點：讀題改呼叫 `bat_list_questions(status: all)`，每一題未答的 Q-n 依表判斷——
-  工單有 `- **通道**：工單` 標記 → 工單答覆；列表 `pending` → BAT 答覆；`answered` → 不動作；`cancelled`／`lost` → 工單答覆；`expired` → 等 `需要協助`；
-  列表沒有又沒標記 → 這一則通知先不答。🔴 不得以「列表目前沒有 `pending` 題」推論 Worker 已送完（塔台剛答完一題時列表會暫時為空）。
-  同一題只能有一個生效的答覆（`--answer` exit `0` 與工單答覆行不得都做）。只有「`--ask` 成功後又取消」時的降級寫成同表 `cancelled` 列與
-  第 3 點 exit `9` 規則的說明，不另立規則；一直沒有後續通知時最壞是 Worker 逾時走備援、塔台在 Renew 區段答覆。
-- 同節 § Worker 端 3-A 第 1、2 步：多題先送完所有 `--ask` 才開始等待（從第一題成功起 120 s 內）；`--ask` 失敗的題在 `#### Q-n` 最後加
-  `- **通道**：工單`，有任何一題退回 → commit 工單 → 最後送一次一般 `T#### 提問`；沒有退回 → 不加標記、不送一般通知。之後才改 3-B 的題
-  （`lost`、`cancelled`）不加標記、不另送通知。
-- 同節 § Worker 端 3-B：`awk` 區段比對略過 `` ``` `` 圍起來的 fenced code block（區塊內的標題行與答覆行都不算；保留 `Q-10` 前綴防誤命中與 `[*]` 寫法）；
-  註明 `通道` 標記不是答覆行。
-- 同節 § BAT 通道：版本判定與降級表「Worker 提問」「塔台讀取」兩列對齊上述的逐題判斷（列表能用但找不到該題 → 照 § 塔台端 第 1 點的表）；已知限制
-  （`--ask` 本身逾時）補「v5.7.1 起標記優先，只剩塔台在標記寫入前已以 BAT 答覆時才會發生」。
-- `yolo-mode.md` § BAT／Worker 版本相容：新增 `ct-exec`（多題等齊，`通道` 標記）v5.7.1 列；T9 迴歸場景的降級與多題情境對齊。
-- `ct-exec/SKILL.md` § Questions For Tower：多題提問順序與標記的摘要；答覆行比對註明略過 fenced code block；送 `提問` 前檢查補「`#### Q-n：` 標題帶問題、
-  後接提問時間」。§ Phase 4 第 4 步後新增 notify 前自檢三項（Q-n 標題與提問時間、無範本佔位文字、`### 互動紀錄` 只有一段；只檢查、不改格式）。
-- `control-tower/SKILL.md` YOLO questions 摘要：塔台逐題判斷與「列表沒有又沒標記先不答」。
-- `tower-config.md` `worker_question_timeout` 列：走 BAT 通道時同一個值也是 `--ask --expires-min` 的值（引用 `yolo-mode.md`）。
-- `work-order-template.md` § 回報區 › 待塔台決策 範本：補 `通道` 標記說明。
-
-### Compatibility
-
-- v5.7.0 以前的 `ct-exec` 不加 `通道` 標記：搭配 v5.7.1 塔台時，改走工單的題要等 Worker 逾時走備援、塔台在 Renew 區段答覆。CT 兩端同版安裝即不受影響。
-- 單題提問：`--ask` 成功時流程與 v5.7.0 相同；`--ask` 失敗時多一行 `通道` 標記與一次 commit，塔台照標記走工單答覆（結果同 v5.7.0）。
-
 :::
 
 ## 延伸閱讀 {#further-reading}
 
-- CT `CHANGELOG.md`（共 57 個版本；本頁列最近 10 版）
+- CT `CHANGELOG.md`（共 58 個版本；本頁列最近 10 版）
 - CT `version-governance.md` § 歷史版號表
-- [演進史](./evolution)：更早的 47 版與八個世代
+- [演進史](./evolution)：更早的 48 版與八個世代
 
 Portal 是摘要，不具權威；與 CT reference 有出入時，以 reference 為準。

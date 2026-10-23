@@ -244,6 +244,8 @@ const towerRows = [
 
   Worker 只會讀 `worker_max_retries`、`worker_strikeout_action`、`worker_commit` 與 `experience-level` 這類調諧參數；`worker_auto_close`、`worker_close_delay` 雖然以 `worker_` 開頭，卻是塔台收單時讀的。
 
+  `_tower-config.yaml` 另有 `gp-prefix`（Playbook 的 GP 編號前綴），但它不是 `*config` 選項，所以不在上表；定義與未設定時的 fallback 見 `multi-tower-protocol.md` § `gp-prefix` 設定。
+
 - **起始版本**：v3.2.0（各選項的版本見權威出處）
 - **權威出處**：`control-tower/references/tower-config.md` § `*config` 命令、§ 可用選項、§ 作用域與持久化
 - **相關**：[功能總覽 › 設定](/features#config)（四層覆蓋的概念）
@@ -440,8 +442,9 @@ yolo 下塔台另外也接受 `T#### 失敗`。不是這些格式的訊息，會
 - `control-tower/SKILL.md` § Built-In Commands
 - `ct-help/SKILL.md` § Command Families
 - 各 skill 的 `SKILL.md`（`ct-exec`、`ct-done`、`ct-status`、`ct-evolve`、`ct-insights`、`ct-fieldguide`、`control-tower-guide`）
-- CT 安裝與使用指南 § 13. Config 速查表（v5.12.2）、§ 14. 命令速查表（v5.12.2）
-- `control-tower/references/tower-config.md` § `*config` 命令、§ 可用選項
+- CT 安裝與使用指南 § 13. Config 速查表（v5.12.3）、§ 14. 命令速查表（v5.12.3）
+- `control-tower/references/tower-config.md` § `*config` 命令、§ 可用選項（表下註明 `gp-prefix` 不是選項）
+- `control-tower/references/multi-tower-protocol.md` § `gp-prefix` 設定
 - `control-tower/references/fieldguide-commands.md`
 - `control-tower/references/playbook-engine.md` § `*evolve` 擴展子命令
 - `control-tower/references/yolo-mode.md` § 使用者中斷（非斷點）

@@ -1,6 +1,6 @@
 {
   "_note": "相容版本對照（PORTAL-PLAN § 3.10）。B4 補資料列：每列 feature、ct（CT 起始版本）、bat／codex（最低版本，不需要就省略）、note、source（權威出處：檔案 § 章節）。CT 發版時相容性有變才改（LR-002）。",
-  "ctVersion": "5.12.2",
+  "ctVersion": "5.12.3",
   "rows": [
     {
       "feature": "帶前綴的工單 ID 走結構化派工（--workorder 帶前綴）",
@@ -12,9 +12,9 @@
     {
       "feature": "收單後回收 Worker 分頁（--close-worker、worker_auto_close）",
       "ct": "v5.1.0",
-      "bat": ">= 0.6.1-pre.3",
-      "note": "舊 BAT 回 exit 1：一行警告，照常收單。worker_auto_close 預設 off，不受影響。BAT README 的相容表寫 >= 0.6.1-pre.4，本表以 CT 端為準。",
-      "source": "CHANGELOG.md [5.1.0]；work-order-system.md § 收單後回收 Worker 分頁（worker_auto_close，v5.1.0+）；Guide bat-integration.md § 版本對照表"
+      "bat": ">= 0.6.1-pre.4",
+      "note": "舊 BAT 回 exit 1：一行警告，照常收單。worker_auto_close 預設 off，不受影響。pre.3 已有這個指令，但分頁剛有輸出會回 BUSY；等輸出安靜再關自 pre.4 起（CT v5.12.3 更正，原寫 0.6.1-pre.3）。",
+      "source": "CHANGELOG.md [5.1.0]、[5.12.3]；work-order-system.md § 收單後回收 Worker 分頁（worker_auto_close，v5.1.0+）；Guide bat-integration.md § 版本對照表"
     },
     {
       "feature": "塔台分頁角色宣告（--set-role tower）",
@@ -110,9 +110,9 @@
     {
       "feature": "同一張工單重派前，先回收舊 Worker 分頁（沿用 --close-worker，--delay-ms 0）",
       "ct": "v5.12.0",
-      "bat": ">= 0.6.1-pre.3",
-      "note": "沒有新的 BAT 門檻，與 v5.1.0 相同。舊 BAT 回 exit 1：一行提示後照常派工，本 session 不再嘗試。BAT README 的相容表寫 >= 0.6.1-pre.4，本表以 CT 端為準。",
-      "source": "work-order-system.md § 重派前回收舊 Worker 分頁（v5.12.0+）；Guide bat-integration.md § 版本對照表"
+      "bat": ">= 0.6.1-pre.4",
+      "note": "沒有新的 BAT 門檻，與 v5.1.0 相同。舊 BAT 回 exit 1：一行提示後照常派工，本 session 不再嘗試。",
+      "source": "CHANGELOG.md [5.12.3]；work-order-system.md § 重派前回收舊 Worker 分頁（v5.12.0+）；Guide bat-integration.md § 版本對照表"
     },
     {
       "feature": "Level 2：外部 bmad-guide 的 BMad workflow 路由",
