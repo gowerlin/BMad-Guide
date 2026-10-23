@@ -41,7 +41,7 @@ const ROUTES: Route[] = [
     who: '整合其他工具的人',
     signal: 'BMad-Method、bmad-guide、ECC、mem0、*import、*onboard',
     files: ['integration.md'],
-    portal: { text: '功能與指令總覽', link: '/features' }
+    portal: { text: '功能總覽', link: '/features' }
   },
   {
     who: '在意 Workflow 的人',

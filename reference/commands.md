@@ -1,6 +1,6 @@
 ---
 title: 指令參考大全
-description: CT 所有指令的查閱表：8 個 skill 與 CT Guide 的 slash／$ 指令、塔台的 15 個 * 內建命令（含子命令、旗標與 *config 全部設定鍵），以及 yolo 中斷詞、Renew 觸發詞等對話慣用語。
+description: CT 指令的唯一完整清單：8 個 skill 與 CT Guide 的 slash／$ 指令、塔台的 15 個 * 內建命令（含子命令、旗標與 *config 全部設定鍵），以及 yolo 中斷詞、Renew 觸發詞等對話慣用語。
 ---
 
 <script setup>
@@ -16,27 +16,27 @@ const twoCliRows = [
   ['塔台內建命令', '*sync（不分 CLI，只在塔台 session 裡）', '*sync']
 ]
 const towerRows = [
-  ['*rescan', '完整掃描，刷新環境快照', 'v4.0.1'],
-  ['*config', '檢視或修改設定', 'v3.2.0'],
-  ['*help', '塔台內查使用說明', 'v3.2.0'],
-  ['*sync', '以工單檔為準同步狀態', 'v3.2.0'],
-  ['*pause', '暫停進行中的工單，處理緊急任務', 'v3.2.0'],
-  ['*resume', '恢復被暫停的工單', 'v3.2.0'],
-  ['*bug', '登記 BUG 單', 'v4.0.0'],
-  ['*plan', '登記 PLAN 單', 'v4.0.0'],
-  ['*exp', '登記 EXP 實驗單', 'v4.0.0'],
-  ['*archive', '熱區 → 冷區歸檔', 'v4.0.0'],
-  ['*evolve', '在塔台裡萃取學習', 'v3.2.0（--workflow：v5.11.0）'],
-  ['*insights', '在塔台裡做使用模式分析', 'v3.4.0（workflow：v5.11.0）'],
-  ['*fieldguide', 'FIELDGUIDE 與 DESIGN.md 管理', 'v3.5.0（design：v3.6.0）'],
-  ['*import', '安全匯入規則、Playbook、設定', 'v4.0.0'],
-  ['*onboard', '互動式探索工作習慣', 'v4.0.0']
+  ['*rescan', '完整掃描，刷新塔台狀態檔的環境快照', '—', 'v4.0.1'],
+  ['*config', '檢視或修改塔台設定', '[選項] [值] [--save project|global]、reset [選項]', 'v3.2.0'],
+  ['*help', '不離開塔台查使用說明', '[主題]：commands、workflow、config、workorder、status、tips', 'v3.2.0'],
+  ['*sync', '以工單檔為事實來源，校準塔台記憶、工單與 sprint-status.yaml', '—', 'v3.2.0'],
+  ['*pause', '凍結進行中的工單，處理緊急任務', '[原因]', 'v3.2.0'],
+  ['*resume', '恢復被暫停的工單', '[工單編號]', 'v3.2.0'],
+  ['*bug', '登記 BUG 單（需先啟用）', '[標題]', 'v4.0.0'],
+  ['*plan', '登記 PLAN 單（需先啟用）', '[標題]', 'v4.0.0'],
+  ['*exp', '登記 EXP 實驗單（需先啟用）', '[描述]', 'v4.0.0'],
+  ['*archive', '把最終態的單據從熱區移到冷區', '--dry-run、T####、--search <關鍵字>、--restore T####', 'v4.0.0'],
+  ['*evolve', '在塔台裡萃取學習', '[主題]、--playbook [名稱]、--skill [名稱]、--status、--workflow [名稱]', 'v3.2.0（--workflow：v5.11.0）'],
+  ['*insights', '在塔台裡做使用模式分析', 'workflow [T#### …]', 'v3.4.0（workflow：v5.11.0）'],
+  ['*fieldguide', 'FIELDGUIDE 與 DESIGN.md 管理（只讀與分析，寫入一律開工單）', 'scan [N]、add [主題]、audit [模組]、init、debt [主題]、design [generate|check]', 'v3.5.0（design：v3.6.0）'],
+  ['*import', '安全匯入規則、Playbook 或其他專案的設定', 'rule、playbook、--from <檔案>、--check、--fix', 'v4.0.0'],
+  ['*onboard', '互動式探索你的工作習慣，產出個人化的本地規則', '—', 'v4.0.0']
 ]
 </script>
 
 # 指令參考大全
 
-這一頁列出 CT 的每一個指令：語法、參數與旗標、在哪種 session 用、做什麼、權威出處與起始版本。**Portal 是摘要，不具權威**；旗標的確切拼法與完整行為，以各列標出的 reference 為準，兩者有出入時以 reference 為準。 {.ct-lead}
+這是 CT 指令的唯一完整清單；CT 由什麼組成、每個功能在哪篇講，見[功能總覽](/features)。這一頁列出 CT 的每一個指令：語法、參數與旗標、在哪種 session 用、做什麼、權威出處與起始版本。**Portal 是摘要，不具權威**；旗標的確切拼法與完整行為，以各列標出的 reference 為準，兩者有出入時以 reference 為準。 {.ct-lead}
 
 **目錄**
 
@@ -54,7 +54,7 @@ const towerRows = [
 | `$` | Codex 載入一個獨立 skill | 任何 Codex session | 同 `/` |
 | `*` | 塔台內建命令 | **只在**進行中的塔台 session 裡 | 不切換，處理完繼續塔台流程 |
 
-`/` 與 `$` 是**同一個 skill 的兩個入口**，差別只在宿主工具。在 BAT 裡由 BAT 依 Worker 用的 Agent 決定送哪一種。以下各節都用 `/` 示範，Codex 一律把 `/` 換成 `$`：
+`/` 與 `$` 是**同一個 skill 的兩個入口**，差別只在宿主工具。在 BAT 裡由 BAT 依 Worker 用的 Agent 決定送哪一種，塔台不寫死。以下各節都用 `/` 示範，Codex 一律把 `/` 換成 `$`：
 
 <CardTable caption="同一個 skill 在兩種 CLI 的寫法" :columns="['用途', 'Claude Code', 'Codex']" :rows="twoCliRows" />
 
@@ -64,7 +64,7 @@ const towerRows = [
 
 ## skill 指令 {#skills}
 
-分類總覽見[功能與指令總覽 › 8 個 skill](/features#skills)。
+每個 skill 屬於塔台、Worker 還是輔助，以及為什麼拆成 8 個，見[功能總覽 › CT 由什麼組成](/features#skills)。
 
 ### `/control-tower` {#control-tower}
 
@@ -186,9 +186,11 @@ const towerRows = [
 
 ## 塔台內建命令 {#tower}
 
-以下命令只在**進行中的塔台 session** 裡有意義。分類與常用參數見[功能與指令總覽 › 塔台的 15 個內建命令](/features#tower-commands)。
+以下命令只在**進行中的塔台 session** 裡有意義。這 15 個命令依用途怎麼分組，見[功能總覽 › 塔台內建命令](/features#tower)。
 
-<CardTable caption="塔台內建命令與起始版本" :columns="['命令', '做什麼', '起始版本']" :rows="towerRows" />
+<CardTable caption="塔台內建命令、常用參數與起始版本" :columns="['命令', '做什麼', '常用參數與子命令', '起始版本']" :rows="towerRows" />
+
+下表的參數只列常用的；確切拼法與每個子命令的行為見下面各節。
 
 ### `*rescan` {#rescan}
 
@@ -244,7 +246,7 @@ const towerRows = [
 
 - **起始版本**：v3.2.0（各選項的版本見權威出處）
 - **權威出處**：`control-tower/references/tower-config.md` § `*config` 命令、§ 可用選項、§ 作用域與持久化
-- **相關**：[功能與指令總覽 › 設定](/features#config)
+- **相關**：[功能總覽 › 設定](/features#config)（四層覆蓋的概念）
 
 ### `*help` {#help}
 

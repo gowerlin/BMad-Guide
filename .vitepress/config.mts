@@ -128,7 +128,7 @@ const sidebar: DefaultTheme.SidebarItem[] = [
       { text: '為什麼需要 CT', link: '/why' },
       { text: '安裝', link: '/install' },
       { text: '一張工單的一生', link: '/lifecycle' },
-      { text: '功能與指令總覽', link: '/features' }
+      { text: '功能總覽', link: '/features' }
     ]
   },
   {
