@@ -1,11 +1,13 @@
 ---
-title: 學習路線
+title: CT Guide 學習路線
 description: 依讀者分流的 CT Guide 教材閱讀順序：新手先讀哪三份，想懂架構、用 yolo、搭配 BAT 或整合其他工具的人各讀哪幾份。
 ---
 
-# 學習路線
+# CT Guide 學習路線
 
 <p class="ct-lead">Guide 有十份教材，不必從頭讀到尾。Guide 會從你的用詞判斷你是哪一類讀者，只讀那幾份；你自己讀的時候，也可以照同一套分流挑起點。</p>
+
+這是 [CT Guide](./ct-guide)（`control-tower-guide`）的學習路線，教的是 CT。要學 BMad-Method，問另一個 skill [BMad Guide](./bmad-guide)。
 
 ## 依讀者分流
 
@@ -34,7 +36,7 @@ Guide 回答前會先看問題裡的關鍵詞。像「入門、開始、新手�
 - **`advanced-patterns.md`**：五種跨專案協調類型、多塔台、中斷與恢復、mono-repo、除錯防線、品質閘門、Worker 的四項防護、新手村、`ct-insights`、`ct-evolve`、FIELDGUIDE、歸檔與遷移。→ Portal：[跨塔台與跨專案協作](/deep/features/multi-tower)、[觀測與改進](/deep/features/observability)
 - **`integration.md`**：CT 怎麼接其他工具。Level 1 ECC、Level 2 外部 bmad-guide、Level 3 mem0，Codex 整合、Playbook 引擎、`*import` 與 `*onboard`。→ Portal：[功能總覽](/features)
 
-第十份 `diagrams.md` 是圖表規格，給 Guide 自己畫圖時用，讀者不需要讀；它定義了哪些圖、節點代表什麼、點下去要展開哪一章（見 [CT Guide Skill](./) 的「圖是現場畫的，而且可以點」一節）。
+第十份 `diagrams.md` 是圖表規格，給 Guide 自己畫圖時用，讀者不需要讀；它定義了哪些圖、節點代表什麼、點下去要展開哪一章（見 [CT Guide Skill](./ct-guide) 的「圖是現場畫的，而且可以點」一節）。
 
 ## 在意 Workflow 的人
 

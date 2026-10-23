@@ -268,7 +268,11 @@ claude.ai 上開啟的 skill 會自動同步到以同一帳號登入的 Claude C
 
 ## 安裝 CT Guide Skill {#guide}
 
-CT Guide 是 CT 的互動式教科書，用問的，它會解釋設計理由並畫可點擊的圖。它和 CT 同版號發行，安裝方式與 CT 相同，目錄名是 `control-tower-guide`。怎麼安裝、怎麼問，見 [CT Guide Skill](/guide/)。
+CT Guide 是 CT 的互動式教科書，用問的，它會解釋設計理由並畫可點擊的圖。它和 CT 同版號發行，安裝方式與 CT 相同，目錄名是 `control-tower-guide`。怎麼安裝、怎麼問，見 [CT Guide Skill](/guide/ct-guide)。
+
+## 安裝 BMad Guide Skill {#bmad-guide}
+
+BMad Guide（`bmad-guide`）是 BMad-Method 的互動式學習指南，也是 CT 的可選搭配：裝了它，塔台會依專案階段查出該走哪一套 BMad 流程。它的版號跟 BMad-Method 走，不跟 CT。安裝目錄是 `~/.claude/skills/bmad-guide/`（Codex 是 `~/.codex/skills/bmad-guide/`）；發行 zip 的最上層是帶版號的資料夾，解壓後要把**內容**放進 `bmad-guide/`。詳細步驟與 claude.ai 的打包方式，見 [BMad Guide Skill](/guide/bmad-guide#install)。
 
 ## 搭配 BAT {#bat}
 

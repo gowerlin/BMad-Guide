@@ -33,7 +33,7 @@ const IS_ARTIFACT = TARGET === 'artifact'
 const BASE = IS_ARTIFACT ? ARTIFACT_BASE : withSlashes(process.env.PORTAL_BASE || '/')
 const SITE_URL = IS_ARTIFACT ? '' : withTrailingSlash(process.env.PORTAL_SITE_URL || '')
 const BAT_SITE_URL = withTrailingSlash(process.env.BAT_SITE_URL || DEFAULT_BAT_SITE_URL)
-// 元件展示頁（_showcase/）只在 PORTAL_SHOWCASE=1 時建置，供 B0 驗收元件；不屬於 34 頁
+// 元件展示頁（_showcase/）只在 PORTAL_SHOWCASE=1 時建置，供 B0 驗收元件；不屬於 36 頁
 const SHOWCASE = process.env.PORTAL_SHOWCASE === '1'
 
 const SITE_TITLE = 'BMad Control Tower'
@@ -85,7 +85,7 @@ const nav: DefaultTheme.NavItem[] = [
   },
   { text: '安裝', link: '/install' },
   { text: '功能', link: '/features' },
-  { text: 'CT Guide', link: '/guide/', activeMatch: '^/guide/' },
+  { text: 'Guide Skill', link: '/guide/', activeMatch: '^/guide/' },
   {
     text: '進階',
     activeMatch: '^/deep/',
@@ -132,10 +132,12 @@ const sidebar: DefaultTheme.SidebarItem[] = [
     ]
   },
   {
-    text: 'CT Guide Skill',
+    text: 'Guide Skill',
     items: [
       { text: '專區首頁', link: '/guide/' },
-      { text: '學習路線', link: '/guide/learning-path' }
+      { text: 'CT Guide', link: '/guide/ct-guide' },
+      { text: 'CT Guide 學習路線', link: '/guide/learning-path' },
+      { text: 'BMad Guide', link: '/guide/bmad-guide' }
     ]
   },
   {

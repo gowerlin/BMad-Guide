@@ -46,7 +46,7 @@ CT 由 1 個塔台 skill 和 7 個 Worker／輔助 skill 組成，塔台在自�
 
 每個 skill 在 Claude Code 與 Codex 裡都能用，行為相同；兩種 CLI 的寫法與每個 skill 的參數見[指令參考大全 › skill 指令](/reference/commands#skills)。
 
-另外有一個獨立發行、與 CT 同版號的 [CT Guide Skill](/guide/)（`control-tower-guide`），它是解釋設計理由的教科書，不是 CT 的 8 個 skill 之一。
+另外有一個獨立發行、與 CT 同版號的 [CT Guide Skill](/guide/ct-guide)（`control-tower-guide`），它是解釋設計理由的教科書，不是 CT 的 8 個 skill 之一。
 
 ## 塔台內建命令 {#tower}
 

@@ -182,7 +182,7 @@ const towerRows = [
 - **做什麼**：CT 的教科書，解釋**為什麼**這樣設計，不執行指令、不開工單。依問法分三種回應：概念理解（Learning）、實戰查詢（Practical）、比較釐清（Comparison），並畫可點擊的 SVG 圖讓你往下追問。要確切的旗標或設定值時，它會指向 `ct-help` 或 CT 的 reference。
 - **版本**：與 CT 同版號發行，獨立安裝，不是 CT 的 8 個 skill 之一。
 - **權威出處**：`control-tower-guide/SKILL.md` § Positioning、§ Response modes
-- **相關**：[CT Guide Skill](/guide/)、[學習路線](/guide/learning-path)
+- **相關**：[CT Guide Skill](/guide/ct-guide)、[CT Guide 學習路線](/guide/learning-path)
 
 ## 塔台內建命令 {#tower}
 

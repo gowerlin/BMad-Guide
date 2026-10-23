@@ -40,6 +40,7 @@ PORTAL_BASE=/Control-Tower/ PORTAL_SITE_URL=https://<owner>.github.io/Control-To
 | `.vitepress/theme/` | 主題與 Vue 元件 |
 | `.vitepress/ct-release.json` | 內容基準版本：網站內容對應的 CT 版號、CT Guide 版號、發布日與下載檔名 |
 | `data/compat.json` | 相容版本對照表的資料 |
+| `data/bmad-guide.json` | BMad Guide Skill（`bmad-guide`）的版本資料：版號、對應的 BMad-Method 版號、發布日、發行檔名。版號跟 BMad-Method 走，不跟 CT，所以不放在 `ct-release.json` |
 | `public/` | 原樣複製到站點根目錄的靜態檔（圖示、分享卡片圖） |
 | `design/og-card.html` | 分享卡片圖 `public/og-card.png` 的原稿，不發布 |
 | `scripts/` | 建置與維護用的腳本，見下節 |

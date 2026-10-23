@@ -45,8 +45,8 @@ const PAINS: Feature[] = [
 // 首頁「三條延伸路線」
 const ROUTES: Feature[] = [
   {
-    title: 'CT Guide Skill',
-    body: '想系統性學 CT：裝上互動式學習指南，用問的，它會畫可點擊的圖給你看。',
+    title: 'Guide Skill',
+    body: '想系統性學 CT 或 BMad-Method：裝上互動式學習指南 CT Guide 與 BMad Guide，用問的，它們會畫可點擊的圖給你看。',
     link: '/guide/'
   },
   {
