@@ -3201,6 +3201,166 @@
   }
 }
 
+/* ---------- 五塊積木（EcosystemStack）：積木保留品牌色，圖外的字與線走主題變數 ---------- */
+
+.vp-doc .eco-stack {
+  margin: 28px 0;
+}
+
+.eco-stack p {
+  margin: 0;
+}
+
+.eco-stack .eco-hint {
+  display: none;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: var(--vp-c-text-2);
+}
+
+.eco-stack .eco-scroll {
+  overflow-x: auto;
+  padding: 8px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 12px;
+  background: var(--vp-c-bg-soft);
+}
+
+.eco-stack svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  font-family: var(--vp-font-family-base);
+}
+
+.eco-stack .eco-ink {
+  fill: var(--vp-c-text-1);
+}
+
+.eco-stack .eco-soft {
+  fill: var(--vp-c-text-2);
+}
+
+.eco-stack .eco-pill {
+  fill: var(--vp-c-bg);
+  stroke: var(--vp-c-text-1);
+  stroke-width: 1.5;
+}
+
+.eco-stack .eco-route {
+  fill: none;
+  stroke: var(--vp-c-text-2);
+  stroke-width: 2.2;
+  stroke-dasharray: 7 6;
+}
+
+.eco-stack .eco-brick {
+  outline: none;
+}
+
+.eco-stack.is-live .eco-brick {
+  cursor: pointer;
+}
+
+.eco-stack.is-live .eco-brick:hover .eco-face {
+  filter: brightness(1.08);
+}
+
+.eco-stack .eco-brick:focus-visible .eco-face,
+.eco-stack .eco-brick.is-sel .eco-face {
+  stroke: var(--vp-c-text-1);
+  stroke-width: 3.5;
+}
+
+.eco-stack .eco-panel,
+.vp-doc .eco-stack .eco-list > li {
+  padding: 14px 18px;
+  border: 1px solid var(--vp-c-divider);
+  border-left: 8px solid var(--vp-c-divider);
+  border-radius: 10px;
+  background: var(--vp-c-bg-soft);
+}
+
+.eco-stack .eco-panel {
+  min-height: 96px;
+  margin-top: 16px;
+}
+
+.vp-doc .eco-stack .eco-list {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vp-doc .eco-stack .eco-list > li {
+  margin: 0;
+}
+
+.eco-stack .eco-panel-title {
+  margin-bottom: 4px;
+  font-family: var(--ct-font-display);
+  font-size: 17px;
+  font-weight: 900;
+  line-height: 1.5;
+}
+
+.eco-stack .eco-panel p + p,
+.eco-stack .eco-list p + p {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--vp-c-text-2);
+}
+
+.eco-stack .eco-notes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.eco-stack .eco-notes > div {
+  padding: 14px 18px;
+  border-top: 2px solid var(--vp-c-text-1);
+  background: var(--vp-c-bg-soft);
+}
+
+.eco-stack .eco-notes-title {
+  font-family: var(--ct-font-display);
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.vp-doc .eco-stack .eco-notes ul,
+.vp-doc .eco-stack .eco-notes ol {
+  margin: 6px 0 0;
+  padding-left: 1.4em;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--vp-c-text-2);
+}
+
+.vp-doc .eco-stack .eco-notes li + li {
+  margin-top: 2px;
+}
+
+@media (max-width: 767px) {
+  .eco-stack .eco-hint {
+    display: block;
+  }
+
+  .eco-stack svg {
+    min-width: 640px;
+  }
+}
+
+@media (max-width: 639px) {
+  .eco-stack .eco-notes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 /* ---------- reduced motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {
@@ -3210,5 +3370,9 @@
 
   .hero-tower .ht-mark {
     animation: none;
+  }
+
+  .eco-stack.is-live .eco-brick:hover .eco-face {
+    filter: none;
   }
 }

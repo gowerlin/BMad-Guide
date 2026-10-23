@@ -69,6 +69,11 @@ description: 檔案驅動的工單編排 skill 組：一個塔台指揮整隊 Ag
 <h2 class="home-title"><span class="phrase">不裝任何東西</span><span class="phrase">也能用</span></h2>
 <p class="home-lead">核心只靠 repo 裡的檔案。其他三項是可選的增強，偵測到才啟用，缺了就安靜降級，可以任意組合。</p>
 <CapabilityLevels />
+<div class="home-more">
+
+[看 BMad-Method、CT、BAT 和兩個 Guide skill 怎麼疊成一套](./guide/#stack)
+
+</div>
 </div>
 </section>
 

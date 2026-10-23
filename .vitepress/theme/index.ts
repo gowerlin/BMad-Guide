@@ -11,6 +11,7 @@ import CardTable from './components/CardTable.vue'
 import CaseCard from './components/CaseCard.vue'
 import CtDownload from './components/CtDownload.vue'
 import DemoVideo from './components/DemoVideo.vue'
+import EcosystemStack from './components/EcosystemStack.vue'
 import EraTimeline from './components/EraTimeline.vue'
 import FeatureGrid from './components/FeatureGrid.vue'
 import GrowthLadder from './components/GrowthLadder.vue'
@@ -40,6 +41,7 @@ export default {
     app.component('CaseCard', CaseCard)
     app.component('CtDownload', CtDownload)
     app.component('DemoVideo', DemoVideo)
+    app.component('EcosystemStack', EcosystemStack)
     app.component('EraTimeline', EraTimeline)
     app.component('FeatureGrid', FeatureGrid)
     app.component('GrowthLadder', GrowthLadder)

@@ -31,6 +31,14 @@ const roleRows = [
 
 <p class="ct-lead">這裡收兩個互動式學習指南 skill：教 CT 的 CT Guide，和教 BMad-Method 的 BMad Guide。兩者都是「教科書」，用問的，用繁體中文回答，並畫可以點擊、一路往下追問的圖；它們只負責講解和帶路，不替你執行工作。</p>
 
+## 五塊積木：兩個 Guide 貼在哪一層 {#stack}
+
+BMad-Method、CT、BAT 由上往下疊成一套：方法、編排、執行環境，最底下是專案 repo。兩個 Guide 不是其中一層，而是貼在各自講解的那一層旁邊：BMad Guide 貼在 BMad-Method 右側，CT Guide 貼在 CT 左側。
+
+<EcosystemStack />
+
+塔台偵測到 BMad Guide 才會讀它，查出該走的 BMad 流程；CT Guide 則只講解 CT，其中 `bat-integration` 專章說明 CT 與 BAT 怎麼分工。
+
 ## 兩個 skill 對照 {#compare}
 
 <CardTable
