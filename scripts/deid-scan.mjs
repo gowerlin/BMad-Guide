@@ -14,14 +14,14 @@
 // 詞表與允許清單放在 site/ 外（不進公開 repo），以參數或環境變數 PORTAL_DEID_TERMS／PORTAL_DEID_ALLOW 傳入（參數優先）；
 // 兩個都沒有就報錯結束（exit 2），不會略過掃描。檔案格式見各檔開頭的註解。
 //
-// 掃描範圍：EXTENSIONS 的副檔名，以及沒有副檔名的檔案（含 .gitignore 這類點開頭的檔名）；
+// 掃描範圍：EXTENSIONS 的副檔名（含字幕檔 .srt），以及沒有副檔名的檔案（含 .gitignore 這類點開頭的檔名）；
 // 前 8 KB 有 NUL 位元組的檔案視為二進位，跳過。export-public-repo.mjs 用 isScannable 判斷哪些檔案要另外補掃
 
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-const EXTENSIONS = new Set(['.md', '.vue', '.ts', '.mts', '.css', '.json', '.html', '.svg', '.js', '.mjs', '.toml', '.txt', '.xml', '.yml', '.yaml'])
+const EXTENSIONS = new Set(['.md', '.vue', '.ts', '.mts', '.css', '.json', '.html', '.svg', '.js', '.mjs', '.toml', '.txt', '.srt', '.xml', '.yml', '.yaml'])
 // 不掃的目錄：依賴與建置快取。.vitepress/dist 與 dist-artifact 要另外當路徑參數傳入才掃
 const SKIP_DIRS = new Set(['node_modules', '.git', 'cache'])
 const SKIP_UNLESS_ROOT = new Set(['dist', 'dist-artifact'])

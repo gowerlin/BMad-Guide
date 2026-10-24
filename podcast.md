@@ -19,7 +19,7 @@ const audio = (name) => theme.value.podcastReleaseUrl + name
 
 每集另有比影片更完整的對談式語音版，可以在本頁直接收聽，見[完整語音版](#完整語音版)。
 
-播放清單：[BMad Control Tower 推廣影片第二季（YouTube 播放清單）](https://www.youtube.com/playlist?list=PLCSwJasrDt48)
+播放清單：[BMad Control Tower 推廣影片第二季（影片＋完整語音版）](https://www.youtube.com/playlist?list=PLCSwJasrDt48)
 
 ## 五集
 
