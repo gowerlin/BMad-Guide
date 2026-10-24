@@ -15,6 +15,8 @@ description: 「多代理規格驅動開發實戰」：用 BMad-Method、Control
 
 三件套各自的位置：**BMad 想清楚、CT 管得住、BAT 跑得動**。貫穿全課的專案是一個後端 SMS 通訊平台，從一句話的點子做到八項功能齊全。
 
+只想先花四十分鐘知道這三樣工具在做什麼，可以先看 5 支短片：[推廣影片（第二季）](/podcast)。
+
 ## 適合誰
 
 - **適合**：會用 Claude Code 完成日常開發任務，但沒碰過 BMad-Method、Control Tower、BAT 的工程師與技術主管。
