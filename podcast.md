@@ -1,6 +1,6 @@
 ---
 title: 推廣影片（第二季）
-description: 推廣影片第二季：5 支 6 到 11 分鐘的說明影片，介紹 BMad-Method、Control Tower 與 BAT 的設計初衷、工單流程與實戰邊界。附建議觀看順序、錄製時版本與簡報 PDF 下載。
+description: 推廣影片第二季：5 支 6 到 11 分鐘的說明影片，介紹 BMad-Method、Control Tower 與 BAT 的設計初衷、工單流程與實戰邊界。附建議觀看順序、錄製時版本、完整語音版與簡報 PDF 下載。
 ---
 
 <script setup>
@@ -8,6 +8,7 @@ import { useData } from 'vitepress'
 
 const { theme } = useData()
 const pdf = (name) => theme.value.podcastReleaseUrl + name
+const audio = (name) => theme.value.podcastReleaseUrl + name
 </script>
 
 # 推廣影片（第二季）
@@ -15,6 +16,8 @@ const pdf = (name) => theme.value.podcastReleaseUrl + name
 <p class="ct-lead">5 支說明影片，每支 6 到 11 分鐘，講 BMad-Method、Control Tower（CT）與 Better Agent Terminal（BAT）為什麼這樣設計、一張工單怎麼走完、什麼時候該放手。適合第一次接觸這套工具的人。</p>
 
 這個系列只談觀念與全貌，不帶操作。想一步一步動手做，看正式課程[多代理規格驅動開發實戰](/course)：6 章、57 單元、影片約 21 小時，從零做出一個 Go 專案。兩者可以搭配：先看這 5 支影片知道每個零件在做什麼，再進課程實作。
+
+每集另有比影片更完整的對談式語音版，可以在本頁直接收聽，見[完整語音版](#完整語音版)。
 
 播放清單：[BMad Control Tower 推廣影片第二季（YouTube 播放清單）](https://www.youtube.com/playlist?list=PLCSwJasrDt48)
 
@@ -48,6 +51,18 @@ const pdf = (name) => theme.value.podcastReleaseUrl + name
 
 影片內容以錄製時的版本為準。之後的改變以 Portal 為準：目前版本見[版本總覽](/versions/)，每一版改了什麼見[更版紀錄](/versions/releases)。
 
+## 完整語音版
+
+比影片更完整的對談式語音節目，每集約 16 到 25 分鐘，適合通勤或做事時聽。音檔（m4a）放在公開 repo 的 GitHub Release，可以直接在本頁播放，也可以下載。
+
+| 集數 | 標題 | 長度 | 收聽 |
+|---|---|---|---|
+| S2-01 | 把腦力留給判斷：設計初衷與生態系全景 | 16:08 | <span v-if="!theme.artifact"><audio controls preload="none" :src="audio('S2-01-audio.m4a')"></audio><br></span><a :href="audio('S2-01-audio.m4a')">下載 S2-01-audio.m4a</a>（29.7 MB） |
+| S2-02 | BMad-Method 6.12：先想清楚，再讓 AI 動手 | 20:36 | <span v-if="!theme.artifact"><audio controls preload="none" :src="audio('S2-02-audio.m4a')"></audio><br></span><a :href="audio('S2-02-audio.m4a')">下載 S2-02-audio.m4a</a>（37.9 MB） |
+| S2-03 | Control Tower v5：一張工單的一生 | 21:43 | <span v-if="!theme.artifact"><audio controls preload="none" :src="audio('S2-03-audio.m4a')"></audio><br></span><a :href="audio('S2-03-audio.m4a')">下載 S2-03-audio.m4a</a>（40.0 MB） |
+| S2-04 | BAT：給塔台跑道、無線電和雷達 | 20:32 | <span v-if="!theme.artifact"><audio controls preload="none" :src="audio('S2-04-audio.m4a')"></audio><br></span><a :href="audio('S2-04-audio.m4a')">下載 S2-04-audio.m4a</a>（37.8 MB） |
+| S2-05 | 實戰與邊界：放手，但不是放任 | 24:31 | <span v-if="!theme.artifact"><audio controls preload="none" :src="audio('S2-05-audio.m4a')"></audio><br></span><a :href="audio('S2-05-audio.m4a')">下載 S2-05-audio.m4a</a>（45.1 MB） |
+
 ## 簡報下載
 
 五集的投影片 PDF 都放在公開 repo 的 GitHub Release，點連結直接下載。
@@ -62,4 +77,4 @@ const pdf = (name) => theme.value.podcastReleaseUrl + name
 
 投影片是整頁圖片，沒有可選取的文字。
 
-Portal 是摘要，不具權威；影片與簡報內容以錄製時版本為準，現行做法以 Portal 與 CT reference 為準。
+Portal 是摘要，不具權威；影片、語音版與簡報內容以錄製時版本為準，現行做法以 Portal 與 CT reference 為準。
