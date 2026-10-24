@@ -50,14 +50,14 @@ const pdf = (name) => theme.value.podcastReleaseUrl + name
 
 ## 簡報下載
 
-S2-01、S2-02、S2-03、S2-05 的投影片 PDF 放在公開 repo 的 GitHub Release，點連結直接下載。
+五集的投影片 PDF 都放在公開 repo 的 GitHub Release，點連結直接下載。
 
 | 集數 | 標題 | 簡報 PDF |
 |---|---|---|
 | S2-01 | 把腦力留給判斷：設計初衷與生態系全景 | <a :href="pdf('S2-01-ecosystem.pdf')">S2-01-ecosystem.pdf</a>（13.3 MB） |
 | S2-02 | BMad-Method 6.12：先想清楚，再讓 AI 動手 | <a :href="pdf('S2-02-bmad-method.pdf')">S2-02-bmad-method.pdf</a>（12.1 MB） |
 | S2-03 | Control Tower v5：一張工單的一生 | <a :href="pdf('S2-03-control-tower.pdf')">S2-03-control-tower.pdf</a>（13.7 MB） |
-| S2-04 | BAT：給塔台跑道、無線電和雷達 | 簡報 PDF 暫不提供 |
+| S2-04 | BAT：給塔台跑道、無線電和雷達 | <a :href="pdf('S2-04-bat.pdf')">S2-04-bat.pdf</a>（11.7 MB） |
 | S2-05 | 實戰與邊界：放手，但不是放任 | <a :href="pdf('S2-05-in-practice.pdf')">S2-05-in-practice.pdf</a>（12.0 MB） |
 
 投影片是整頁圖片，沒有可選取的文字。
